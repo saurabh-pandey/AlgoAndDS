@@ -6,6 +6,7 @@ import mergeSort
 import selectionSort
 import bubbleSort
 import insertionSort
+import quickSort
 
 def isSorted(arr):
     """Check if the array is sorted.
@@ -27,7 +28,7 @@ def test():
     """Test code to run all sorting algo for randomly generated arrays.
     It also times these runs and produces a consolidated plot
     """
-    sizes = range(10,100,5)
+    sizes = range(100,1000,50)
     tmMS = [] # Merge sort timing
     tmIS = [] # Insertion sort timing
     tmBS = [] # Bubble sort timing
@@ -39,11 +40,13 @@ def test():
         runSort(insertionSort.sort, arr, tmIS, "Insertion Sort")
         runSort(selectionSort.sort, arr, tmSS, "Selection Sort")
         runSort(bubbleSort.sort, arr, tmBS, "Bubble Sort")
+        runSort(quickSort.sort, arr, tmQS, "Quick Sort")
 
     plt.plot(sizes, tmMS, 'k--', label = "Merge Sort");
-    plt.plot(sizes, tmIS, 'r--', label = "Insertion Sort");
-    plt.plot(sizes, tmSS, 'b--', label = "Selection Sort");
+    plt.plot(sizes, tmIS, 'r-.', label = "Insertion Sort");
+    plt.plot(sizes, tmSS, 'b:', label = "Selection Sort");
     plt.plot(sizes, tmBS, 'g--', label = "Bubble Sort");
+    plt.plot(sizes, tmQS, 'c-', label = "Quick Sort");
     plt.legend(loc='upper left')
     plt.title("Sorting Performance Comparison")
     plt.xlabel("Array size")
