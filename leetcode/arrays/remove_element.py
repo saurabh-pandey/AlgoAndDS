@@ -25,7 +25,6 @@ def removeElement(nums, val):
             break
         # print(f'Mid : i = {i}, nums = {nums}, newLen = {newLen}, partitionId = {partitionId}')
         if nums[i] == val:
-            # print(f'  Val found for i = {i}')
             nums[i] = nums[partitionId]
             nums[partitionId] = val
             newLen -= 1
