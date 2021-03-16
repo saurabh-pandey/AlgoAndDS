@@ -4,17 +4,11 @@ def removeElement(nums, val):
     length = len(nums)
     newLen = length
     partitionId = length-1
-    # Scan in reverse and set partitionId to skip all contiguous "val" from end
-    # for i in range(length - 1, -1, -1):
-    #     if nums[i] == val:
-    #         newLen -= 1
-    #         partitionId -= 1
-    #     else:
-    #         break
     # print(f'newLen = {newLen}, partitionId = {partitionId}')
     i = 0
     while i < newLen:
         # print(f'\nStart : i = {i}, nums = {nums}, newLen = {newLen}, partitionId = {partitionId}')
+        # Scan in reverse and set partitionId to skip all contiguous "val" from end
         for revId in range(partitionId, -1, -1):
             if nums[revId] == val:
                 partitionId -= 1
