@@ -39,28 +39,33 @@ Constraints:
 nums is sorted in ascending order.
 """
 
-def shiftLeftByOne(nums, start):
-    end = len(nums)
-    assert start > 0 and start < end
+def shiftLeft(nums, start, end, count):
+    assert start > count and start < end
+    assert end <= len(nums)
     replacement = nums[start - 1]
     for i in range(start, end):
-        nums[i - 1] = nums[i]
-    nums[end - 1] = replacement
+        nums[i - count] = nums[i]
+    for i in range(end - count, end):
+        nums[i] = replacement
 
 def removeDuplicates(nums):
     newLen = len(nums)
-    if newLen <= 1:
+    if newLen < 2:
         return newLen
-    
+    # nums is 2 or more    
     i = 1
-    while i < newLen:
-        # print(f'START: i = {i}, newLen = {newLen}, nums = {nums}')
+    consecutiveDuplicateCount = 0
+    end = newLen
+    while i < end:
         if nums[i-1] == nums[i]:
-            shiftLeftByOne(nums, i)
+            consecutiveDuplicateCount += 1
             newLen -= 1
         else:
-            i += 1
-        # print(f'END: i = {i}, newLen = {newLen}, nums = {nums}')
+            shiftLeft(nums, i, end, consecutiveDuplicateCount)
+            i -= consecutiveDuplicateCount
+            end -= consecutiveDuplicateCount
+            consecutiveDuplicateCount = 0
+        i += 1
     return newLen
 
 def test1():
@@ -72,9 +77,9 @@ def test1():
         print(f'FAILURE: newLen = {newLen} and nums = {nums}')
 
 def test2():
-    nums = [0,0,1,1,1,2,2,3,3,4]
+    nums = [1,1,1,2]
     newLen = removeDuplicates(nums)
-    if newLen == 5:
+    if newLen == 2:
         print(f'SUCCESS: newLen = {newLen} and nums = {nums}')
     else:
         print(f'FAILURE: newLen = {newLen} and nums = {nums}')
@@ -88,6 +93,14 @@ def test3():
         print(f'FAILURE: newLen = {newLen} and nums = {nums}')
 
 def test4():
+    nums = []
+    newLen = removeDuplicates(nums)
+    if newLen == 0:
+        print(f'SUCCESS: newLen = {newLen} and nums = {nums}')
+    else:
+        print(f'FAILURE: newLen = {newLen} and nums = {nums}')
+
+def test5():
     nums = [1,1]
     newLen = removeDuplicates(nums)
     if newLen == 1:
@@ -95,10 +108,30 @@ def test4():
     else:
         print(f'FAILURE: newLen = {newLen} and nums = {nums}')
 
+def test6():
+    nums = [1,1,1,1]
+    newLen = removeDuplicates(nums)
+    if newLen == 1:
+        print(f'SUCCESS: newLen = {newLen} and nums = {nums}')
+    else:
+        print(f'FAILURE: newLen = {newLen} and nums = {nums}')
+
+def test7():
+    nums = [0,0,1,1,1,2,2,3,3,4]
+    newLen = removeDuplicates(nums)
+    if newLen == 5:
+        print(f'SUCCESS: newLen = {newLen} and nums = {nums}')
+    else:
+        print(f'FAILURE: newLen = {newLen} and nums = {nums}')
+
+
 def run():
     test1()
     test2()
     test3()
     test4()
+    test5()
+    test6()
+    test7()
 
 run()
