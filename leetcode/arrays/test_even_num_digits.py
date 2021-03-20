@@ -8,3 +8,12 @@ class TestEvenNumDigits:
   
   def test_case2(self):
     assert prob.findNumbers([555,901,482,1771]) == 1
+  
+  def test_empty(self):
+    assert prob.findNumbers([]) == 0
+  
+  def test_case3(self):
+    assert prob.findNumbers([1]) == 0
+  
+  def test_case4(self):
+    assert prob.findNumbers([22]) == 1
