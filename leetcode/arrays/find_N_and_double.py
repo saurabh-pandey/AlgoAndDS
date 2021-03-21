@@ -39,7 +39,9 @@ def find_N_and_double(arr):
     length = len(arr)
     if length < 2:
         return False
-    
+    #TODO: This is O(n^2) implementation but,
+    # 1) We might reach O(n*lg(n)) by sorting and doing binary search of the two multiple
+    # 2) We might even reach O(n) by using hash table and lookup in O(1) the multiples
     for i in range(length):
         for j in range(i + 1, length):
             if (arr[i] == (2 * arr[j])):
