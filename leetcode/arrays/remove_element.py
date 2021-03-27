@@ -67,39 +67,3 @@ def removeElement(nums, val):
         # print(f'End: i = {i}, nums = {nums}, newLen = {newLen}, partitionId = {partitionId}')
         i += 1
     return newLen
-
-
-def test1():
-    nums = [3,2,2,3]
-    val = 3
-    newLen = removeElement(nums, val)
-    if newLen == 2:
-        print(f'SUCCESS: nums = {nums}')
-    else:
-        print(f'FAILURE: newLen = {newLen} nums = {nums}')
-
-def test2():
-    nums = [0,1,2,2,3,0,4,2]
-    val = 2
-    newLen = removeElement(nums, val)
-    if newLen == 5:
-        print(f'SUCCESS: nums = {nums}')
-    else:
-        print(f'FAILURE: newLen = {newLen} nums = {nums}')
-
-def test3():
-    nums = [0,4,4,0,4,4,4,0,2]
-    val = 4
-    expectNums = [0,2,0,0]
-    newLen = removeElement(nums, val)
-    if newLen == 4:
-        print(f'SUCCESS: nums = {nums}')
-    else:
-        print(f'FAILURE: newLen = {newLen} nums = {nums}, expected = {expectNums}')
-
-def run():
-    test1()
-    test2()
-    test3()
-
-run()
