@@ -52,7 +52,85 @@ class MyLinkedList:
   def __init__(self):
     self._head = None
   
-  def get(index):
-    return None
+  def get(self, index):
+    depth = 0
+    currNode = self._head
+    while currNode is not None:
+      if index == depth:
+        return currNode._val
+      depth += 1
+      currNode = currNode._next
+    return -1
   
+  def addAtHead(self, val):
+    if self._head is None:
+      self._head = Node(val)
+    else:
+      newHead = Node(val)
+      newHead._next = self._head
+      self._head = newHead
+  
+  def addAtTail(self, val):
+    currNode = self._head
+    while currNode is not None:
+      if currNode._next is None:
+        currNode._next = Node(val)
+        break
+      currNode = currNode._next
+  
+  def addAtIndex(self, index, val):
+    assert index > 0
+    depth = 0
+    currNode = self._head
+    while currNode is not None:
+      if depth == index - 1:
+        newNode = Node(val)
+        shiftedNode = currNode._next
+        currNode._next = newNode
+        newNode._next = shiftedNode
+        break
+      depth += 1
+      currNode = currNode._next
 
+  def deleteAtIndex(self, index):
+    if index == 0 and self._head is not None:
+      shiftedHead = self._head._next
+      self._head = shiftedHead
+      return
+    
+    depth = 0
+    currNode = self._head
+    while currNode is not None:
+      if depth == index - 1:
+        if currNode._next is not None:
+          shiftedNode = currNode._next._next
+          currNode._next = shiftedNode
+          break
+      depth += 1
+      currNode = currNode._next
+  
+  def toString(self):
+    output = ""
+    currNode = self._head
+    while currNode is not None:
+      output += str(currNode._val)
+      currNode = currNode._next
+      if currNode is not None:
+        output += "->"
+    return output
+
+def run():
+  myList = MyLinkedList()
+  print(myList.toString())
+  myList.addAtHead(1)
+  print(myList.toString())
+  myList.addAtTail(3)
+  print(myList.toString())
+  myList.addAtIndex(1,2)
+  print(myList.toString())
+  print(myList.get(1))
+  myList.deleteAtIndex(1)
+  print(myList.toString())
+  print(myList.get(1))
+
+run()
