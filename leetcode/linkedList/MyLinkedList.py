@@ -71,6 +71,10 @@ class MyLinkedList:
       self._head = newHead
   
   def addAtTail(self, val):
+    # If no head then add to tail is same as add to head
+    if self._head is None:
+      self.addAtHead(val)
+    
     currNode = self._head
     while currNode is not None:
       if currNode._next is None:
@@ -79,7 +83,10 @@ class MyLinkedList:
       currNode = currNode._next
   
   def addAtIndex(self, index, val):
-    assert index > 0
+    # Adding to index 0 is same as add to head
+    if index == 0:
+      self.addAtHead(val)
+    
     depth = 0
     currNode = self._head
     while currNode is not None:
