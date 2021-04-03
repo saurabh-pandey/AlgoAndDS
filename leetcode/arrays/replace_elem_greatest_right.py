@@ -51,5 +51,4 @@ def replaceElements(arr):
                         maxIndex = j
             arr[i] = max
         arr[length - 1] = -1
-        print(f'\t### newArr = {arr}')
         return arr
