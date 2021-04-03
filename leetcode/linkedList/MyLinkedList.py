@@ -74,13 +74,13 @@ class MyLinkedList:
     # If no head then add to tail is same as add to head
     if self._head is None:
       self.addAtHead(val)
-    
-    currNode = self._head
-    while currNode is not None:
-      if currNode._next is None:
-        currNode._next = Node(val)
-        break
-      currNode = currNode._next
+    else:
+      currNode = self._head
+      while currNode is not None:
+        if currNode._next is None:
+          currNode._next = Node(val)
+          break
+        currNode = currNode._next
   
   def addAtIndex(self, index, val):
     # Adding to index 0 is same as add to head
@@ -125,19 +125,3 @@ class MyLinkedList:
       if currNode is not None:
         output += "->"
     return output
-
-def run():
-  myList = MyLinkedList()
-  print(myList.toString())
-  myList.addAtHead(1)
-  print(myList.toString())
-  myList.addAtTail(3)
-  print(myList.toString())
-  myList.addAtIndex(1,2)
-  print(myList.toString())
-  print(myList.get(1))
-  myList.deleteAtIndex(1)
-  print(myList.toString())
-  print(myList.get(1))
-
-run()
