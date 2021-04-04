@@ -62,6 +62,16 @@ class MyLinkedList:
       currNode = currNode._next
     return -1
   
+  def getNode(self, index):
+    depth = 0
+    currNode = self._head
+    while currNode is not None:
+      if index == depth:
+        return currNode
+      depth += 1
+      currNode = currNode._next
+    return None
+  
   def addAtHead(self, val):
     if self._head is None:
       self._head = Node(val)
@@ -116,6 +126,36 @@ class MyLinkedList:
       depth += 1
       currNode = currNode._next
   
+  def createCycle(self, index0, index1):
+    node0 = self.getNode(index0)
+    node1 = self.getNode(index1)
+    if node0 is not None and node1 is not None:
+      print(f'Creating cycle between {node0._val} and {node1._val}')
+      node1._next = node0
+    
+  
+  def detectCycle(self):
+    distance = 0
+    traceNode = self._head
+    depth = 0
+    currNode = self._head
+    while currNode is not None:
+      depth += 1
+      currNode = currNode._next
+      while traceNode is not None:
+        if traceNode is currNode:
+          break
+        traceNode = traceNode._next
+        distance += 1
+      if currNode is not None:
+        print(f'Distance from head to {currNode._val} is {distance} and depth = {depth}')
+      if distance != depth:
+        print(f'WARNING: Cycle detected at distance = {distance} and depth = {depth}')
+        return True
+      traceNode = self._head
+      distance = 0
+    return False
+  
   def toString(self):
     output = ""
     currNode = self._head
@@ -125,3 +165,20 @@ class MyLinkedList:
       if currNode is not None:
         output += "->"
     return output
+
+
+def run():
+  myList = MyLinkedList()
+  myList.addAtIndex(0,1)
+  myList.addAtIndex(1,2)
+  myList.addAtIndex(2,3)
+  myList.addAtIndex(3,4)
+
+  print(myList.toString())
+
+  myList.createCycle(0,3)
+  # myList.createCycle(1,3)
+
+  myList.detectCycle()
+
+run()
