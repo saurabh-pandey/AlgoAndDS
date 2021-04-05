@@ -134,7 +134,7 @@ class MyLinkedList:
       node1._next = node0
     
   
-  def detectCycle(self):
+  def detectCycle_O_n2(self):
     distance = 0
     traceNode = self._head
     depth = 0
@@ -154,6 +154,22 @@ class MyLinkedList:
         return True
       traceNode = self._head
       distance = 0
+    return False
+  
+  def detectCycle(self):
+    depth = 0
+    slowPtr = self._head
+    fastPtr = self._head
+    while slowPtr is not None and fastPtr is not None:
+      slowPtr = slowPtr._next
+      depth += 1
+      if fastPtr._next is None:
+        break
+      fastPtr = fastPtr._next._next
+
+      if fastPtr is slowPtr:
+        print(f"Found cycle at depth = {depth} and node = {slowPtr._val}")
+        return True
     return False
   
   def toString(self):
@@ -176,9 +192,10 @@ def run():
 
   print(myList.toString())
 
-  myList.createCycle(0,3)
-  # myList.createCycle(1,3)
+  # myList.createCycle(0,3)
+  myList.createCycle(1,3)
 
-  myList.detectCycle()
+  if myList.detectCycle():
+    print("Detected cycle")
 
 run()
