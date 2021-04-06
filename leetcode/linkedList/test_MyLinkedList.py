@@ -112,3 +112,29 @@ class TestMyLinkedList:
 
     myList.deleteAtIndex(2)
     assert myList.toString() == "1->2"
+  
+  def test_detect_cycle1(self):
+    myList = MyLinkedList()
+    myList.addAtIndex(0,1)
+    myList.addAtIndex(1,2)
+    myList.addAtIndex(2,3)
+    myList.addAtIndex(3,4)
+
+    assert myList.detectCycle() == False
+    
+    myList.createCycle(1,3)
+
+    assert myList.detectCycle() == True
+  
+  def test_detect_cycle2(self):
+    myList = MyLinkedList()
+    myList.addAtIndex(0,1)
+    myList.addAtIndex(1,2)
+    myList.addAtIndex(2,3)
+    myList.addAtIndex(3,4)
+
+    assert myList.detectCycle() == False
+    
+    myList.createCycle(0,3)
+
+    assert myList.detectCycle() == True

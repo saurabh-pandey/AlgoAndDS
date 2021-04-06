@@ -183,19 +183,19 @@ class MyLinkedList:
     return output
 
 
-def run():
-  myList = MyLinkedList()
-  myList.addAtIndex(0,1)
-  myList.addAtIndex(1,2)
-  myList.addAtIndex(2,3)
-  myList.addAtIndex(3,4)
+# def run():
+#   myList = MyLinkedList()
+#   myList.addAtIndex(0,1)
+#   myList.addAtIndex(1,2)
+#   myList.addAtIndex(2,3)
+#   myList.addAtIndex(3,4)
 
-  print(myList.toString())
+#   print(myList.toString())
 
-  # myList.createCycle(0,3)
-  myList.createCycle(1,3)
+#   # myList.createCycle(0,3)
+#   myList.createCycle(1,3)
 
-  if myList.detectCycle():
-    print("Detected cycle")
+#   if myList.detectCycle():
+#     print("Detected cycle")
 
-run()
+# run()
