@@ -181,21 +181,3 @@ class MyLinkedList:
       if currNode is not None:
         output += "->"
     return output
-
-
-# def run():
-#   myList = MyLinkedList()
-#   myList.addAtIndex(0,1)
-#   myList.addAtIndex(1,2)
-#   myList.addAtIndex(2,3)
-#   myList.addAtIndex(3,4)
-
-#   print(myList.toString())
-
-#   # myList.createCycle(0,3)
-#   myList.createCycle(1,3)
-
-#   if myList.detectCycle():
-#     print("Detected cycle")
-
-# run()
