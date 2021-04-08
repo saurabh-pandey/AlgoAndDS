@@ -120,11 +120,11 @@ class TestMyLinkedList:
     myList.addAtIndex(2,3)
     myList.addAtIndex(3,4)
 
-    assert myList.detectCycle() == False
+    assert myList.detectCycleNode() == False
     
     myList.createCycle(1,3)
 
-    assert myList.detectCycle() == True
+    assert myList.detectCycleNode() == True
   
   def test_detect_cycle2(self):
     myList = MyLinkedList()
@@ -133,8 +133,16 @@ class TestMyLinkedList:
     myList.addAtIndex(2,3)
     myList.addAtIndex(3,4)
 
-    assert myList.detectCycle() == False
+    assert myList.detectCycleNode() == False
     
     myList.createCycle(0,3)
 
-    assert myList.detectCycle() == True
+    assert myList.detectCycleNode() == True
+  
+  def test_detect_cycle3(self):
+    myList = MyLinkedList([-1,-7,7,-4,19,6,-9,-5,-2,-5])
+    print(myList.toString())
+
+    myList.createCycle(6,9)
+
+    assert myList.detectCycleNode() == True
