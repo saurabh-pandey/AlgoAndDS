@@ -2,21 +2,20 @@ import pytest
 
 from SinglyLinkedList import SinglyLinkedList
 
+import create_cycle_SLL as sll_util
 import detect_cycle_SLL as prob
 
 class TestDetectCycleSLL:
   def test_detect_cycle1(self):
-    myList = SinglyLinkedList()
-    myList.addAtIndex(0,1)
-    myList.addAtIndex(1,2)
-    myList.addAtIndex(2,3)
-    myList.addAtIndex(3,4)
+    myList = SinglyLinkedList([1,2,3,4])
 
-    assert prob.detectCycleNode() == False
+    head = myList.getNode(0)
+
+    assert prob.detectCycleSLL(head) == False
     
-    myList.createCycle(1,3)
+    sll_util.createCycleSLL(myList,1)
 
-    assert myList.detectCycleNode() == True
+    assert prob.detectCycleSLL(head) == True
   
   def test_detect_cycle2(self):
     myList = SinglyLinkedList()
