@@ -5,9 +5,9 @@ Design your implementation of the linked list. You can choose to use a singly or
 A node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node.
 If you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list. Assume all nodes in the linked list are 0-indexed.
 
-Implement the MyLinkedList class:
+Implement the SinglyLinkedList class:
 
-MyLinkedList() Initializes the MyLinkedList object.
+SinglyLinkedList() Initializes the SinglyLinkedList object.
 int get(int index) Get the value of the indexth node in the linked list. If the index is invalid,
 return -1.
 void addAtHead(int val) Add a node of value val before the first element of the linked list. After
@@ -22,19 +22,19 @@ void deleteAtIndex(int index) Delete the indexth node in the linked list, if the
 Example 1:
 
 Input
-["MyLinkedList", "addAtHead", "addAtTail", "addAtIndex", "get", "deleteAtIndex", "get"]
+["SinglyLinkedList", "addAtHead", "addAtTail", "addAtIndex", "get", "deleteAtIndex", "get"]
 [[], [1], [3], [1, 2], [1], [1], [1]]
 Output
 [null, null, null, null, 2, null, 3]
 
 Explanation
-MyLinkedList myLinkedList = new MyLinkedList();
-myLinkedList.addAtHead(1);
-myLinkedList.addAtTail(3);
-myLinkedList.addAtIndex(1, 2);    // linked list becomes 1->2->3
-myLinkedList.get(1);              // return 2
-myLinkedList.deleteAtIndex(1);    // now the linked list is 1->3
-myLinkedList.get(1);              // return 3
+SinglyLinkedList SinglyLinkedList = new SinglyLinkedList();
+SinglyLinkedList.addAtHead(1);
+SinglyLinkedList.addAtTail(3);
+SinglyLinkedList.addAtIndex(1, 2);    // linked list becomes 1->2->3
+SinglyLinkedList.get(1);              // return 2
+SinglyLinkedList.deleteAtIndex(1);    // now the linked list is 1->3
+SinglyLinkedList.get(1);              // return 3
 
 
 Constraints:
@@ -43,12 +43,15 @@ Constraints:
 Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
 """
-class Node:
-  def __init__(self, val):
-    self._val = val
-    self._next = None
-
-class MyLinkedList:
+class SinglyLinkedList:
+  '''
+  A Node of Singly Linked List
+  '''
+  class Node:
+    def __init__(self, val):
+      self._val = val
+      self._next = None
+  
   def __init__(self, vals = []):
     self._head = None
     for i in range(len(vals)):
@@ -76,9 +79,9 @@ class MyLinkedList:
   
   def addAtHead(self, val):
     if self._head is None:
-      self._head = Node(val)
+      self._head = self.Node(val)
     else:
-      newHead = Node(val)
+      newHead = self.Node(val)
       newHead._next = self._head
       self._head = newHead
   
@@ -90,7 +93,7 @@ class MyLinkedList:
       currNode = self._head
       while currNode is not None:
         if currNode._next is None:
-          currNode._next = Node(val)
+          currNode._next = self.Node(val)
           break
         currNode = currNode._next
   
@@ -103,7 +106,7 @@ class MyLinkedList:
     currNode = self._head
     while currNode is not None:
       if depth == index - 1:
-        newNode = Node(val)
+        newNode = self.Node(val)
         shiftedNode = currNode._next
         currNode._next = newNode
         newNode._next = shiftedNode
@@ -134,29 +137,6 @@ class MyLinkedList:
     if node0 is not None and node1 is not None:
       print(f'Creating cycle between {node0._val} and {node1._val}')
       node1._next = node0
-    
-  
-  def detectCycle_O_n2(self):
-    distance = 0
-    traceNode = self._head
-    depth = 0
-    currNode = self._head
-    while currNode is not None:
-      depth += 1
-      currNode = currNode._next
-      while traceNode is not None:
-        if traceNode is currNode:
-          break
-        traceNode = traceNode._next
-        distance += 1
-      # if currNode is not None:
-        # print(f'Distance from head to {currNode._val} is {distance} and depth = {depth}')
-      if distance != depth:
-        print(f'WARNING: Cycle detected at distance = {distance} and depth = {depth}')
-        return True
-      traceNode = self._head
-      distance = 0
-    return False
   
   def detectCycleNode_O_n2(self):
     distance = 0
