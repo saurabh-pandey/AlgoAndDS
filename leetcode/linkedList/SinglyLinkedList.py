@@ -77,6 +77,15 @@ class SinglyLinkedList:
       currNode = currNode._next
     return None
   
+  def getTailNode(self):
+    currNode = self._head
+    while currNode is not None:
+      nextNode = currNode._next
+      if nextNode is None:
+        return currNode
+      currNode = currNode._next
+    return None
+  
   def addAtHead(self, val):
     if self._head is None:
       self._head = self.Node(val)
