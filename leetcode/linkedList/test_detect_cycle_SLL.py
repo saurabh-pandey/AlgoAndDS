@@ -9,7 +9,7 @@ class TestDetectCycleSLL:
   def test_detect_cycle1(self):
     myList = SinglyLinkedList([1,2,3,4])
 
-    head = myList.getNode(0)
+    head = myList.getHeadNode()
 
     assert prob.detectCycleSLL(head) == False
     
@@ -20,7 +20,7 @@ class TestDetectCycleSLL:
   def test_detect_cycle2(self):
     myList = SinglyLinkedList([1,2,3,4])
 
-    head = myList.getNode(0)
+    head = myList.getHeadNode()
 
     assert prob.detectCycleSLL(head) == False
     
@@ -33,4 +33,6 @@ class TestDetectCycleSLL:
 
     sll_util.createCycleSLL(myList,6)
 
-    assert myList.detectCycleNode() == True
+    head = myList.getHeadNode()
+
+    assert prob.detectCycleSLL(head) == True

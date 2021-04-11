@@ -77,6 +77,9 @@ class SinglyLinkedList:
       currNode = currNode._next
     return None
   
+  def getHeadNode(self):
+    return self.getNode(0)
+
   def getTailNode(self):
     currNode = self._head
     while currNode is not None:
