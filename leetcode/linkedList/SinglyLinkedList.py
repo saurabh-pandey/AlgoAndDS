@@ -173,22 +173,6 @@ class SinglyLinkedList:
       distance = 0
     return None
   
-  def detectCycle(self):
-    depth = 0
-    slowPtr = self._head
-    fastPtr = self._head
-    while slowPtr is not None and fastPtr is not None:
-      slowPtr = slowPtr._next
-      depth += 1
-      if fastPtr._next is None:
-        break
-      fastPtr = fastPtr._next._next
-
-      if fastPtr is slowPtr:
-        print(f"Found cycle at depth = {depth} and node = {slowPtr._val}")
-        return True
-    return False
-  
   def detectCycleNode(self):
     depth = 0
     slowPtr = self._head
