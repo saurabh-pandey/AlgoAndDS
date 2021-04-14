@@ -52,5 +52,26 @@ intersectVal == listA[skipA + 1] == listB[skipB + 1] if listA and listB intersec
 
 Follow up: Could you write a solution that runs in O(n) time and use only O(1) memory?
 """
+from SinglyLinkedList import SinglyLinkedList
 
-def getIntersectionNode(headA, headB)
+
+def nextNode(currNodeA, currNodeB):
+  if currNodeA._next is None and currNodeB._next is None:
+    # Reached the tail of both lists
+    return
+  elif currNodeA._next is None and currNodeB._next is not None:
+    # Reached the tail of A so continue diving only in B
+    nextNode(currNodeA, currNodeB._next)
+  elif currNodeA._next is not None and currNodeB._next is None:
+    # Reached the tail of B so continue diving only in A
+    nextNode(currNodeA._next, currNodeB)
+  else:
+    # Still not reached the tail of both A and B continue diving
+    nextNode(currNodeA._next, currNodeB._next)
+
+
+def getIntersectionNode(headA, headB):
+  """
+  The idea is to reach the tail of both the lists and the climb upwards till reaching a branching
+  point. Probably using recursion.
+  """
