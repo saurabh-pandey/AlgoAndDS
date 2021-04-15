@@ -75,3 +75,27 @@ def getIntersectionNode(headA, headB):
   The idea is to reach the tail of both the lists and the climb upwards till reaching a branching
   point. Probably using recursion.
   """
+  stackA = []
+  nodeA = headA
+  while nodeA is not None:
+    stackA.append(nodeA)
+    nodeA = nodeA._next
+  
+  stackB = []
+  nodeB = headB
+  while nodeB is not None:
+    stackB.append(nodeB)
+    nodeB = nodeB._next
+  
+  intersectedNode = None
+  while len(stackA) > 0 and len(stackB) > 0:
+    nodeA = stackA.pop()
+    nodeB = stackB.pop()
+    if nodeA is nodeB:
+      intersectedNode = nodeA
+      continue
+    else:
+      break
+  
+  return intersectedNode
+    
