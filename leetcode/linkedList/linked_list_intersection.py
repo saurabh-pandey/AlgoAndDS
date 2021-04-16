@@ -72,8 +72,9 @@ def nextNode(currNodeA, currNodeB):
 
 def getIntersectionNode(headA, headB):
   """
-  The idea is to reach the tail of both the lists and the climb upwards till reaching a branching
-  point. Probably using recursion.
+  IDEA 1: The idea is to reach the tail of both the lists and the climb upwards till reaching a 
+  branching point. Probably using recursion.
+  IDEA 2: Use stack instead of recursion. Try this one first.
   """
   stackA = []
   nodeA = headA

@@ -52,10 +52,12 @@ class SinglyLinkedList:
       self._val = val
       self._next = None
   
+  
   def __init__(self, vals = []):
     self._head = None
     for i in range(len(vals)):
       self.addAtIndex(i, vals[i])
+  
   
   def get(self, index):
     depth = 0
@@ -67,6 +69,7 @@ class SinglyLinkedList:
       currNode = currNode._next
     return -1
   
+  
   def getNode(self, index):
     depth = 0
     currNode = self._head
@@ -77,9 +80,11 @@ class SinglyLinkedList:
       currNode = currNode._next
     return None
   
+  
   def getHeadNode(self):
     return self.getNode(0)
 
+  
   def getTailNode(self):
     currNode = self._head
     while currNode is not None:
@@ -89,6 +94,7 @@ class SinglyLinkedList:
       currNode = currNode._next
     return None
   
+  
   def addAtHead(self, val):
     if self._head is None:
       self._head = self.Node(val)
@@ -96,6 +102,7 @@ class SinglyLinkedList:
       newHead = self.Node(val)
       newHead._next = self._head
       self._head = newHead
+  
   
   def addAtTail(self, val):
     # If no head then add to tail is same as add to head
@@ -108,6 +115,7 @@ class SinglyLinkedList:
           currNode._next = self.Node(val)
           break
         currNode = currNode._next
+  
   
   def addAtIndex(self, index, val):
     # Adding to index 0 is same as add to head
@@ -126,6 +134,7 @@ class SinglyLinkedList:
       depth += 1
       currNode = currNode._next
 
+  
   def deleteAtIndex(self, index):
     if index == 0 and self._head is not None:
       shiftedHead = self._head._next
@@ -142,69 +151,7 @@ class SinglyLinkedList:
           break
       depth += 1
       currNode = currNode._next
-  
-  def createCycle(self, index0, index1):
-    node0 = self.getNode(index0)
-    node1 = self.getNode(index1)
-    if node0 is not None and node1 is not None:
-      print(f'Creating cycle between {node0._val} and {node1._val}')
-      node1._next = node0
-  
-  def detectCycleNode_O_n2(self):
-    distance = 0
-    traceNode = self._head
-    depth = 0
-    currNode = self._head
-    while currNode is not None:
-      depth += 1
-      currNode = currNode._next
-      while traceNode is not None:
-        if traceNode is currNode:
-          break
-        traceNode = traceNode._next
-        distance += 1
-      # if currNode is not None:
-        # print(f'Distance from head to {currNode._val} is {distance} and depth = {depth}')
-      if distance != depth:
-        print(f'WARNING: Cycle detected at distance = {distance} and depth = {depth}')
-        print(f'WARNING: Cycle starting at node = {traceNode._val}')
-        return traceNode
-      traceNode = self._head
-      distance = 0
-    return None
-  
-  def detectCycleNode(self):
-    depth = 0
-    slowPtr = self._head
-    fastPtr = self._head
-    foundCycle = False
-    while slowPtr is not None and fastPtr is not None:
-      slowPtr = slowPtr._next
-      depth += 1
-      if fastPtr._next is None:
-        break
-      fastPtr = fastPtr._next._next
 
-      if fastPtr is slowPtr:
-        print(f"Found cycle at depth = {depth} and node = {slowPtr._val}")
-        foundCycle = True
-        break
-    if foundCycle:
-      node0 = fastPtr
-      node1 = fastPtr._next
-      slowPtr = self._head
-      depth = 0
-      while slowPtr is not None:
-        if slowPtr is node0:
-          print(f'Cycle starting at node = {node0._val}')
-          break
-          # return node0
-        elif slowPtr is node1:
-          print(f'Cycle starting at node = {node1._val}')
-          break
-          # return node1
-        slowPtr = slowPtr._next
-    return foundCycle
   
   def toString(self):
     output = ""
