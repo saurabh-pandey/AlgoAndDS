@@ -30,3 +30,5 @@ class TestLinkedListIntersection:
       currNodeB._next = intersectedNode
       currNodeA = currNodeA._next
       currNodeB = currNodeB._next
+    
+    assert prob.getIntersectionNode(headA, headB)._val == intersectVal
