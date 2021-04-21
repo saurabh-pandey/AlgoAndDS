@@ -5,6 +5,7 @@ from SinglyLinkedList import SinglyLinkedList
 import linked_list_intersection as prob
 
 class TestLinkedListIntersection:
+  
   def test_example1(self):
     intersectVal = 8
     listA = [4,1,8,4,5]
