@@ -7,6 +7,15 @@ import remove_nth_from_end_SLL as prob
 class TestRemoveNthFromEnd:
   
   def test_example1(self):
-    myList = SinglyLinkedList([1,2,3,4,5])
+    myList = SinglyLinkedList([1,2])
 
-    prob.removeNthFromEnd(myList.getHeadNode(), 2)
+    leftOver = prob.removeNthFromEnd(myList.getHeadNode(), 2)
+
+    output = ""
+    currNode = leftOver
+    while currNode is not None:
+      output += str(currNode._val)
+      currNode = currNode._next
+      if currNode is not None:
+        output += "->"
+    print(output)

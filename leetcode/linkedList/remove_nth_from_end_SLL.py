@@ -40,5 +40,17 @@ def removeNthFromEnd(head, n):
     if depth > n:
       secondNode = secondNode._next
   
-  # Here second node should point to the element to be deleted
-  print(f'\t### {n}th node from end = {secondNode._val}')
+  if (depth >= n):
+    # Here second node should point to the element to be deleted
+    print(f'\t### {n}th node from end = {secondNode._val}, depth = {depth}')
+    if secondNode is head:
+      return head._next
+    else:
+      firstNode = head
+      while firstNode is not None:
+        if firstNode._next is secondNode:
+          firstNode._next = secondNode._next
+          break
+        else:
+          firstNode = firstNode._next
+      return head
