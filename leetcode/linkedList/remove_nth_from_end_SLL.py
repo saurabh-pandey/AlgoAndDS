@@ -31,6 +31,9 @@ The number of nodes in the list is sz.
 1 <= n <= sz
 """
 def removeNthFromEnd(head, n):
+  if head is None:
+    return None
+  
   firstNode = head
   depth = 0
   secondNode = head
@@ -42,7 +45,7 @@ def removeNthFromEnd(head, n):
   
   if (depth >= n):
     # Here second node should point to the element to be deleted
-    print(f'\t### {n}th node from end = {secondNode._val}, depth = {depth}')
+    # print(f'\t### {n}th node from end = {secondNode._val}, depth = {depth}')
     if secondNode is head:
       return head._next
     else:
