@@ -33,4 +33,13 @@ def reverseList(head):
   if head is None:
     return None
   
+  newHead = head
+  oldHead = head
+  prevHead = head
+  while oldHead._next is not None:
+    prevHead = newHead
+    newHead = oldHead._next
+    oldHead._next = newHead._next
+    newHead._next = prevHead
   
+  return newHead
