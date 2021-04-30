@@ -23,5 +23,29 @@ The number of nodes in the list is in the range [1, 105].
 
 Follow up: Could you do it in O(n) time and O(1) space?
 """
+def _toList(head):
+  output = []
+  currNode = head
+  while currNode is not None:
+    output.append(currNode._val)
+    currNode = currNode._next
+  return output
+
+
 def isPalindrome(head):
-  return False
+  # Empty or Single element is considered a palindrome
+  if head is None or head._next is None:
+    return True
+  
+  sll_list = _toList(head)
+
+  i = 0
+  j = len(sll_list) - 1
+  while i <= j:
+    if sll_list[i] != sll_list[j]:
+      return False
+    i += 1
+    j -= 1
+  return True
+  # ANOTHER IDEA with O(1) space since above algo is O(n) in space
+  # Reverse the second half of the SLL and then compare first with second half
