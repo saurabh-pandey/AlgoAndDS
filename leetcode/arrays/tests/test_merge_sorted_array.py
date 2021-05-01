@@ -1,6 +1,6 @@
 import pytest
 
-import merge_sorted_array as prob
+import arrays.merge_sorted_array as prob
 
 class TestMergeSortedArray:
   def test_example1(self):

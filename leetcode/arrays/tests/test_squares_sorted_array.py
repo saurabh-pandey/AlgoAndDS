@@ -1,6 +1,6 @@
 import pytest
 
-import squares_sorted_array as prob
+import arrays.squares_sorted_array as prob
 
 class TestSquaresSorted:
   def test_example1(self):

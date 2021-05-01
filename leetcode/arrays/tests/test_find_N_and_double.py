@@ -1,6 +1,6 @@
 import pytest
 
-import find_N_and_double as prob
+import arrays.find_N_and_double as prob
 
 class TestFindNumAndDoble:
   def test_example1(self):

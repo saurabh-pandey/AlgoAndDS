@@ -1,6 +1,6 @@
 import pytest
 
-import valid_mountain_array as prob
+import arrays.valid_mountain_array as prob
 
 class TestValidMountainArray:
   def test_example1(self):

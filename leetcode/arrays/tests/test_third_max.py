@@ -1,6 +1,6 @@
 import pytest
 
-import third_max as prob
+import arrays.third_max as prob
 
 class TestThirdMax:
   def test_example1(self):

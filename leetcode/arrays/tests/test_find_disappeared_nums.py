@@ -1,6 +1,6 @@
 import pytest
 
-import find_disappeared_nums as prob
+import arrays.find_disappeared_nums as prob
 
 class TestFindDisappearedNumbers:
   def test_example1(self):

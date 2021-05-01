@@ -1,6 +1,6 @@
 import pytest
 
-import remove_element as prob
+import arrays.remove_element as prob
 
 class TestRemoveElement:
   def test_example1(self):

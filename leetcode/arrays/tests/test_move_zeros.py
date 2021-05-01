@@ -1,6 +1,6 @@
 import pytest
 
-import move_zeros as prob
+import arrays.move_zeros as prob
 
 class TestMoveZeros:
   def test_example1(self):

@@ -1,6 +1,6 @@
 import pytest
 
-import replace_elem_greatest_right as prob
+import arrays.replace_elem_greatest_right as prob
 
 class TestReplaceElemGreatestRight:
     def test_example1(self):

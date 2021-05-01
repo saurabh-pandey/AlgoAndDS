@@ -1,6 +1,6 @@
 import pytest
 
-import height_checker as prob
+import arrays.height_checker as prob
 
 class TestHeightChecker:
   def test_example1(self):

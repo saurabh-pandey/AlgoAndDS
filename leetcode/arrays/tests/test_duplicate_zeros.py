@@ -1,6 +1,6 @@
 import pytest
 
-import duplicate_zeros as prob
+import arrays.duplicate_zeros as prob
 
 class TestDuplicateZeros:
   def test_example1(self):

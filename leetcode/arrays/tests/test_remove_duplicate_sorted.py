@@ -1,6 +1,6 @@
 import pytest
 
-import remove_duplicate_sorted as prob
+import arrays.remove_duplicate_sorted as prob
 
 class TestRemoveDuplicateSorted:
     def test_example1(self):

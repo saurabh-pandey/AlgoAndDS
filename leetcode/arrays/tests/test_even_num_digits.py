@@ -1,6 +1,6 @@
 import pytest
 
-import even_num_digits as prob
+import arrays.even_num_digits as prob
 
 class TestEvenNumDigits:
   def test_case1(self):

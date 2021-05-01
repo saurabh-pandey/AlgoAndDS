@@ -1,6 +1,6 @@
 import pytest
 
-import max_consecutive_ones as prob
+import arrays.max_consecutive_ones as prob
 
 class TestMaxConsecutiveOnes:
     def test_case1(self):

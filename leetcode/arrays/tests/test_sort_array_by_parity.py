@@ -1,6 +1,6 @@
 import pytest
 
-import sort_array_by_parity as prob
+import arrays.sort_array_by_parity as prob
 
 class TestSortArrayByParity:
   def test_example1(self):
