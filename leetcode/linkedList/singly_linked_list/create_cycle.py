@@ -1,6 +1,6 @@
-from SinglyLinkedList import SinglyLinkedList
+from Node import Node
 
-def createCycleSLL(sll, index):
+def createCycleSLL(head, index):
     tailNode = sll.getTailNode()
     toNode = sll.getNode(index)
     if tailNode is not None and toNode is not None:

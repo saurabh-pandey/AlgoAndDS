@@ -43,16 +43,10 @@ Constraints:
 Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
 """
+
+from node import Node
+
 class SinglyLinkedList:
-  '''
-  A Node of Singly Linked List
-  '''
-  class Node:
-    def __init__(self, val):
-      self._val = val
-      self._next = None
-  
-  
   def __init__(self, vals = []):
     self._head = None
     for i in range(len(vals)):
@@ -126,7 +120,7 @@ class SinglyLinkedList:
     currNode = self._head
     while currNode is not None:
       if depth == index - 1:
-        newNode = self.Node(val)
+        newNode = Node(val)
         shiftedNode = currNode._next
         currNode._next = newNode
         newNode._next = shiftedNode
