@@ -52,7 +52,7 @@ intersectVal == listA[skipA + 1] == listB[skipB + 1] if listA and listB intersec
 
 Follow up: Could you write a solution that runs in O(n) time and use only O(1) memory?
 """
-from SinglyLinkedList import SinglyLinkedList
+from node import Node
 
 
 def nextNode(currNodeA, currNodeB):

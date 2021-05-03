@@ -45,15 +45,6 @@ def reverseListIterative(head):
   return newHead
 
 
-def _toList(head):
-    output = []
-    currNode = head
-    while currNode is not None:
-      output.append(currNode._val)
-      currNode = currNode._next
-    return output
-
-
 def reverseListRecursiveImpl(prevHead, oldHead, newHead):
   if oldHead._next is None:
     return newHead

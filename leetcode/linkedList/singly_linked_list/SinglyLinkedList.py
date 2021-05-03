@@ -45,114 +45,48 @@ At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and del
 """
 
 from node import Node
+import operations
 
 class SinglyLinkedList:
   def __init__(self, vals = []):
-    self._head = None
-    for i in range(len(vals)):
-      self.addAtIndex(i, vals[i])
+    self._head = operations.create(vals)
   
   
   def get(self, index):
-    depth = 0
-    currNode = self._head
-    while currNode is not None:
-      if index == depth:
-        return currNode._val
-      depth += 1
-      currNode = currNode._next
-    return -1
+    node = operations.getNode(self._head, index)
+    if node is not None:
+      return node._val
+    else:
+      return -1
   
   
   def getNode(self, index):
-    depth = 0
-    currNode = self._head
-    while currNode is not None:
-      if index == depth:
-        return currNode
-      depth += 1
-      currNode = currNode._next
-    return None
+    return operations.getNode(self._head, index)
   
   
   def getHeadNode(self):
-    return self.getNode(0)
+    return self._head
 
   
   def getTailNode(self):
-    currNode = self._head
-    while currNode is not None:
-      nextNode = currNode._next
-      if nextNode is None:
-        return currNode
-      currNode = currNode._next
-    return None
+    return operations.getTailNode(self._head)
   
   
   def addAtHead(self, val):
-    if self._head is None:
-      self._head = self.Node(val)
-    else:
-      newHead = self.Node(val)
-      newHead._next = self._head
-      self._head = newHead
+    operations.addAtHead(self._head, val)
   
   
   def addAtTail(self, val):
-    # If no head then add to tail is same as add to head
-    if self._head is None:
-      self.addAtHead(val)
-    else:
-      currNode = self._head
-      while currNode is not None:
-        if currNode._next is None:
-          currNode._next = self.Node(val)
-          break
-        currNode = currNode._next
+    operations.addAtTail(self._head, val)
   
   
   def addAtIndex(self, index, val):
-    # Adding to index 0 is same as add to head
-    if index == 0:
-      self.addAtHead(val)
-    
-    depth = 0
-    currNode = self._head
-    while currNode is not None:
-      if depth == index - 1:
-        newNode = Node(val)
-        shiftedNode = currNode._next
-        currNode._next = newNode
-        newNode._next = shiftedNode
-        break
-      depth += 1
-      currNode = currNode._next
+    operations.addAtIndex(self._head, index, val)
 
   
   def deleteAtIndex(self, index):
-    if index == 0 and self._head is not None:
-      shiftedHead = self._head._next
-      self._head = shiftedHead
-      return
-    
-    depth = 0
-    currNode = self._head
-    while currNode is not None:
-      if depth == index - 1:
-        if currNode._next is not None:
-          shiftedNode = currNode._next._next
-          currNode._next = shiftedNode
-          break
-      depth += 1
-      currNode = currNode._next
+    operations.deleteAtIndex(self._head, index)
 
   
   def toString(self):
-    output = ""
-    currNode = self._head
-    while currNode is not None:
-      output += str(currNode._val)
-      currNode = currNode._next
-      if currNode is not None:
-        output += "->"
-    return output
+    operations.toString(self._head)

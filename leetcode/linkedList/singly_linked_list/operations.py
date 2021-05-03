@@ -1,4 +1,4 @@
-from node import Node
+from singly_linked_list.node import Node
 
 
 def create(in_list):
@@ -104,4 +104,16 @@ def toString(head, sep = "->"):
     currNode = currNode._next
     if currNode is not None:
       output += sep
+  return output
+
+
+def toList(head):
+  """
+  Convert a linked list to a list
+  """
+  output = []
+  currNode = head
+  while currNode is not None:
+    output.append(currNode._val)
+    currNode = currNode._next
   return output
