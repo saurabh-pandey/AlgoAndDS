@@ -1,40 +1,33 @@
 import pytest
 
-from SinglyLinkedList import SinglyLinkedList
-
-import create_cycle_SLL as sll_util
-import detect_cycle_SLL as prob
+import singly_linked_list.create_cycle as util
+import singly_linked_list.detect_cycle as prob
+import singly_linked_list.operations as sll
 
 class TestDetectCycleSLL:
   def test_detect_cycle1(self):
-    myList = SinglyLinkedList([1,2,3,4])
+    head = sll.create([1,2,3,4])
 
-    head = myList.getHeadNode()
-
-    assert prob.detectCycleSLL(head) == False
+    assert prob.detectCycle(head) == False
     
-    sll_util.createCycleSLL(myList,1)
+    util.createCycle(head, 1)
 
-    assert prob.detectCycleSLL(head) == True
+    assert prob.detectCycle(head) == True
   
   
   def test_detect_cycle2(self):
-    myList = SinglyLinkedList([1,2,3,4])
+    head = sll.create([1,2,3,4])
 
-    head = myList.getHeadNode()
-
-    assert prob.detectCycleSLL(head) == False
+    assert prob.detectCycle(head) == False
     
-    sll_util.createCycleSLL(myList,0)
+    util.createCycle(head, 0)
 
-    assert prob.detectCycleSLL(head) == True
+    assert prob.detectCycle(head) == True
   
   
   def test_detect_cycle3(self):
-    myList = SinglyLinkedList([-1,-7,7,-4,19,6,-9,-5,-2,-5])
+    head = sll.create([-1,-7,7,-4,19,6,-9,-5,-2,-5])
 
-    sll_util.createCycleSLL(myList,6)
+    util.createCycle(head, 6)
 
-    head = myList.getHeadNode()
-
-    assert prob.detectCycleSLL(head) == True
+    assert prob.detectCycle(head) == True

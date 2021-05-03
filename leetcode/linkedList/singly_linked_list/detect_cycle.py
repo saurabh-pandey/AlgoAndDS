@@ -39,9 +39,9 @@ pos is -1 or a valid index in the linked-list.
 Follow up: Can you solve it using O(1) (i.e. constant) memory?
 """
 
-from node import Node
+from singly_linked_list.node import Node
 
-def detectCycleSLL_O_n2(head):
+def detectCycle_O_n2(head):
   distance = 0
   traceNode = head
   depth = 0
@@ -63,7 +63,7 @@ def detectCycleSLL_O_n2(head):
     distance = 0
   return False
 
-def detectCycleSLL_O_n(head):
+def detectCycle_O_n(head):
   depth = 0
   slowPtr = head
   fastPtr = head
@@ -79,6 +79,6 @@ def detectCycleSLL_O_n(head):
       return True
   return False
 
-def detectCycleSLL(head):
-  return detectCycleSLL_O_n(head)
-  # return detectCycleSLL_O_n2(head)
+def detectCycle(head):
+  return detectCycle_O_n(head)
+  # return detectCycle_O_n2(head)
