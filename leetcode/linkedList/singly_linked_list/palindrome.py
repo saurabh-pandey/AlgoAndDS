@@ -23,7 +23,7 @@ The number of nodes in the list is in the range [1, 105].
 
 Follow up: Could you do it in O(n) time and O(1) space?
 """
-import operations
+import singly_linked_list.operations as sll
 
 
 def isPalindrome(head):
@@ -31,7 +31,7 @@ def isPalindrome(head):
   if head is None or head._next is None:
     return True
   
-  sll_list = operations.toList(head)
+  sll_list = sll.toList(head)
 
   i = 0
   j = len(sll_list) - 1

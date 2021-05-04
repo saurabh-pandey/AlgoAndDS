@@ -1,39 +1,30 @@
 import pytest
 
-from SinglyLinkedList import SinglyLinkedList
+import singly_linked_list.operations as sll
 
-import remove_nth_from_end_SLL as prob
+import singly_linked_list.remove_nth_from_end as prob
 
 class TestRemoveNthFromEnd:
-
-  def _toList(self, head):
-    output = []
-    currNode = head
-    while currNode is not None:
-      output.append(currNode._val)
-      currNode = currNode._next
-    return output
-  
   
   def test_example1(self):
-    myList = SinglyLinkedList([1,2,3,4,5])
-    leftOver = prob.removeNthFromEnd(myList.getHeadNode(), 2)
-    assert self._toList(leftOver) == [1,2,3,5]
+    head = sll.create([1,2,3,4,5])
+    leftOver = prob.removeNthFromEnd(head, 2)
+    assert sll.toList(leftOver) == [1,2,3,5]
   
   
   def test_example2(self):
-    myList = SinglyLinkedList([1])
-    leftOver = prob.removeNthFromEnd(myList.getHeadNode(), 1)
-    assert self._toList(leftOver) == []
+    head = sll.create([1])
+    leftOver = prob.removeNthFromEnd(head, 1)
+    assert sll.toList(leftOver) == []
   
   
   def test_example3(self):
-    myList = SinglyLinkedList([1,2])
-    leftOver = prob.removeNthFromEnd(myList.getHeadNode(), 1)
-    assert self._toList(leftOver) == [1]
+    head = sll.create([1,2])
+    leftOver = prob.removeNthFromEnd(head, 1)
+    assert sll.toList(leftOver) == [1]
   
 
   def test_my_example1(self):
-    myList = SinglyLinkedList([1,2])
-    leftOver = prob.removeNthFromEnd(myList.getHeadNode(), 2)
-    assert self._toList(leftOver) == [2]
+    head = sll.create([1,2])
+    leftOver = prob.removeNthFromEnd(head, 2)
+    assert sll.toList(leftOver) == [2]

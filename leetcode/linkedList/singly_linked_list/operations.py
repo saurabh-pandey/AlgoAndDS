@@ -21,12 +21,13 @@ def addAtHead(head, val):
   newHead = Node(val)
   newHead._next = head
   head = newHead
+  return newHead
 
 
 def addAtTail(head, val):
   # If no head then add to tail is same as add to head
   if head is None:
-    addAtHead(head, val)
+    return addAtHead(head, val)
   else:
     currNode = head
     while currNode is not None:
@@ -34,12 +35,13 @@ def addAtTail(head, val):
         currNode._next = Node(val)
         break
       currNode = currNode._next
+    return head
 
 
 def addAtIndex(head, index, val):
   # Adding to index 0 is same as add to head
   if index == 0:
-    addAtHead(head, val)
+    return addAtHead(head, val)
   
   depth = 0
   currNode = head
@@ -52,13 +54,14 @@ def addAtIndex(head, index, val):
       break
     depth += 1
     currNode = currNode._next
+  return head
 
 
 def deleteAtIndex(head, index):
   if index == 0 and head is not None:
     shiftedHead = head._next
     head = shiftedHead
-    return
+    return head
   
   depth = 0
   currNode = head
@@ -70,6 +73,7 @@ def deleteAtIndex(head, index):
         break
     depth += 1
     currNode = currNode._next
+  return head
 
 
 def getNode(head, index):

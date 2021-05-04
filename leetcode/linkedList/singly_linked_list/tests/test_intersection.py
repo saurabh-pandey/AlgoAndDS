@@ -1,8 +1,8 @@
 import pytest
 
-from SinglyLinkedList import SinglyLinkedList
+import singly_linked_list.node as sll
 
-import linked_list_intersection as prob
+import singly_linked_list.intersection as prob
 
 class TestLinkedListIntersection:
   
@@ -13,20 +13,20 @@ class TestLinkedListIntersection:
     skipA = 2
     skipB = 3
     # Use above input to create intersection
-    headA = SinglyLinkedList.Node(listA[0])
-    headB = SinglyLinkedList.Node(listB[0])
+    headA = sll.Node(listA[0])
+    headB = sll.Node(listB[0])
     currNodeA = headA
     for i in range(1, skipA):
-      currNodeA._next = SinglyLinkedList.Node(listA[i])
+      currNodeA._next = sll.Node(listA[i])
       currNodeA = currNodeA._next
     
     currNodeB = headB
     for i in range(1, skipB):
-      currNodeB._next = SinglyLinkedList.Node(listB[i])
+      currNodeB._next = sll.Node(listB[i])
       currNodeB = currNodeB._next
     
     for i in range(skipA, len(listA)):
-      intersectedNode = SinglyLinkedList.Node(listA[i])
+      intersectedNode = sll.Node(listA[i])
       currNodeA._next = intersectedNode
       currNodeB._next = intersectedNode
       currNodeA = currNodeA._next
@@ -43,20 +43,20 @@ class TestLinkedListIntersection:
     skipB = 1
     
     # Use above input to create intersection
-    headA = SinglyLinkedList.Node(listA[0])
-    headB = SinglyLinkedList.Node(listB[0])
+    headA = sll.Node(listA[0])
+    headB = sll.Node(listB[0])
     currNodeA = headA
     for i in range(1, skipA):
-      currNodeA._next = SinglyLinkedList.Node(listA[i])
+      currNodeA._next = sll.Node(listA[i])
       currNodeA = currNodeA._next
     
     currNodeB = headB
     for i in range(1, skipB):
-      currNodeB._next = SinglyLinkedList.Node(listB[i])
+      currNodeB._next = sll.Node(listB[i])
       currNodeB = currNodeB._next
     
     for i in range(skipA, len(listA)):
-      intersectedNode = SinglyLinkedList.Node(listA[i])
+      intersectedNode = sll.Node(listA[i])
       currNodeA._next = intersectedNode
       currNodeB._next = intersectedNode
       currNodeA = currNodeA._next
@@ -66,27 +66,26 @@ class TestLinkedListIntersection:
   
 
   def test_example3(self):
-    intersectVal = 0
     listA = [2,6,4]
     listB = [1,5]
     skipA = 3
     skipB = 2
     
     # Use above input to create intersection
-    headA = SinglyLinkedList.Node(listA[0])
-    headB = SinglyLinkedList.Node(listB[0])
+    headA = sll.Node(listA[0])
+    headB = sll.Node(listB[0])
     currNodeA = headA
     for i in range(1, skipA):
-      currNodeA._next = SinglyLinkedList.Node(listA[i])
+      currNodeA._next = sll.Node(listA[i])
       currNodeA = currNodeA._next
     
     currNodeB = headB
     for i in range(1, skipB):
-      currNodeB._next = SinglyLinkedList.Node(listB[i])
+      currNodeB._next = sll.Node(listB[i])
       currNodeB = currNodeB._next
     
     for i in range(skipA, len(listA)):
-      intersectedNode = SinglyLinkedList.Node(listA[i])
+      intersectedNode = sll.Node(listA[i])
       currNodeA._next = intersectedNode
       currNodeB._next = intersectedNode
       currNodeA = currNodeA._next

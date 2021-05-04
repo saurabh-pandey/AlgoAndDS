@@ -44,16 +44,16 @@ Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
 """
 
-from node import Node
-import operations
+from singly_linked_list.node import Node
+import singly_linked_list.operations as sll
 
 class SinglyLinkedList:
   def __init__(self, vals = []):
-    self._head = operations.create(vals)
+    self._head = sll.create(vals)
   
   
   def get(self, index):
-    node = operations.getNode(self._head, index)
+    node = sll.getNode(self._head, index)
     if node is not None:
       return node._val
     else:
@@ -61,7 +61,7 @@ class SinglyLinkedList:
   
   
   def getNode(self, index):
-    return operations.getNode(self._head, index)
+    return sll.getNode(self._head, index)
   
   
   def getHeadNode(self):
@@ -69,24 +69,24 @@ class SinglyLinkedList:
 
   
   def getTailNode(self):
-    return operations.getTailNode(self._head)
+    return sll.getTailNode(self._head)
   
   
   def addAtHead(self, val):
-    operations.addAtHead(self._head, val)
+    self._head = sll.addAtHead(self._head, val)
   
   
   def addAtTail(self, val):
-    operations.addAtTail(self._head, val)
+    self._head = sll.addAtTail(self._head, val)
   
   
   def addAtIndex(self, index, val):
-    operations.addAtIndex(self._head, index, val)
+    self._head = sll.addAtIndex(self._head, index, val)
 
   
   def deleteAtIndex(self, index):
-    operations.deleteAtIndex(self._head, index)
+    self._head = sll.deleteAtIndex(self._head, index)
 
   
   def toString(self):
-    operations.toString(self._head)
+    return sll.toString(self._head)

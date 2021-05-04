@@ -1,6 +1,6 @@
 import pytest
 
-from SinglyLinkedList import SinglyLinkedList
+from singly_linked_list.SinglyLinkedList import SinglyLinkedList
 
 class TestSinglyLinkedList:
   
