@@ -97,6 +97,15 @@ def getTailNode(head):
   return None
 
 
+def size(head):
+  depth = 0
+  currNode = head
+  while currNode is not None:
+    depth += 1
+    currNode = currNode._next
+  return depth
+
+
 def toString(head, sep = "->"):
   """
   Convert a linked list to a string

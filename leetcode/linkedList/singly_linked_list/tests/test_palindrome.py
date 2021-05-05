@@ -13,3 +13,7 @@ class TestPalindromeSLL:
   def test_example2(self):
     head = sll.create([1,2])
     assert prob.isPalindrome(head) == False
+  
+  def test_odd_size_1(self):
+    head = sll.create([1,2,3,2,1])
+    assert prob.isPalindrome(head) == True
