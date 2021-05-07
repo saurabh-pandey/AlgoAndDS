@@ -21,7 +21,8 @@ def create(in_list):
 def addAtHead(head, val):
   newHead = Node(val)
   newHead._next = head
-  head._prev = newHead
+  if head is not None:
+    head._prev = newHead
   return newHead
 
 
@@ -57,7 +58,8 @@ def addAtIndex(head, index, val):
       newNode._next = currNode._next
       # Connect the previous and next node
       currNode._next = newNode
-      newNode._next._prev = newNode
+      if newNode._next is not None:
+        newNode._next._prev = newNode
       break
     depth += 1
     currNode = currNode._next
@@ -118,7 +120,7 @@ def size(head):
   return depth
 
 
-def toString(head, sep = "->"):
+def toString(head, sep = "<=>"):
   """
   Convert a doubly linked list to a string
   """
