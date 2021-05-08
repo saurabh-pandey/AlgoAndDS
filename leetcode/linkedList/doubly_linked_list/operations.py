@@ -70,7 +70,8 @@ def deleteAtIndex(head, index):
   if index == 0 and head is not None:
     shiftedHead = head._next
     head._next = None
-    shiftedHead._prev = None
+    if shiftedHead is not None:
+      shiftedHead._prev = None
     return shiftedHead
   
   depth = 0
@@ -81,7 +82,8 @@ def deleteAtIndex(head, index):
         nodeToBeDeleted = currNode._next
         shiftedNode = currNode._next._next
         currNode._next = shiftedNode
-        shiftedNode._prev = currNode
+        if shiftedNode is not None: 
+          shiftedNode._prev = currNode
         nodeToBeDeleted._prev = None
         nodeToBeDeleted._next = None
         break
@@ -129,7 +131,7 @@ def toString(head, sep = "<=>"):
   while currNode is not None:
     output += str(currNode._val)
     currNode = currNode._next
-    if currNode is not None:
+    if currNode is not None and currNode._prev is not None:
       output += sep
   return output
 
