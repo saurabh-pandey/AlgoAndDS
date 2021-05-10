@@ -27,7 +27,7 @@ The number of nodes in both lists is in the range [0, 50].
 Both l1 and l2 are sorted in non-decreasing order.
 """
 
-import singly_linked_list.node.Node as ListNode
+from singly_linked_list.node import Node as ListNode
 
 def mergeTwoLists(l1, l2):
   firstPtr = l1
@@ -53,7 +53,7 @@ def mergeTwoLists(l1, l2):
         currNode._next = newNode
         currNode = currNode._next
       secondPtr = secondPtr._next
-  if firstPtr is not None:
+  while firstPtr is not None:
     newNode = ListNode(firstPtr._val)
     if mergedList is None:
       mergedList = newNode
@@ -62,7 +62,7 @@ def mergeTwoLists(l1, l2):
       currNode._next = newNode
       currNode = currNode._next
     firstPtr = firstPtr._next
-  if secondPtr is not None:
+  while secondPtr is not None:
     newNode = ListNode(secondPtr._val)
     if mergedList is None:
       mergedList = newNode
@@ -71,3 +71,4 @@ def mergeTwoLists(l1, l2):
       currNode._next = newNode
       currNode = currNode._next
     secondPtr = secondPtr._next
+  return mergedList
