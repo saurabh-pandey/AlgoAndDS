@@ -63,9 +63,6 @@ The number of Nodes will not exceed 1000.
 1 <= Node.val <= 105
 """
 
-from math import tan
-
-
 class Node:
   def __init__(self, val, prev = None, next = None, child = None):
     self.val = val
