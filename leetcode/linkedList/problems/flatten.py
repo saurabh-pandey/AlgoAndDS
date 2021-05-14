@@ -93,6 +93,7 @@ def flatten(head):
     childBranchNode.child.prev = childBranchNode
 
     tailNode = childBranchNode.child
+    childBranchNode.child = None
     while tailNode.next is not None:
       tailNode = tailNode.next
     tailNode.next = nextNode

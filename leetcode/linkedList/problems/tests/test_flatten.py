@@ -2,28 +2,47 @@ import pytest
 
 import problems.flatten as prob
 
-import doubly_linked_list.operations as dll
+def toList(head):
+  """
+  Convert a linked list to a list
+  """
+  output = []
+  currNode = head
+  while currNode is not None:
+    output.append(currNode.val)
+    if currNode.child is not None:
+      childList = toList(currNode.child)
+      output.append(childList)
+    currNode = currNode.next
+  return output
+
 
 def createMulitlevelList(inpList):
-  # Should we use a multi-dim list to constrct this?
-  # What about recursion?
   head = None
   currNode = head
-  for val in inpList:
+  foundChildList = False
+  for i in range(len(inpList)):
+    val = inpList[i]
     if val is not None:
-      newNode = prob.Node(val)
-      if head is None:
-        head = newNode
-        currNode = head
+      if foundChildList:
+        newHead = createMulitlevelList(inpList[i:])
+        currNode.child = newHead
+        return head
       else:
-        currNode.next = newNode
-        newNode.prev = currNode
+        newNode = prob.Node(val)
+        if head is None:
+          head = newNode
+          currNode = head
+        else:
+          currNode.next = newNode
+          newNode.prev = currNode
+          currNode = currNode.next
     else:
-      # Here create a new list and attach to child
-      if currNode is not head:
+      if not foundChildList and currNode is not head:
         currNode = head
       else:
-        currNode = currNode._next
+        currNode = currNode.next
+      foundChildList = True
   return head
 
 class TestFlatten:
@@ -32,8 +51,24 @@ class TestFlatten:
     output = [1,2,3,7,8,11,12,9,10,4,5,6]
 
     head = createMulitlevelList(input)
-    
     flattendHead = prob.flatten(head)
-    
-    assert dll.toList(flattendHead) == output
+    assert toList(flattendHead) == output
+  
+
+  def test_example2(self):
+    input = [1,2,None,3]
+    output = [1,3,2]
+
+    head = createMulitlevelList(input)
+    flattendHead = prob.flatten(head)
+    assert toList(flattendHead) == output
+  
+
+  def test_example3(self):
+    input = []
+    output = []
+
+    head = createMulitlevelList(input)
+    flattendHead = prob.flatten(head)
+    assert toList(flattendHead) == output
 
