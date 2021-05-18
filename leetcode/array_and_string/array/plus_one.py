@@ -33,6 +33,9 @@ Constraints:
 1 <= digits.length <= 100
 0 <= digits[i] <= 9
 """
+#TODO: Below method uses digit based addition. It would be worthwhile to try converting this list
+# to number. Adding one to it and then returning the result as a list back. It would also be good to
+# check which method would be faster
 def plusOne(digits):
   length = len(digits)
   assert length > 0
