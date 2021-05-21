@@ -35,37 +35,25 @@ def hit_max_wall(index, limit):
 
 
 def findDiagonalOrder(mat):
-  # pdb.set_trace()
   m = len(mat)
   if m == 0:
     return []
   n = len(mat[0])
-  if n == 1:
-    return mat
-  # It seems every time we reach the end wall of matrix we slide in +ve side on that wall and then
-  # continue along the diagonal
-  # Also the general running pattern is we start with increasing i and decreasing j then once 
-  # hitting the wall we switch to decreasing i and increasing j. Then again hitting the wall we 
-  # switch and this goes on till we reach the last element in matrix.
+  
   diagArr = []
   i = 0
   j = 0
+  
   # Start with decreasing i and increasing j
   dec_i_inc_j = True
-  # while i >= 0 and i < m:
-  #   while j >= 0 and j < n:
-  while len(diagArr) < m*n:
-    # NOTE: Precondition is that i and j are always withinn bounds
+  matSize = m*n
+  while len(diagArr) < matSize:
+    assert i >= 0 and j >= 0
+    assert i < m and j < n
+    
     diagArr.append(mat[i][j])
-    if i == m - 1 and j == n - 1:
-      print(f'Reached the last corner now breaking')
-      i = m
-      j = m
-      break
-    # if iWall:
-    #   slide-along the wall and switch
-    # if jWall:
-    #   slide-along the wall and switch
+
+    # Move in the diagonal
     if dec_i_inc_j:
       i -= 1
       j += 1
@@ -91,8 +79,10 @@ def findDiagonalOrder(mat):
       dec_i_inc_j = True
     elif is_min_I_wall_hit and is_min_J_wall_hit:
       print(f'Min I and J corner case should not happen, i = {i} and j = {j}')
+      assert False
     elif is_max_I_wall_hit and is_max_J_wall_hit:
       print(f'Max I and J corner case should not happen, i = {i} and j = {j}')
+      assert False
     elif is_min_I_wall_hit:
       # Only hit a min I wall
       i = 0
@@ -111,7 +101,7 @@ def findDiagonalOrder(mat):
       j = n - 1
       i += 2
       dec_i_inc_j = False
-    else:
-      print(f'This case should be internal i = {i} and j = {j}')
+    # else:
+    #   print(f'This case should be internal i = {i} and j = {j}')
   
   return diagArr
