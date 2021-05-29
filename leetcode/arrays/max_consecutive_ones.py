@@ -18,13 +18,13 @@ The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 """
 def findMaxConsecutiveOnes(nums):
-    maxCount = 0
-    count = 0
-    for n in nums:
-        if n != 1:
-            count = 0
-        else:
-            count += 1
-            if (count > maxCount):
-                maxCount = count
-    return maxCount
+  maxCount = 0
+  count = 0
+  for n in nums:
+    if n != 1:
+      count = 0
+    else:
+      count += 1
+      if (count > maxCount):
+        maxCount = count
+  return maxCount
