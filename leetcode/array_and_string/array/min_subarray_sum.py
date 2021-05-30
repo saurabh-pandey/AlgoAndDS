@@ -35,8 +35,49 @@ Constraints:
 Follow up: If you have figured out the O(n) solution, try coding another solution of which the time 
 complexity is O(n log(n)).
 """
+import pdb
 
-def minSubArrayLen(target, nums):
+
+def minSubArrayLen_On(target, nums):
+  # pdb.set_trace()
+  l = len(nums)
+  if l == 0:
+    return 0
+  else:
+    sum = nums[0]
+    minSubArrayL = l + 1
+    subarrLen = 1
+    startPtr = 0
+    endPtr = 0
+    while endPtr < l:
+      if sum >= target:
+        minSubArrayL = subarrLen if subarrLen < minSubArrayL else minSubArrayL
+        if sum - nums[startPtr] >= target:
+          sum -= nums[startPtr]
+          startPtr += 1
+          subarrLen -= 1
+          minSubArrayL = subarrLen if subarrLen < minSubArrayL else minSubArrayL
+        else:
+          endPtr += 1
+          if endPtr >= l:
+            break
+          sum += nums[endPtr]
+          subarrLen += 1
+      else:
+        endPtr += 1
+        if endPtr >= l:
+          break
+        sum += nums[endPtr]
+        subarrLen += 1
+    if minSubArrayL == l + 1:
+      return 0
+    else:
+      return minSubArrayL
+
+        
+
+
+def minSubArrayLen_On2(target, nums):
   l = len(nums)
   if l == 0:
     return 0
@@ -64,3 +105,9 @@ def minSubArrayLen(target, nums):
       return 0
     else:
       return minSubArrayL
+
+
+
+def minSubArrayLen(target, nums):
+  # return minSubArrayLen_On2(target, nums)
+  return minSubArrayLen_On(target, nums)
