@@ -48,12 +48,26 @@ def rotateRightOnce(nums):
     nums[0] = temp
 
 
+def rotateRight(nums, numRot):
+  l = len(nums)
+  if l < 2:
+    return
+  else:
+    assert l > numRot
+    temp = nums[l-numRot:]
+    for i in range(l-1, numRot - 1, -1):
+      nums[i] = nums[i-numRot]
+    for i in range(len(temp)):
+      nums[i] = temp[i]
+
+
 def rotate(nums, k):
   l = len(nums)
   if l < 2:
     return
   else:
     numRot = k % l
-    for i in range(numRot):
-      rotateRightOnce(nums)
+    rotateRight(nums, numRot)
+    # for i in range(numRot):
+    #   rotateRightOnce(nums)
   
