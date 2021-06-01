@@ -40,56 +40,56 @@ nums is sorted in ascending order.
 """
 
 def shiftLeft(nums, start, end, count):
-    assert start > count and start < end
-    assert end <= len(nums)
-    replacement = nums[start - 1]
-    for i in range(start, end):
-        nums[i - count] = nums[i]
-    for i in range(end - count, end):
-        nums[i] = replacement
+  assert start > count and start < end
+  assert end <= len(nums)
+  replacement = nums[start - 1]
+  for i in range(start, end):
+    nums[i - count] = nums[i]
+  for i in range(end - count, end):
+    nums[i] = replacement
 
 """
 This function only guarantees the unique elements and all duplicates are shuffled beyond the new
 length. Thus no element of the original array is overwritten.
 """
 def removeDuplicatesRetainAll(nums):
-    newLen = len(nums)
-    if newLen < 2:
-        return newLen
-    # nums is 2 or more
-    i = 1
-    consecutiveDuplicateCount = 0
-    end = newLen
-    while i < end:
-        if nums[i-1] == nums[i]:
-            consecutiveDuplicateCount += 1
-            newLen -= 1
-        else:
-            shiftLeft(nums, i, end, consecutiveDuplicateCount)
-            i -= consecutiveDuplicateCount
-            end -= consecutiveDuplicateCount
-            consecutiveDuplicateCount = 0
-        i += 1
+  newLen = len(nums)
+  if newLen < 2:
     return newLen
+  # nums is 2 or more
+  i = 1
+  consecutiveDuplicateCount = 0
+  end = newLen
+  while i < end:
+    if nums[i-1] == nums[i]:
+      consecutiveDuplicateCount += 1
+      newLen -= 1
+    else:
+      shiftLeft(nums, i, end, consecutiveDuplicateCount)
+      i -= consecutiveDuplicateCount
+      end -= consecutiveDuplicateCount
+      consecutiveDuplicateCount = 0
+    i += 1
+  return newLen
 
 """
 This function only guarantees the unique elements and anything beyond is overwritten
 """
 def removeDuplicatesOverwrite(nums):
-    length = len(nums)
-    if length < 2:
-        return length
-    # nums is 2 or more
-    writePos = 1
-    for i in range(1, length):
-        if nums[i - 1] != nums[i]:
-            nums[writePos] = nums[i]
-            writePos += 1
-    return writePos
+  length = len(nums)
+  if length < 2:
+    return length
+  # nums is 2 or more
+  writePos = 1
+  for i in range(1, length):
+    if nums[i - 1] != nums[i]:
+      nums[writePos] = nums[i]
+      writePos += 1
+  return writePos
 
 def removeDuplicates(nums, overwrite = True):
-    # TODO: Ideally we should run same test for both overwrite True and False for full coverage
-    if overwrite:
-        return removeDuplicatesOverwrite(nums)
-    else:
-        return removeDuplicatesRetainAll(nums)
+  # TODO: Ideally we should run same test for both overwrite True and False for full coverage
+  if overwrite:
+    return removeDuplicatesOverwrite(nums)
+  else:
+    return removeDuplicatesRetainAll(nums)
