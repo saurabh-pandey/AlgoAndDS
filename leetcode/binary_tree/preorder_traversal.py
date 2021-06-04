@@ -43,13 +43,12 @@ The number of nodes in the tree is in the range [0, 100].
 
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
-class TreeNode:
-  def __init__(self, val, left=None, right=None):
-    self.val = val
-    self.left = left
-    self.right = right
+from binary_tree.node import Node
+
+import pdb
 
 def preorder(node, preOrderList):
+  # pdb.set_trace()
   if node is None:
     return
   
@@ -63,3 +62,4 @@ def preorderTraversal(root):
   
   preOrderList = []
   preorder(root, preOrderList)
+  return preOrderList
