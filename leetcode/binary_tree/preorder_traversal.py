@@ -47,19 +47,44 @@ from binary_tree.node import Node
 
 import pdb
 
-def preorder(node, preOrderList):
+
+def preorderRecursiveImpl(node, preOrderList):
   # pdb.set_trace()
   if node is None:
     return
   
   preOrderList.append(node.val)
-  preorder(node.left, preOrderList)
-  preorder(node.right, preOrderList)
+  preorderRecursiveImpl(node.left, preOrderList)
+  preorderRecursiveImpl(node.right, preOrderList)
 
-def preorderTraversal(root):
+
+def preorderRecursive(root):
   if root is None:
     return []
   
   preOrderList = []
-  preorder(root, preOrderList)
+  preorderRecursiveImpl(root, preOrderList)
   return preOrderList
+
+
+def preorderIterative(root):
+  if root is None:
+    return []
+  
+  nodes = [root]
+  preOrderList = []
+  while len(nodes) > 0:
+    node = nodes.pop()
+    preOrderList.append(node.val)
+    if node.right is not None:
+      nodes.append(node.right)
+    if node.left is not None:
+      nodes.append(node.left)
+  return preOrderList
+
+
+def preorderTraversal(root, doRecursive=True):
+  if doRecursive:
+    return preorderRecursive(root)
+  else:
+    return preorderIterative(root)
