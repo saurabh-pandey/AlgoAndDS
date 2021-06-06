@@ -59,8 +59,22 @@ def inorderRecursive(root):
   return inorderList
 
 
+def inorderIterative(root):
+  inorderList = []
+  nodes = []
+  node = root
+  while (len(nodes) > 0) or node is not None:
+    if node is not None:
+      nodes.append(node)
+      node = node.left
+    else:
+      node = nodes.pop()
+      inorderList.append(node.val)
+      node = node.right
+  return inorderList
+
 def inorderTraversal(root, doRecursive=True):
   if doRecursive:
     return inorderRecursive(root)
   else:
-    return []
+    return inorderIterative(root)

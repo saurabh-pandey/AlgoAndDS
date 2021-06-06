@@ -18,11 +18,11 @@ class TestPreorderTraversal:
     assert prob.inorderTraversal(rootNode) == res
   
 
-  # def test_example1_iterative(self):
-  #   root = [1,None,2,3]
-  #   res = [1,2,3]
-  #   rootNode = bTree.create(root)
-  #   assert prob.inorderTraversal(rootNode, False) == res
+  def test_example1_iterative(self):
+    root = [1,None,2,3]
+    res = [1,3,2]
+    rootNode = bTree.create(root)
+    assert prob.inorderTraversal(rootNode, False) == res
   
 
   def test_example2(self):
