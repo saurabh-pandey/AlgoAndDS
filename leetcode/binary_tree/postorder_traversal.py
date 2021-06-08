@@ -60,7 +60,22 @@ def postorderRecursive(root):
 
 
 def postorderIterative(root):
-  pass
+  postorderList = []
+  nodes = []
+  prevNode = None
+  node = root
+  while len(nodes) > 0 or node is not None:
+    if node is not None:
+      nodes.append(node)
+      node = node.left
+    else:
+      currNode = nodes[-1]
+      if currNode.right is not None and prevNode != currNode.right:
+        node = currNode.right
+      else:
+        postorderList.append(currNode.val)
+        prevNode = nodes.pop()
+  return postorderList
 
 
 def postorderTraversal(root, doRecursive=True):
