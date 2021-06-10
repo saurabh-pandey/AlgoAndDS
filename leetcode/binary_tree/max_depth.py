@@ -58,7 +58,12 @@ def maxDepthTopDown(root):
 
 
 def maxDepthBottomUp(root):
-  pass
+  if root is None:
+    return 0
+  
+  leftSubtreeDepth = maxDepthBottomUp(root.left)
+  rightSubtreeDepth = maxDepthBottomUp(root.right)
+  return max(leftSubtreeDepth, rightSubtreeDepth) + 1
 
 
 def maxDepth(root, doTopDown=True):

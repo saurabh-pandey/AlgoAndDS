@@ -9,6 +9,7 @@ class TestMaxDepth:
     res = 3
     rootNode = bTree.create(root)
     assert prob.maxDepth(rootNode) == res
+    assert prob.maxDepth(rootNode, False) == res
   
 
   def test_example2(self):
@@ -16,6 +17,7 @@ class TestMaxDepth:
     res = 2
     rootNode = bTree.create(root)
     assert prob.maxDepth(rootNode) == res
+    assert prob.maxDepth(rootNode, False) == res
   
 
   def test_example3(self):
@@ -23,6 +25,7 @@ class TestMaxDepth:
     res = 0
     rootNode = bTree.create(root)
     assert prob.maxDepth(rootNode) == res
+    assert prob.maxDepth(rootNode, False) == res
   
 
   def test_example4(self):
@@ -30,3 +33,4 @@ class TestMaxDepth:
     res = 1
     rootNode = bTree.create(root)
     assert prob.maxDepth(rootNode) == res
+    assert prob.maxDepth(rootNode, False) == res
