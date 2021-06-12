@@ -25,7 +25,7 @@ The number of nodes in the tree is in the range [1, 1000].
 
 Follow up: Could you solve it both recursively and iteratively?
 """
-def isSymmetric(root):
+def isSymmetricIterative(root):
   if root is None:
     return True
   
@@ -52,3 +52,44 @@ def isSymmetric(root):
     rightQueue.append(right.left)
   
   return True
+
+
+def preorderTraversal(node, preorderList):
+  if node is None:
+    return
+  preorderList.append(node.val)
+  preorderTraversal(node.left, preorderList)
+  if node.left is None and node.right is not None:
+    preorderList.append(None)
+  preorderTraversal(node.right, preorderList)
+  if node.left is not None and node.right is None:
+    preorderList.append(None)
+
+
+def reversePreorderTraversal(node, revPreorderList):
+  if node is None:
+    return
+  revPreorderList.append(node.val)
+  reversePreorderTraversal(node.right, revPreorderList)
+  if node.left is not None and node.right is None:
+    revPreorderList.append(None)
+  reversePreorderTraversal(node.left, revPreorderList)
+  if node.left is None and node.right is not None:
+    revPreorderList.append(None)
+
+def isSymmetricRecursive(root):
+  if root is None:
+    return True
+  leftSubtreePreorderList = []
+  preorderTraversal(root.left, leftSubtreePreorderList)
+  rightSubtreePreorderList = []
+  reversePreorderTraversal(root.right, rightSubtreePreorderList)
+
+  return leftSubtreePreorderList == rightSubtreePreorderList
+
+
+def isSymmetric(root, doRecursive=True):
+  if doRecursive:
+    return isSymmetricRecursive(root)
+  else:
+    return isSymmetricIterative(root)
