@@ -28,17 +28,42 @@ Each value of postorder also appears in inorder.
 inorder is guaranteed to be the inorder traversal of the tree.
 postorder is guaranteed to be the postorder traversal of the tree.
 """
+import pdb
+
+from binary_tree.node import Node
+
+def buildTreeRecursive(inorder, inStart, inEnd, postorder, postStart, postEnd):
+  sz = inEnd - inStart + 1
+  assert sz == postEnd - postStart + 1
+  if sz <= 0:
+    return None
+  elif sz == 1:
+    return Node(postorder[postEnd])
+  else:
+    rootVal = postorder[postEnd]
+    rootInorderIndex = -1
+    for i in range(inStart, inEnd + 1):
+      if inorder[i] == rootVal:
+        rootInorderIndex = i
+        break
+    assert rootInorderIndex >= 0
+    leftSz = rootInorderIndex - inStart
+    rightSz = inEnd - rootInorderIndex
+    leftNode = buildTreeRecursive(inorder, inStart, inStart + leftSz - 1,
+                                  postorder, postStart, postStart + leftSz - 1)
+    rightNode = buildTreeRecursive(inorder, rootInorderIndex + 1, inEnd,
+                                   postorder, postStart + leftSz, postStart + leftSz + rightSz -1)
+    root = Node(rootVal, leftNode, rightNode)
+    return root
+    
+
+
 def buildTree(inorder, postorder):
   sz = len(inorder)
   assert sz == len(postorder)
   if sz == 0:
     return None
-
-  # Some observations:
-  # Post-order's last node is root
-  # Now that last node in in-order list will partition the list into left and right subtree
-  # Thus we would know the left and right subtree size
-  # Based on the sizes we can lookup the root nodes in the left and right subtree from post-order
-  # This can go on till we reach a point where the subarray is <=3
-  # Now if we have post and in order lists <=3 size we can create the correct Node, Left and Right
-  pass
+  
+  root = buildTreeRecursive(inorder, 0, sz - 1, postorder, 0, sz - 1)
+  # pdb.set_trace()
+  return root
