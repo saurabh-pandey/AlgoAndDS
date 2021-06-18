@@ -46,4 +46,21 @@ def connect(root):
   if root is None:
     return None
   
-  
+  nodes_per_level = [root]
+  nNodesPerLevel = len(nodes_per_level)
+  while nNodesPerLevel > 0:
+    for i in range(nNodesPerLevel - 1):
+      nodes_per_level[i].next = nodes_per_level[i + 1]
+    nodes_per_level[nNodesPerLevel - 1].next = None
+    next_level_nodes = []
+    for node in nodes_per_level:
+      if node.left is not None:
+        next_level_nodes.append(node.left)
+      if node.right is not None:
+        next_level_nodes.append(node.right)
+    nodes_per_level = next_level_nodes[:]
+    nNodesPerLevel = len(nodes_per_level)
+  return root
+
+
+
