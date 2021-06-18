@@ -51,3 +51,19 @@ class TestNextRightPointer:
     res = [1,None,2,3,None,4,5,6,7,None]
     newRootNode = prob.connect(rootNode)
     assert res == getNextRightList(newRootNode)
+  
+
+  def test_incomplete(self):
+    root = [1,2,3,4,5,None,7]
+    rootNode = create(root)
+    res = [1,None,2,3,None,4,5,7,None]
+    newRootNode = prob.connect(rootNode)
+    assert res == getNextRightList(newRootNode)
+
+
+  def test_empty(self):
+    root = []
+    rootNode = create(root)
+    res = []
+    newRootNode = prob.connect(rootNode)
+    assert res == getNextRightList(newRootNode)
