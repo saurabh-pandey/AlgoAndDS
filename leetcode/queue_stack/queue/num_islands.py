@@ -36,15 +36,51 @@ n == grid[i].length
 1 <= m, n <= 300
 grid[i][j] is '0' or '1'.
 """
-def getNeighbours(i, j, m, n):
+from collections import namedtuple
+
+GridPoint = namedtuple('GridPoint', ['i', 'j'])
+
+def getBounds(grid):
+  m = len(grid)
+  if m == 0:
+    return (m,)
+  n = len(grid[0])
+  return (m, n)
+
+def getNeighbours(node, bounds, grid, visited):
   neighbours = []
+  m, n = bounds
+  i, j = node
+
+  prevI = i - 1
+  if prevI >= 0:
+    if not visited[prevI][j]:
+      neighbours.append((prevI, j))
+  
   nextI = i + 1
   if nextI < m:
-    neighbours.append((nextI, j))
+    if not visited[nextI][j]:
+      neighbours.append((nextI, j))
+  
+  prevJ = j - 1
+  if prevJ >= 0:
+    if not visited[i][prevJ]:
+      neighbours.append((i, prevJ))
+  
   nextJ = j + 1
   if nextJ < n:
-    neighbours.append((i, nextJ))
+    if not visited[nextI][j]:
+      neighbours.append((i, nextJ))
+
   return neighbours
+
+
+def isLand(grid, i, j):
+  return grid[i][j] == 1
+
+
+def isWater(grid, i, j):
+  return grid[i][j] == 0
 
 
 def filterNeighbours(neighbours, grid):
@@ -56,13 +92,38 @@ def filterNeighbours(neighbours, grid):
   return validNeighbours
 
 
-def searchLand(nodes):
-  # Start BFS from these nodes to search for land and return when on found
-  pass
+def searchIsland(node, bounds, grid, visited):
+  # Start BFS from these nodes to search for land and return when one found
+  nodes = [node]
+  leafNodes = []
+  while len(nodes) > 0:
+    leafNodes = nodes[:]
+    nodes.clear()
+    size = len(leafNodes)
+    for it in range(size):
+      if isLand(grid, it[0], it[1]):
+        visited[it[0]][it[1]] = True
+        return it
+      else:
+        neighbours = getNeighbours(it, bounds, grid, visited)
+        validNeighbours = filterNeighbours(neighbours, grid)
+  return ()
 
-def getIsland(i, j):
+  
+
+def spanIsland(node, bounds, grid, visited):
   # Given a new land do BFS to check its ends
-  pass
+  nodes = [node]
+  leafNodes = []
+  while len(nodes) > 0:
+    leafNodes = nodes[:]
+    nodes.clear()
+    size = len(leafNodes)
+    for it in range(size):
+      visited[it[0]][it[1]] = True
+      neighbours = getNeighbours(it, bounds, grid, visited)
+      validNeighbours = filterNeighbours(neighbours, grid)
+  
 
 """
 IDEA: Idea is to apply the following algo:
@@ -73,20 +134,20 @@ IDEA: Idea is to apply the following algo:
 """
 
 def numIslands(grid):
-  m = len(grid)
-  if m == 0:
+  bounds = getBounds(grid)
+  if bounds[0] == 0:
     return 0
-  n = len(grid[0])
+  m, n = bounds
+  visited = [[False for j in range(n)] for i in range(m)]
 
-  nodes = [(0, 0)]
+  numIs = 0
+  seedNodes = [GridPoint(0, 0)]
+  landNode = searchIsland(seedNodes, bounds, grid, visited)
   leafNodes = []
-  while len(nodes) > 0:
-    leafNodes = nodes[:]
-    nodes.clear()
-    size = len(leafNodes)
-    for it in range(size):
-      i, j = leafNodes[it]
-      neighbours = getNeighbours(i, j, m, n)
-      validNeighbours = filterNeighbours(neighbours, grid)
-      nodes.extend(validNeighbours)
+  while len(landNode) > 0:
+    numIs += 1
+    seedNodes = spanIsland(landNode)
+    landNode = searchIsland(seedNodes)
+  
+  return numIs
 
