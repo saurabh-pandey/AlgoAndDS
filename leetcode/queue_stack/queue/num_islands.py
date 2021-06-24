@@ -110,37 +110,33 @@ def filterNeighbours(neighbours, grid):
 
 
 def spanIsland(node, bounds, grid, visited):
-  # Given a new land do BFS to check its ends
   assert isLand(node, grid) == True
-  nodes = [node]
-  leafNodes = []
+  nodes = {node}
+  leafNodes = {}
   while len(nodes) > 0:
-    leafNodes = nodes[:]
+    leafNodes = nodes.copy()
     nodes.clear()
-    # size = len(leafNodes)
     for it in leafNodes:
       assert isLand(it, grid) == True
       visited[it.i][it.j] = True
       neighbours = getAllNeighbours(it, bounds, visited)
       validNeighbours = filterNeighbours(neighbours, grid)
-      nodes.extend(validNeighbours)
+      nodes.update(validNeighbours)
 
 def exploreGrid(node, bounds, grid, visited):
-  # Start BFS from these nodes to search for land and return when one found
-  nodes = [node]
-  leafNodes = []
+  nodes = {node}
+  leafNodes = {}
   numIs = 0
   while len(nodes) > 0:
-    leafNodes = nodes[:]
+    leafNodes = nodes.copy()
     nodes.clear()
-    # size = len(leafNodes)
     for it in leafNodes:
       if not isVisited(it, visited) and isLand(it, grid):
         numIs += 1
         spanIsland(it, bounds, grid, visited)
       visited[node.i][node.j] = True
       neighbours = getNeighbours(it, bounds)
-      nodes.extend(neighbours)
+      nodes.update(neighbours)
   return numIs
 
 
