@@ -52,6 +52,10 @@ target.length == 4
 target will not be in the list deadends.
 target and deadends[i] consist of digits only.
 """
+def getNeighbours(lock):
+  neighbours = []
+  
+
 def openLock(deadends, target):
   """
   IDEAS:
@@ -62,4 +66,4 @@ def openLock(deadends, target):
   5. Now the problem is to find the shortest path from root to the target node in this graph
   6. Since each move counts as 1 so BFS can be used to find the shortest path
   """
-  pass
+  
