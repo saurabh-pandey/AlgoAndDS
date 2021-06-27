@@ -54,7 +54,13 @@ target and deadends[i] consist of digits only.
 """
 def getNeighbours(lock):
   neighbours = []
-  
+  return neighbours
+
+
+def filterNeighbours(neighbours, deadends):
+  filteredNeighbours = []
+  return filteredNeighbours
+
 
 def openLock(deadends, target):
   """
@@ -66,4 +72,14 @@ def openLock(deadends, target):
   5. Now the problem is to find the shortest path from root to the target node in this graph
   6. Since each move counts as 1 so BFS can be used to find the shortest path
   """
-  
+  path = []
+  lockQueue = ["0000"]
+  while len(lockQueue) > 0:
+    currentLevelLocks = lockQueue[:]
+    lockQueue.clear()
+    for lock in currentLevelLocks:
+      if lock == target:
+        return path
+      neighbours = getNeighbours(lock)
+      allowedNeighbours = filterNeighbours(neighbours, deadends)
+      lockQueue.extend(allowedNeighbours)
