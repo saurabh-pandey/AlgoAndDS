@@ -52,14 +52,58 @@ target.length == 4
 target will not be in the list deadends.
 target and deadends[i] consist of digits only.
 """
+import pdb
+
 def getNeighbours(lock):
-  neighbours = []
+  neighbours = set()
+  lockNums = []
+  for l in lock:
+    lockNums.append(int(l))
+  
+  for i in range(len(lockNums)):
+    lockVal = lockNums[i]
+    clonedLock = lockNums[:]
+    # Increase
+    incVal = (lockVal + 1)%10
+    clonedLock[i] = incVal
+    neighbours.add("".join(str(l) for l in clonedLock))  
+    # Decrease
+    decVal = 9 if lockVal == 0 else lockVal - 1
+    clonedLock[i] = decVal
+    neighbours.add("".join(str(l) for l in clonedLock))
+  
   return neighbours
 
 
-def filterNeighbours(neighbours, deadends):
-  filteredNeighbours = []
-  return filteredNeighbours
+def filterDeadends(neighbours, deadends):
+  for d in deadends:
+    if d in neighbours:
+      neighbours.remove(d)
+
+
+def filterVisited(neighbours, visited):
+  for n in list(neighbours):
+    if n in visited:
+      neighbours.remove(n)
+
+
+def searchLock(initLock, deadends, target):
+  depth = 0
+  visited = set()
+  lockQueue = [initLock]
+  while len(lockQueue) > 0:
+    currentLevelLocks = lockQueue[:]
+    lockQueue.clear()
+    for lock in currentLevelLocks:
+      visited.add(lock)
+      if lock == target:
+        return depth
+      neighbours = getNeighbours(lock)
+      filterDeadends(neighbours, deadends)
+      filterVisited(neighbours, visited)
+      lockQueue.extend(neighbours)
+    depth += 1
+  return -1
 
 
 def openLock(deadends, target):
@@ -71,15 +115,18 @@ def openLock(deadends, target):
   4. Deadends are nodes deleted from the above graph
   5. Now the problem is to find the shortest path from root to the target node in this graph
   6. Since each move counts as 1 so BFS can be used to find the shortest path
+  7. Each node except source can be visited via 2*len(lock) ways
+  8. Thus a node can be marked as explored iff all 2*len(lock) ways are explored
+  9. Now how to do this book-keeping of visited locks?
+    9.1. Each lock pattern has 2*len(lock) bools to mark each visit???
+  10. Given a lock value if we know how each dial was moved i.e. either decreasing or increasing we 
+      can evalaute the new lock code.
+  11. Next we can find that the new lock code and the dial movement bool is already explored or not
+  12. OR should we explore a pair of lock (from -> to and to -> from)
   """
-  path = []
-  lockQueue = ["0000"]
-  while len(lockQueue) > 0:
-    currentLevelLocks = lockQueue[:]
-    lockQueue.clear()
-    for lock in currentLevelLocks:
-      if lock == target:
-        return path
-      neighbours = getNeighbours(lock)
-      allowedNeighbours = filterNeighbours(neighbours, deadends)
-      lockQueue.extend(allowedNeighbours)
+  # pdb.set_trace()
+  initLock = "".join('0' for t in target)
+  if initLock in deadends:
+    return -1
+  
+  return searchLock(initLock, deadends, target)
