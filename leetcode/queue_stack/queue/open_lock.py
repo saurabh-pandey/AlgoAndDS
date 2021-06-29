@@ -90,9 +90,9 @@ def filterVisited(neighbours, visited):
 def searchLock(initLock, deadends, target):
   depth = 0
   visited = set()
-  lockQueue = [initLock]
+  lockQueue = {initLock}
   while len(lockQueue) > 0:
-    currentLevelLocks = lockQueue[:]
+    currentLevelLocks = list(lockQueue)
     lockQueue.clear()
     for lock in currentLevelLocks:
       visited.add(lock)
@@ -101,7 +101,7 @@ def searchLock(initLock, deadends, target):
       neighbours = getNeighbours(lock)
       filterDeadends(neighbours, deadends)
       filterVisited(neighbours, visited)
-      lockQueue.extend(neighbours)
+      lockQueue.update(neighbours)
     depth += 1
   return -1
 
