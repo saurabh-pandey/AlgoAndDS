@@ -52,7 +52,6 @@ target.length == 4
 target will not be in the list deadends.
 target and deadends[i] consist of digits only.
 """
-import pdb
 
 def getNeighbours(lock):
   neighbours = set()
@@ -107,24 +106,6 @@ def searchLock(initLock, deadends, target):
 
 
 def openLock(deadends, target):
-  """
-  IDEAS:
-  1. Every state of lock is node in the graph
-  2. Root node is "0000"
-  3. Every move is an edge
-  4. Deadends are nodes deleted from the above graph
-  5. Now the problem is to find the shortest path from root to the target node in this graph
-  6. Since each move counts as 1 so BFS can be used to find the shortest path
-  7. Each node except source can be visited via 2*len(lock) ways
-  8. Thus a node can be marked as explored iff all 2*len(lock) ways are explored
-  9. Now how to do this book-keeping of visited locks?
-    9.1. Each lock pattern has 2*len(lock) bools to mark each visit???
-  10. Given a lock value if we know how each dial was moved i.e. either decreasing or increasing we 
-      can evalaute the new lock code.
-  11. Next we can find that the new lock code and the dial movement bool is already explored or not
-  12. OR should we explore a pair of lock (from -> to and to -> from)
-  """
-  # pdb.set_trace()
   initLock = "".join('0' for t in target)
   if initLock in deadends:
     return -1

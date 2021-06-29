@@ -22,9 +22,30 @@ class TestOpenLock:
     target = "8888"
     res = -1
     assert prob.openLock(deadends, target) == res
+  
+
+  def test_example4(self):
+    deadends = ["0000"]
+    target = "8888"
+    res = -1
+    assert prob.openLock(deadends, target) == res
 
 
   def test_my_example1(self):
+    deadends = []
+    target = "4"
+    res = 4
+    assert prob.openLock(deadends, target) == res
+  
+
+  def test_my_example2(self):
+    deadends = ["3"]
+    target = "4"
+    res = 6
+    assert prob.openLock(deadends, target) == res
+  
+  
+  def test_my_example3(self):
     deadends = ["10"]
     target = "11"
     res = 2
