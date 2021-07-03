@@ -45,7 +45,7 @@ def dailyTemperatures_on2(temperatures):
         break
   return answers
 
-def dailyTemperatures_on(temperatures):
+def dailyTemperatures_using_map(temperatures):
   # pdb.set_trace()
   answers = [0 for i in temperatures]
   tSz = len(temperatures)
@@ -72,8 +72,26 @@ def dailyTemperatures_on(temperatures):
       del tempKeys[keyId]
 
   return answers
-    
+
+
+def dailyTemperatures_using_stack(temperatures):
+  # pdb.set_trace()
+  answers = [0 for i in temperatures]
+  tSz = len(temperatures)
+  
+  unresolvedTempStack = []
+  for i in range(tSz):
+    while len(unresolvedTempStack) > 0:
+      topTempId = unresolvedTempStack[-1]
+      if temperatures[i] > temperatures[topTempId]:
+        answers[topTempId] = i - topTempId
+        unresolvedTempStack.pop()
+      else:
+        break
+    unresolvedTempStack.append(i)
+
+  return answers
 
 
 def dailyTemperatures(temperatures):
-  return dailyTemperatures_on(temperatures)
+  return dailyTemperatures_using_stack(temperatures)
