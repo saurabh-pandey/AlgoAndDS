@@ -29,7 +29,12 @@ Constraints:
 1 <= temperatures.length <= 105
 30 <= temperatures[i] <= 100
 """
-def dailyTemperatures(temperatures):
+from collections import defaultdict
+import bisect
+
+import pdb
+
+def dailyTemperatures_on2(temperatures):
   answers = [0 for i in temperatures]
   tSz = len(temperatures)
 
@@ -39,3 +44,36 @@ def dailyTemperatures(temperatures):
         answers[i] = j - i
         break
   return answers
+
+def dailyTemperatures_on(temperatures):
+  # pdb.set_trace()
+  answers = [0 for i in temperatures]
+  tSz = len(temperatures)
+  
+  tempIndicies = defaultdict(list)
+  for i in range(tSz):
+    tempIndicies[temperatures[i]].append(i)
+  
+  tempKeys = list(sorted(tempIndicies))
+
+  for i in range(tSz - 1):
+    keyId = bisect.bisect_left(tempKeys, temperatures[i])
+    if keyId < len(tempKeys) - 1:
+      minIndex = tSz
+      for key in tempKeys[keyId+1 :]:
+        minIndex = minIndex if tempIndicies[key][0] > minIndex else tempIndicies[key][0]
+      if minIndex > i and minIndex < tSz:
+        answers[i] = minIndex - i
+    
+    # remove this entry
+    tempIndicies[tempKeys[keyId]].pop(0)
+    if len(tempIndicies[tempKeys[keyId]]) == 0:
+      del tempIndicies[tempKeys[keyId]]
+      del tempKeys[keyId]
+
+  return answers
+    
+
+
+def dailyTemperatures(temperatures):
+  return dailyTemperatures_on(temperatures)
