@@ -67,7 +67,30 @@ class Node:
     self.neighbors = neighbors if neighbors is not None else []
 
 
+def getClonedNode(clonedNodes, id):
+  if id in clonedNodes:
+    return clonedNodes[id]
+  else:
+    clonedNode = Node(id)
+    clonedNodes[id] = clonedNode
+    return clonedNode
+
 def cloneGraph(node):
   if node is None:
     return None
+  
+  clonedNodes = {}
+
+  nodes = [node]
+  while len(nodes) > 0:
+    node = nodes.pop(0)
+    clonedNode = getClonedNode(clonedNodes, node.val)
+    if len(clonedNode.neighbors) > 0:
+      continue
+    for neighbour in node.neighbors:
+      clonedNeighbourNode = getClonedNode(clonedNodes, neighbour.val)
+      clonedNode.neighbors.append(clonedNeighbourNode)
+      nodes.append(neighbour)
+  
+  return clonedNodes[1]
 
