@@ -34,25 +34,40 @@ Constraints:
 0 <= sum(nums[i]) <= 1000
 -1000 <= target <= 1000
 """
-def findTargetSumRecursive(sz, nums, target, sum, i, mult):
-  newSum = sum + (mult * nums[i])
-  if i == sz:
-    if target == sum:
+import pdb
+
+def findTargetSumLeft(sz, nums, target, sum, i):
+  newSum = sum + nums[i]
+  if i == sz - 1:
+    if target == newSum:
       return 1
     return 0
   
   count = 0
-  count += findTargetSumRecursive(sz, nums, target, newSum, i + 1, 1)
-  count += findTargetSumRecursive(sz, nums, target, newSum, i + 1, -1)
+  count += findTargetSumLeft(sz, nums, target, newSum, i + 1)
+  count += findTargetSumRight(sz, nums, target, newSum, i + 1)
+  return count
+
+def findTargetSumRight(sz, nums, target, sum, i):
+  newSum = sum - nums[i]
+  if i == sz - 1:
+    if target == newSum:
+      return 1
+    return 0
+  
+  count = 0
+  count += findTargetSumLeft(sz, nums, target, newSum, i + 1)
+  count += findTargetSumRight(sz, nums, target, newSum, i + 1)
   return count
   
 
 def findTargetSumWays(nums, target):
+  # pdb.set_trace()
   if len(nums) == 0:
     return 0
   
   sz = len(nums)
-  countLeft = findTargetSumRecursive(sz, nums, 0, 0, 1)
-  countRight = findTargetSumRecursive(sz, nums, 0, 0, -1)
+  countLeft = findTargetSumLeft(sz, nums, target, 0, 0)
+  countRight = findTargetSumRight(sz, nums, target, 0, 0)
 
   return countLeft + countRight
