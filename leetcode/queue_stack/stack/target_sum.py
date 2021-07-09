@@ -36,28 +36,35 @@ Constraints:
 """
 import pdb
 
-def findTargetSumLeft(sz, nums, target, sum, i):
-  newSum = sum + nums[i]
-  if i == sz - 1:
-    if target == newSum:
-      return 1
-    return 0
-  
+def checkTargetSumMatch(target, stackSum):
+  targetSum = target + stackSum
+  targetDiff = target - stackSum
   count = 0
-  count += findTargetSumLeft(sz, nums, target, newSum, i + 1)
-  count += findTargetSumRight(sz, nums, target, newSum, i + 1)
+  if targetSum == 0:
+    count += 1
+  if targetDiff == 0:
+    count += 1
   return count
 
-def findTargetSumRight(sz, nums, target, sum, i):
-  newSum = sum - nums[i]
+def findTargetSumLeft(sz, nums, target, stackSum, i):
+  newStackSum = stackSum + nums[i]
   if i == sz - 1:
-    if target == newSum:
-      return 1
-    return 0
+    return checkTargetSumMatch(target, newStackSum)
   
   count = 0
-  count += findTargetSumLeft(sz, nums, target, newSum, i + 1)
-  count += findTargetSumRight(sz, nums, target, newSum, i + 1)
+  count += findTargetSumLeft(sz, nums, target, newStackSum, i + 1)
+  count += findTargetSumRight(sz, nums, target, newStackSum, i + 1)
+  return count
+
+
+def findTargetSumRight(sz, nums, target, stackSum, i):
+  newStackSum = stackSum - nums[i]
+  if i == sz - 1:
+    return checkTargetSumMatch(target, newStackSum)
+  
+  count = 0
+  count += findTargetSumLeft(sz, nums, target, newStackSum, i + 1)
+  count += findTargetSumRight(sz, nums, target, newStackSum, i + 1)
   return count
   
 
@@ -67,7 +74,7 @@ def findTargetSumWays(nums, target):
     return 0
   
   sz = len(nums)
-  countLeft = findTargetSumLeft(sz, nums, target, 0, 0)
-  countRight = findTargetSumRight(sz, nums, target, 0, 0)
+  count = findTargetSumLeft(sz, nums, target, 0, 0)
+  # countRight = findTargetSumRight(sz, nums, target, 0, 0)
 
-  return countLeft + countRight
+  return count
