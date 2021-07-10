@@ -23,6 +23,34 @@ class TestTargetSum:
     res = 1
     assert prob.findTargetSumWays(nums, target) == res
   
+
+  def test_my_example4(self):
+    nums = [1,1,1]
+    target = 3
+    res = 1
+    assert prob.findTargetSumWays(nums, target) == res
+  
+
+  def test_my_example5(self):
+    nums = [1,1,1]
+    target = 1
+    res = 3
+    assert prob.findTargetSumWays(nums, target) == res
+  
+
+  def test_my_example6(self):
+    nums = [1,1,1]
+    target = -1
+    res = 3
+    assert prob.findTargetSumWays(nums, target) == res
+  
+
+  def test_my_example7(self):
+    nums = [1,1,1]
+    target = -3
+    res = 1
+    assert prob.findTargetSumWays(nums, target) == res
+  
   
   def test_example1(self):
     nums = [1,1,1,1,1]

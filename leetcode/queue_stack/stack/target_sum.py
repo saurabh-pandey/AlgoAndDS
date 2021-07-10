@@ -36,6 +36,9 @@ Constraints:
 """
 import pdb
 
+add = lambda x, y: x + y
+sub = lambda x, y: x - y
+
 def checkTargetSumMatch(target, stackSum):
   targetSum = target + stackSum
   targetDiff = target - stackSum
@@ -46,26 +49,26 @@ def checkTargetSumMatch(target, stackSum):
     count += 1
   return count
 
-def findTargetSumLeft(sz, nums, target, stackSum, i):
-  newStackSum = stackSum + nums[i]
+
+def findTargetSumRec(sz, nums, target, runningSum, stackSum, i, action):
+  newStackSum = action(stackSum, nums[i])
   if i == sz - 1:
     return checkTargetSumMatch(target, newStackSum)
   
-  count = 0
-  count += findTargetSumLeft(sz, nums, target, newStackSum, i + 1)
-  count += findTargetSumRight(sz, nums, target, newStackSum, i + 1)
-  return count
-
-
-def findTargetSumRight(sz, nums, target, stackSum, i):
-  newStackSum = stackSum - nums[i]
-  if i == sz - 1:
-    return checkTargetSumMatch(target, newStackSum)
-  
-  count = 0
-  count += findTargetSumLeft(sz, nums, target, newStackSum, i + 1)
-  count += findTargetSumRight(sz, nums, target, newStackSum, i + 1)
-  return count
+  sumRemainStack = runningSum[i + 1]
+  maxPositiveSum = newStackSum + sumRemainStack
+  minPositiveSum = newStackSum - sumRemainStack
+  minNegativeSum = -newStackSum - sumRemainStack
+  maxNegativeSum = -newStackSum + sumRemainStack
+  isTargetInPosRange = (target <= maxPositiveSum) and (target >= minPositiveSum)
+  isTargetInNegRange = (target <= maxNegativeSum) and (target >= minNegativeSum)
+  if isTargetInPosRange or isTargetInNegRange:
+    count = 0
+    count += findTargetSumRec(sz, nums, target, runningSum, newStackSum, i + 1, add)
+    count += findTargetSumRec(sz, nums, target, runningSum, newStackSum, i + 1, sub)
+    return count
+  else:
+    return 0
   
 
 def findTargetSumWays(nums, target):
@@ -74,7 +77,6 @@ def findTargetSumWays(nums, target):
     return 0
   
   sz = len(nums)
-  count = findTargetSumLeft(sz, nums, target, 0, 0)
-  # countRight = findTargetSumRight(sz, nums, target, 0, 0)
-
-  return count
+  nums.sort(reverse=True)
+  runningSum = [sum(nums[i:]) for i in range(sz)]
+  return findTargetSumRec(sz, nums, target, runningSum, 0, 0, add)
