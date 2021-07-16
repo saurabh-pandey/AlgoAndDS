@@ -4,15 +4,10 @@ import queue_stack.queue.perfect_square as prob
 
 class TestPerfectSquare:
   def test_my_example1(self):
-    n = 13
-    res = [9,4]
-    assert prob.numSquares(n) == res
-  
+    answers = {1:1, 2:2, 3:3, 4:1, 5:2, 6:3, 7:4, 8:2, 9:1, 10:2, 11:3, 12:3, 13:2}
+    for num, res in answers.items():
+      assert prob.numSquares(num) == res
 
-  def test_my_example1(self):
-    n = 11
-    res = [9,1,1]
-    assert prob.numSquares(n) == res
   
   # def test_example1(self):
   #   n = 12

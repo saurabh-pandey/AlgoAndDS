@@ -25,9 +25,10 @@ Constraints:
 
 1 <= n <= 104
 """
+# import pdb
 import math
 
-def numSquares(n):
+def numSquaresGreedy(n):
   assert n >= 0
   numPerfectSqrs = math.floor(math.sqrt(n))
   perfectSqs = [i * i for i in range(math.floor(math.sqrt(n)), 0, -1)]
@@ -45,3 +46,28 @@ def numSquares(n):
       squareSequence.append(currSq)
   
   return squareSequence
+
+def isPerfectSquare(n):
+  sqrt = math.sqrt(n)
+  intSqrt = int(sqrt)
+  intSq = intSqrt*intSqrt
+  return n == intSq
+
+
+def numSquares(n):
+  # pdb.set_trace()
+  assert n >= 0
+  sol = [1,2,3,1]
+  for num in range(5, n + 1):
+    if isPerfectSquare(num):
+      sol.append(1)
+    else:
+      part = 1
+      minNumSqs = num
+      while part <= int(num/2):
+        otherPart = num - part
+        numSqs = sol[part - 1] + sol[otherPart - 1]
+        minNumSqs = numSqs if numSqs < minNumSqs else minNumSqs
+        part += 1
+      sol.append(minNumSqs)
+  return sol[n - 1]
