@@ -72,7 +72,6 @@ def mergeSortRecursive(nums):
 
 
 def sortArray(nums, doIterative=False):
-  # pdb.set_trace()
   if doIterative:
     return mergeSortIterative(nums)
   else:
