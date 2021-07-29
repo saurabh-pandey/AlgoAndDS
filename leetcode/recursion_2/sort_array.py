@@ -21,8 +21,6 @@ Constraints:
 1 <= nums.length <= 5 * 104
 -5 * 104 <= nums[i] <= 5 * 104
 """
-import pdb
-
 def merge(leftSortedArr, rightSortedArr):
   lIndex = 0
   rIndex = 0
@@ -43,7 +41,21 @@ def merge(leftSortedArr, rightSortedArr):
 
 
 def mergeSortIterative(nums):
-  pass
+  sortedArrays = [[n] for n in nums]
+  while len(sortedArrays) > 1:
+    nextSortedArrays = []
+    i = 0
+    prevSz = len(sortedArrays)
+    while i < (prevSz - 1):
+      leftSortedArr = sortedArrays[i]
+      rightSortedArr = sortedArrays[i + 1]
+      sortedArr = merge(leftSortedArr, rightSortedArr)
+      nextSortedArrays.append(sortedArr)
+      i += 2
+    if prevSz - i == 1:
+      nextSortedArrays.append(sortedArrays[-1])
+    sortedArrays = nextSortedArrays[:]
+  return sortedArrays[0]
 
 
 def mergeSortRecursive(nums):
