@@ -58,11 +58,11 @@ def searchMatrixRecursive(matrix, target, start, end):
   endI, endJ = end
   iSz = endI - startI
   jSz = endJ - startJ
-  if iSz == 0:
-    print(f"Found iSz = 0, jSz = {jSz}, start = {start}, end = {end}")
-  if jSz == 0:
-    print(f"Found iSz = {iSz}, jSz = 0, start = {start}, end = {end}")
   if iSz == 1 and jSz == 1:
+    return matrix[startI][startJ] == target
+  if iSz == 1 and jSz == 0:
+    return matrix[startI][startJ] == target
+  if iSz == 0 and jSz == 1:
     return matrix[startI][startJ] == target
   p = int((startI + endI)/2)
   q = int((startJ + endJ)/2)
