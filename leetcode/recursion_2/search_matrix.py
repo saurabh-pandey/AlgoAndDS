@@ -69,11 +69,9 @@ def searchMatrixRecursive(matrix, target, start, end):
   endI, endJ = end
   iSz = endI - startI
   jSz = endJ - startJ
+  assert iSz != 0
+  assert jSz != 0
   if iSz == 1 and jSz == 1:
-    return matrix[startI][startJ] == target
-  if iSz == 1 and jSz == 0:
-    return matrix[startI][startJ] == target
-  if iSz == 0 and jSz == 1:
     return matrix[startI][startJ] == target
   p = int((startI + endI)/2)
   q = int((startJ + endJ)/2)
@@ -96,6 +94,7 @@ def searchMatrixRecursive(matrix, target, start, end):
       if searchMatrixRecursive(matrix, target, newStart, newEnd):
         return True
   return False
+
 
 def searchMatrix(matrix, target):
   m = len(matrix)
