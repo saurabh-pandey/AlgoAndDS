@@ -34,3 +34,59 @@ class TestSearchMatrix:
     target = 40
     res = False
     assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_row_example1(self):
+    matrix = [[1,2,3,5,7,11,13,17]]
+    target = 2
+    res = True
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_row_example2(self):
+    matrix = [[1,2,3,5,7,11,13,17]]
+    target = 16
+    res = False
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_row_example3(self):
+    matrix = [[1,2,3,5,7,11,13,17]]
+    target = 0
+    res = False
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_row_example4(self):
+    matrix = [[1,2,3,5,7,11,13,17]]
+    target = 19
+    res = False
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_col_example1(self):
+    matrix = [[1],[2],[3],[5],[7],[11],[13],[17]]
+    target = 2
+    res = True
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_col_example2(self):
+    matrix = [[1],[2],[3],[5],[7],[11],[13],[17]]
+    target = 16
+    res = False
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_col_example3(self):
+    matrix = [[1],[2],[3],[5],[7],[11],[13],[17]]
+    target = 0
+    res = False
+    assert prob.searchMatrix(matrix, target) == res
+  
+
+  def test_col_example4(self):
+    matrix = [[1],[2],[3],[5],[7],[11],[13],[17]]
+    target = 19
+    res = False
+    assert prob.searchMatrix(matrix, target) == res

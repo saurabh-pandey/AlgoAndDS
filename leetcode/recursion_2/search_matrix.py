@@ -53,6 +53,17 @@ def getSmallerBounds(start, mid, end):
   return bounds
 
 
+def filterDegenerateBounds(bounds):
+  filteredBounds = []
+  for bound in bounds:
+    (sI, sJ), (eI, eJ) = bound
+    iSz = eI - sI
+    jSz = eJ - sJ
+    if iSz > 0 and jSz > 0:
+      filteredBounds.append(bound)
+  return filteredBounds
+
+
 def searchMatrixRecursive(matrix, target, start, end):
   startI, startJ = start
   endI, endJ = end
@@ -70,14 +81,16 @@ def searchMatrixRecursive(matrix, target, start, end):
     return True
   elif matrix[p][q] < target:
     # Ignore the top-left
-    matBounds = getLargerBounds(start, (p,q), end)
+    bounds = getLargerBounds(start, (p,q), end)
+    matBounds = filterDegenerateBounds(bounds)
     for bnd in matBounds:
       newStart, newEnd = bnd
       if searchMatrixRecursive(matrix, target, newStart, newEnd):
         return True
   else:
     # Ignore the bottom-right
-    matBounds = getSmallerBounds(start, (p,q), end)
+    bounds = getSmallerBounds(start, (p,q), end)
+    matBounds = filterDegenerateBounds(bounds)
     for bnd in matBounds:
       newStart, newEnd = bnd
       if searchMatrixRecursive(matrix, target, newStart, newEnd):
