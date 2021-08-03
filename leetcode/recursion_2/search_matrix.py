@@ -99,27 +99,42 @@ def searchMatrixRecursive(matrix, target, start, end):
 def searchBoundingCol(matrix, target, start, end):
   si, sj = start
   ei, ej = end
+  if sj == ej:
+    return (True, False, None)
   mj = int((sj + ej)/2)
-  minColVal = matrix[0][mj]
+  minColVal = matrix[si][mj]
   maxColVal = matrix[ei - 1][mj]
   if target == minColVal:
-    return (True, )
+    return (True, True, None)
   elif target < minColVal:
     return searchBoundingCol(matrix, target, start, (ei, mj))
   elif target == maxColVal:
-    return (True, )
-  elif target > minColVal:
-    return searchBoundingCol(matrix, target, (si, mj), end)
+    return (True, True, None)
+  elif target > maxColVal:
+    return searchBoundingCol(matrix, target, (si, mj + 1), end)
   else:
-    return (False, mj)
+    return (False, False, mj)
 
 
-def searchBoundingRows(matrix, target, col, iBounds):
-  pass
+def searchBoundingRows(matrix, target, col, rowBounds):
+  si, ei = rowBounds
+  for i in range(si, ei):
+    matVal = matrix[i][col]
+    if target == matVal:
+      return (True, None)
+    elif target < matVal:
+      return (False, i)
+  assert False, "Should not reach here"
 
 
-def getTwoSearchBounds(start, end, rows, col):
-  pass
+def getTwoSearchBounds(start, end, row, col):
+  bounds = []
+  si, sj = start
+  ei, ej = end
+  i = row
+  bounds.append(((si, col + 1), (i, ej)))
+  bounds.append(((i, sj), (ei, col)))
+  return bounds
 
 
 def twoSearchRecursive(matrix, target, start, end):
@@ -131,32 +146,37 @@ def twoSearchRecursive(matrix, target, start, end):
   assert jSz != 0
   if target < matrix[si][sj]:
     return False
-  if target > matrix[ei][ej]:
+  if target > matrix[ei-1][ej-1]:
     return False
   if iSz == 1 and jSz == 1:
     return matrix[si][sj] == target
   
-  found, col = searchBoundingCol(matrix, target, start, end)
+  found, res, col = searchBoundingCol(matrix, target, start, end)
   if found:
-    return True
+    return res
   
-  found, rMin, rMax = searchBoundingRows(matrix, target, col, (si, ei))
+  found, row = searchBoundingRows(matrix, target, col, (si, ei))
   if found:
     return True
 
-  twoSearchBnds = getTwoSearchBounds(start, end, (rMin, rMax), col)
-  for bounds in twoSearchBnds:
+  twoSearchBnds = getTwoSearchBounds(start, end, row, col)
+  matBounds = filterDegenerateBounds(twoSearchBnds)
+  for bounds in matBounds:
     newStart, newEnd = bounds
     if twoSearchRecursive(matrix, target, newStart, newEnd):
       return True
   return False
 
 
-def searchMatrix(matrix, target):
+def searchMatrix(matrix, target, useTwoSearch=True):
   m = len(matrix)
   if m == 0:
     return False
   n = len(matrix[0])
   if n == 0:
     return False
-  return searchMatrixRecursive(matrix, target, (0, 0), (m,n))
+  if useTwoSearch:
+    return twoSearchRecursive(matrix, target, (0, 0), (m,n))
+  else:
+    return searchMatrixRecursive(matrix, target, (0, 0), (m,n))
+  

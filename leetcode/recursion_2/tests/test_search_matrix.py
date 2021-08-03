@@ -12,6 +12,7 @@ class TestSearchMatrix:
     target = 5
     res = True
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_example2(self):
@@ -23,6 +24,7 @@ class TestSearchMatrix:
     target = 20
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_my_example1(self):
@@ -34,6 +36,7 @@ class TestSearchMatrix:
     target = 40
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_row_example1(self):
@@ -41,6 +44,7 @@ class TestSearchMatrix:
     target = 2
     res = True
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_row_example2(self):
@@ -48,6 +52,7 @@ class TestSearchMatrix:
     target = 16
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_row_example3(self):
@@ -55,6 +60,7 @@ class TestSearchMatrix:
     target = 0
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_row_example4(self):
@@ -62,6 +68,7 @@ class TestSearchMatrix:
     target = 19
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_col_example1(self):
@@ -69,6 +76,7 @@ class TestSearchMatrix:
     target = 2
     res = True
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_col_example2(self):
@@ -76,6 +84,7 @@ class TestSearchMatrix:
     target = 16
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_col_example3(self):
@@ -83,6 +92,7 @@ class TestSearchMatrix:
     target = 0
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
   
 
   def test_col_example4(self):
@@ -90,3 +100,4 @@ class TestSearchMatrix:
     target = 19
     res = False
     assert prob.searchMatrix(matrix, target) == res
+    assert prob.searchMatrix(matrix, target, False) == res
