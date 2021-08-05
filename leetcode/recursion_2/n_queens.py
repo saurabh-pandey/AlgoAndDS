@@ -39,14 +39,14 @@ class Queen:
     i = r + 1
     j = c - 1
     while i < self.n and j >= 0:
-      diagCells.add(i, j)
+      diagCells.add((i, j))
       i += 1
       j -= 1
     
     i = r - 1
     j = c + 1
     while i >= 0 and j < self.n:
-      diagCells.add(i, j)
+      diagCells.add((i, j))
       i -= 1
       j += 1
     
@@ -57,14 +57,14 @@ class Queen:
     i = r - 1
     j = c - 1
     while i >= 0 and j >= 0:
-      diagCells.add(i, j)
+      diagCells.add((i, j))
       i -= 1
       j -= 1
     
     i = r + 1
     j = c + 1
     while i < self.n and j < self.n:
-      diagCells.add(i, j)
+      diagCells.add((i, j))
       i += 1
       j += 1
     
@@ -85,16 +85,22 @@ def underAttack(r, c, queens):
   return False
 
 
-def backtrack_n_queens(row, n):
+def backtrack_n_queens(row, n, queens):
+  if row == n:
+    return 0
   solutions = 0
-  queens = []
   for col in range(n):
-    if not underAttack(row, col):
+    if not underAttack(row, col, queens):
       # add queen
-      queens.append(Queen(row, col))
+      queens.append(Queen(row, col, n))
       if len(queens) == n:
         solutions += 1
+      else:
+        solutions += backtrack_n_queens(row + 1, n, queens)
+      queens.pop()
+  return solutions
 
 
 def totalNQueens(n):
-  return backtrack_n_queens(0, n)
+  queens = []
+  return backtrack_n_queens(0, n, queens)
