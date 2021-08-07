@@ -44,7 +44,7 @@ def isCellFilled(board, cell):
   return board[i][j].isnumeric()
 
 
-def next(cell, n):
+def nextCell(cell, n):
   i, j = cell
   if j == n - 1:
     if i == n - 1:
@@ -57,17 +57,18 @@ def next(cell, n):
 
 def getNextEmptyCell(board, start):
   n = len(board)
-  nextCell = next(start, n)
-  while nextCell is not None:
-    if not isCellFilled(board, nextCell):
-      return nextCell
-    nextCell = next(nextCell, n)
+  nextC = nextCell(start, n)
+  while nextC is not None:
+    if not isCellFilled(board, nextC):
+      return nextC
+    nextC = nextCell(nextC, n)
   return None
 
 
 def foundMatchingInRow(num, row, board):
-  for n in range(board[row]):
-    if num == n:
+  n = len(board)
+  for i in range(n):
+    if isCellFilled(board, (row, i)) and num == int(board[row][i]):
       return True
   return False
 
@@ -90,7 +91,7 @@ def foundMatchingInSubGrid(num, cell, board):
   (si, sj), (ei, ej) = subGrid
   for i in range(si, ei + 1):
     for j in range(sj, ej + 1):
-      if num == board[i][j]:
+      if isCellFilled(board, (i, j)) and num == int(board[i][j]):
         return True
   return False    
 
@@ -98,7 +99,7 @@ def foundMatchingInSubGrid(num, cell, board):
 def foundMatchingInCol(num, col, board):
   n = len(board)
   for i in range(n):
-    if num == board[i][col]:
+    if isCellFilled(board, (i, col)) and num == int(board[i][col]):
       return True
   return False
 
@@ -119,7 +120,7 @@ def solveSudokuBacktrack(board, cell):
   i, j = emptyCell
   for num in range(1, 10):
     if isValid(num, emptyCell, board):
-      board[i][j] = num
+      board[i][j] = str(num)
       nextEmptyCell = getNextEmptyCell(board, emptyCell)
       if nextEmptyCell == None:
         return True
@@ -127,17 +128,9 @@ def solveSudokuBacktrack(board, cell):
         if solveSudokuBacktrack(board, nextEmptyCell):
           return True
         else:
-          # Try another number
-          continue
+          board[i][j] = "."
+  return False
 
 
 def solveSudoku(board):
-  # IDEA
-  # 1. Check if [1..9] could be added to a Cell i.e.
-  #   a. It should not be in that row
-  #   b. It should not be in that col
-  #   c. It should not be in that sub-grid (3x3)
-  # 2. If yes add
-  # 3. Move to next empty Cell and call recursively
-  # 4. Once all Cells done the board should be solved
   solveSudokuBacktrack(board, (0, 0))
