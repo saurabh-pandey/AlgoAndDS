@@ -12,6 +12,7 @@ class TestSameTree:
     pRoot = bTree.create(p)
     qRoot = bTree.create(q)
     assert prob.isSameTree(pRoot, qRoot) == res
+    assert prob.isSameTree(pRoot, qRoot, False) == res
   
 
   def test_example2(self):
@@ -21,6 +22,7 @@ class TestSameTree:
     pRoot = bTree.create(p)
     qRoot = bTree.create(q)
     assert prob.isSameTree(pRoot, qRoot) == res
+    assert prob.isSameTree(pRoot, qRoot, False) == res
   
 
   def test_example3(self):
@@ -30,3 +32,4 @@ class TestSameTree:
     pRoot = bTree.create(p)
     qRoot = bTree.create(q)
     assert prob.isSameTree(pRoot, qRoot) == res
+    assert prob.isSameTree(pRoot, qRoot, False) == res

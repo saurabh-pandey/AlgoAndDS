@@ -29,7 +29,28 @@ Constraints:
 The number of nodes in both trees is in the range [0, 100].
 -104 <= Node.val <= 104
 """
-def isSameTree(p, q):
+def isSameTreeIterative(p, q):
+  pStack = [p]
+  qStack = [q]
+  while len(pStack) > 0 and len(qStack) > 0:
+    currP = pStack.pop()
+    currQ = qStack.pop()
+    if currP is None and currQ is not None:
+      return False
+    elif currP is not None and currQ is None:
+      return False
+    elif currP is not None and currQ is not None:
+      if currP.val != currQ.val:
+        return False
+      pStack.append(currP.right)
+      pStack.append(currP.left)
+      qStack.append(currQ.right)
+      qStack.append(currQ.left)
+  return True
+
+
+
+def isSameTreeRecursive(p, q):
   if p is None and q is None:
     return True
   elif p is None and q is not None:
@@ -40,3 +61,10 @@ def isSameTree(p, q):
     if p.val != q.val:
       return False
     return isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
+
+
+def isSameTree(p, q, doRecursive = True):
+  if doRecursive:
+    return isSameTreeRecursive(p, q)
+  else:
+    return isSameTreeIterative(p, q)
