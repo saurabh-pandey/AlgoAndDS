@@ -7,4 +7,5 @@ class TestGenerateParentheses:
   def test_example1(self):
     n = 3
     res = ["((()))","(()())","(())()","()(())","()()()"]
-    print(prob.generateParenthesis(n))
+    # print(prob.generateParenthesis(1))
+    print(prob.generateParenthesis(2))
