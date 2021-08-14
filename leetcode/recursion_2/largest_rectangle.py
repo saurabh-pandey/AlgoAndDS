@@ -24,7 +24,7 @@ Constraints:
 1 <= heights.length <= 105
 0 <= heights[i] <= 104
 """
-def largestRectangleArea(heights):
+def largestRectangle_bruteForce(heights):
   l = len(heights)
   maxArea = 0
   for i in range(l):
@@ -36,3 +36,28 @@ def largestRectangleArea(heights):
       newArea = minHeight * (j - i + 1)
       maxArea = newArea if newArea > maxArea else maxArea
   return maxArea
+
+
+def largestRectangle_improved(heights):
+  l = len(heights)
+  maxArea = 0
+  for i in range(l):
+    currHeight = heights[i]
+    if i != 0 and heights[i-1] == currHeight:
+      continue
+    currArea = heights[i]
+    id = i - 1
+    while id >= 0 and heights[id] >= currHeight:
+      currArea += currHeight
+      id -= 1
+    id = i + 1
+    while id < l and heights[id] >= currHeight:
+      currArea += currHeight
+      id += 1
+    maxArea = currArea if currArea > maxArea else maxArea
+  return maxArea
+
+
+def largestRectangleArea(heights):
+  # return largestRectangle_bruteForce(heights)
+  return largestRectangle_improved(heights)
