@@ -44,6 +44,32 @@ Constraints:
 1 <= heighti <= 231 - 1
 buildings is sorted by lefti in non-decreasing order.
 """
+from operator import itemgetter
+
+
+def filterDuplicates(buildings):
+  l = len(buildings)
+  assert l > 0
+  uniqueBuildings = [buildings[0]]
+  for i in range(1, l):
+    x1, x2, h = buildings[i]
+    prevX1, prevX2, prevH = buildings[i - 1]
+    if (x1 != prevX1) or (x2 != prevX2) or (h != prevH):
+      uniqueBuildings.append(buildings[i])
+  return uniqueBuildings
+
+
+def filterNonParticipating(buildings):
+  l = len(buildings)
+  assert l > 0
+  participatingBuildings = []
+  for i in range(l):
+    pass
+
+  return participatingBuildings
+
+
+
 def getSkyline(buildings):
   skyline = []
   #IDEAS
@@ -51,4 +77,11 @@ def getSkyline(buildings):
   # 2. Case 1: Both outside means they are part of silhouette
   # 3. Case 2: One outside means they are intersection and out pt are used
   # 4. Case 3: Both inside means ignore
+  l = len(buildings)
+  assert l > 0
+  clonedBuildings = buildings[:]
+  clonedBuildings.sort(key=itemgetter(0,1,2))
+  uniqueBuildings = filterDuplicates(clonedBuildings)
+  finalBuildings = filterNonParticipating(uniqueBuildings)
+  # Now it seems we can apply some algo (D & C ?) to solve
   return skyline
