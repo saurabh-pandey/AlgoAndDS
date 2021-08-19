@@ -65,9 +65,50 @@ def filterNonParticipating(buildings):
   participatingBuildings = []
   for i in range(l):
     pass
-
   return participatingBuildings
 
+
+def mergeSkyline(left, right, skyline):
+  if len(left) == 0:
+    skyline.extend(right)
+    return
+  if len(right) == 0:
+    skyline.extend(left)
+    return
+  # l1, l2, lh = left[-1]
+  skyline.extend(left)
+  i = 0
+  while i < len(right):
+    r1, r2, rh = right[i]
+    l1, l2, lh = skyline[-1]
+    if r1 > l2:
+      skyline.append([l2, r1, 0])
+      break
+    elif r1 <= l2:
+      if lh > rh:
+        #Case 1
+        pass
+      elif lh == rh:
+        #Case 2
+        pass
+      else:
+        #Case rh > lh
+        pass
+    
+
+
+def getSkylineRecursive(buildings, skyline):
+  l = len(buildings)
+  if l == 0:
+    return
+  if l == 1:
+    skyline.append(buildings[0])
+    return
+  leftSkyline = []
+  getSkylineRecursive(buildings[0:int(l/2)], leftSkyline)
+  rightSkyline = []
+  getSkylineRecursive(buildings[int(l/2):], rightSkyline)
+  mergeSkyline(leftSkyline, rightSkyline, skyline)
 
 
 def getSkyline(buildings):
@@ -77,6 +118,12 @@ def getSkyline(buildings):
   # 2. Case 1: Both outside means they are part of silhouette
   # 3. Case 2: One outside means they are intersection and out pt are used
   # 4. Case 3: Both inside means ignore
+
+  # Another idea is as follows:
+  # - Filter all congruent buildings except one
+  # - Filter all buildings completely inside the other as they don't participate in the skyline
+  # - Also sort all building based on left, right and height
+  # - Finally in D & C merge two skylines
   l = len(buildings)
   assert l > 0
   clonedBuildings = buildings[:]
