@@ -55,7 +55,7 @@ def isPerfectSquare(n):
 
 
 def numSquares(n):
-  # pdb.set_trace()
+  # Another idea is to use backtracking for this
   assert n >= 0
   sol = [1,2,3,1]
   for num in range(5, n + 1):
