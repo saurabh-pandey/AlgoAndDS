@@ -111,6 +111,16 @@ def getSkylineRecursive(buildings, skyline):
   mergeSkyline(leftSkyline, rightSkyline, skyline)
 
 
+def splitbuildings(buildings):
+  pass
+
+def getSkylineD_C(buildings):
+  # even split buildings[0:n/2] and buildings[n/2:]
+  # stop at length 1
+  # Now create skyline with a list [x1, x2, h]
+  # Finally merge skylines 
+  pass
+
 def getSkyline(buildings):
   skyline = []
   #IDEAS
