@@ -59,15 +59,6 @@ def filterDuplicates(buildings):
   return uniqueBuildings
 
 
-def filterNonParticipating(buildings):
-  l = len(buildings)
-  assert l > 0
-  participatingBuildings = []
-  for i in range(l):
-    pass
-  return participatingBuildings
-
-
 def mergeSkyline(left, right, skyline):
   if len(left) == 0:
     skyline.extend(right)
@@ -75,25 +66,41 @@ def mergeSkyline(left, right, skyline):
   if len(right) == 0:
     skyline.extend(left)
     return
-  # l1, l2, lh = left[-1]
   skyline.extend(left)
-  i = 0
-  while i < len(right):
-    r1, r2, rh = right[i]
-    l1, l2, lh = skyline[-1]
-    if r1 > l2:
-      skyline.append([l2, r1, 0])
-      break
-    elif r1 <= l2:
-      if lh > rh:
-        #Case 1
-        pass
-      elif lh == rh:
-        #Case 2
-        pass
+  _, l2, lh = skyline[-1]
+  
+  r1, r2, rh = right[0]
+  if r1 > l2:
+    skyline.append([l2, r1, 0])
+    skyline.extend(right)
+  elif r1 == l2:
+    if lh == rh:
+      # Merge
+      skyline[-1][1] = r2
+      if len(right) > 1:
+        skyline.extend(right[1:])
+    else:
+      skyline.extend(right)
+  else: # r1 < l2
+    i = 0
+    while i < len(right):
+      r1, r2, rh = right[i]
+      if r1 >= l2:
+        break
       else:
-        #Case rh > lh
-        pass
+        if lh == rh and r2 > l2:
+          skyline[-1][1] = r2
+        elif lh > rh:
+          if r2 > l2:
+            skyline.append([l2, r2, rh])
+          elif skyline[-1][1] == r1:
+            skyline.append([r1, r2, lh])
+        elif lh < rh:
+          skyline[-1][1] = r1
+          skyline.append([r1, r2, rh])
+      i += 1
+    if i < len(right):
+      skyline.extend(right[i:])
     
 
 
@@ -111,34 +118,12 @@ def getSkylineRecursive(buildings, skyline):
   mergeSkyline(leftSkyline, rightSkyline, skyline)
 
 
-def splitbuildings(buildings):
-  pass
-
-def getSkylineD_C(buildings):
-  # even split buildings[0:n/2] and buildings[n/2:]
-  # stop at length 1
-  # Now create skyline with a list [x1, x2, h]
-  # Finally merge skylines 
-  pass
-
 def getSkyline(buildings):
   skyline = []
-  #IDEAS
-  # 1. Find all corners and check if they are inside or outside
-  # 2. Case 1: Both outside means they are part of silhouette
-  # 3. Case 2: One outside means they are intersection and out pt are used
-  # 4. Case 3: Both inside means ignore
-
-  # Another idea is as follows:
-  # - Filter all congruent buildings except one
-  # - Filter all buildings completely inside the other as they don't participate in the skyline
-  # - Also sort all building based on left, right and height
-  # - Finally in D & C merge two skylines
   l = len(buildings)
   assert l > 0
   clonedBuildings = buildings[:]
   clonedBuildings.sort(key=itemgetter(0,1,2))
   uniqueBuildings = filterDuplicates(clonedBuildings)
-  finalBuildings = filterNonParticipating(uniqueBuildings)
-  # Now it seems we can apply some algo (D & C ?) to solve
+  getSkylineRecursive(uniqueBuildings, skyline)
   return skyline
