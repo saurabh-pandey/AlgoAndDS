@@ -60,6 +60,11 @@ def filterDuplicates(buildings):
 
 
 def mergeSkyline(left, right, skyline):
+  # IDEA
+  # For merge one idea is to not combine the same height buildings here. They could be combined as 
+  # a next step. This probably would make this code simpler
+  # NOTE: Also here we are not taking care of the case where r1 < l2 and also r2 < l2. Then a part 
+  # of the left building would be left-over in the skyline.
   if len(left) == 0:
     skyline.extend(right)
     return
