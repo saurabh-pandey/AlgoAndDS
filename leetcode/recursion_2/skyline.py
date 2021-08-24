@@ -71,42 +71,51 @@ def mergeSkyline(left, right, skyline):
   if len(right) == 0:
     skyline.extend(left)
     return
-  skyline.extend(left)
-  _, l2, lh = skyline[-1]
   
+  skyline.extend(left[:-1])
+  l1, l2, lh = left[-1]
   r1, r2, rh = right[0]
-  if r1 > l2:
-    skyline.append([l2, r1, 0])
+  if r1 >= l2:
+    skyline.append([l1, l2, lh])
+    if r1 > l2:
+      skyline.append([l2, r1, 0])
     skyline.extend(right)
-  elif r1 == l2:
-    if lh == rh:
-      # Merge
-      skyline[-1][1] = r2
-      if len(right) > 1:
-        skyline.extend(right[1:])
-    else:
-      skyline.extend(right)
   else: # r1 < l2
+    if r1 > l1:
+      skyline.append([l1, r1, lh])
     i = 0
     while i < len(right):
       r1, r2, rh = right[i]
       if r1 >= l2:
         break
-      else:
-        if lh == rh and r2 > l2:
-          skyline[-1][1] = r2
-        elif lh > rh:
-          if r2 > l2:
-            skyline.append([l2, r2, rh])
-          elif skyline[-1][1] == r1:
-            skyline.append([r1, r2, lh])
-        elif lh < rh:
-          skyline[-1][1] = r1
+      elif r2 <= l2: # and l1 <= r1 < l2
+        if rh > lh:
           skyline.append([r1, r2, rh])
+        else:
+          skyline.append([r1, r2, lh])
+      else: # r2 > l2 and l1 <= r1 < l2
+        if rh > lh:
+          skyline.append([r1, r2, rh])
+        else:
+          skyline.append([r1, l2, lh])
+          skyline.append([l2, r2, rh])
       i += 1
     if i < len(right):
       skyline.extend(right[i:])
+    if right[-1][1] < l2:
+      skyline.append([right[-1][1], l2, lh])
     
+
+
+def combineEqualHeight(skyline):
+  i = 1
+  while i < len(skyline):
+    if skyline[i - 1][2] == skyline[i][2]:
+      assert skyline[i][1] > skyline[i-1][1]
+      skyline[i-1][1] = skyline[i][1]
+      skyline.pop(i)
+    else:
+      i += 1
 
 
 def getSkylineRecursive(buildings, skyline):
@@ -121,14 +130,28 @@ def getSkylineRecursive(buildings, skyline):
   rightSkyline = []
   getSkylineRecursive(buildings[int(l/2):], rightSkyline)
   mergeSkyline(leftSkyline, rightSkyline, skyline)
+  combineEqualHeight(skyline)
 
 
-def getSkyline(buildings):
-  skyline = []
+def getKeyPoints(skyline):
+  keypoints = []
+  for s in skyline:
+    keypoints.append([s[0], s[2]])
+  keypoints.append([skyline[-1][1], 0])
+  return keypoints
+
+def getSkylineBuildings(buildings):
+  skylineBuildings = []
   l = len(buildings)
   assert l > 0
   clonedBuildings = buildings[:]
   clonedBuildings.sort(key=itemgetter(0,1,2))
   uniqueBuildings = filterDuplicates(clonedBuildings)
-  getSkylineRecursive(uniqueBuildings, skyline)
-  return skyline
+  getSkylineRecursive(uniqueBuildings, skylineBuildings)
+  return skylineBuildings
+
+
+def getSkyline(buildings):
+  skylineBuildings = getSkylineBuildings(buildings)
+  keypoints = getKeyPoints(skylineBuildings)
+  return keypoints
