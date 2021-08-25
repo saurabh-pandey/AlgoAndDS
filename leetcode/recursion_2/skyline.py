@@ -44,6 +44,7 @@ Constraints:
 1 <= heighti <= 231 - 1
 buildings is sorted by lefti in non-decreasing order.
 """
+import pdb
 from operator import itemgetter
 
 
@@ -71,16 +72,40 @@ def mergeSkyline(left, right, skyline):
   if len(right) == 0:
     skyline.extend(left)
     return
-  
-  skyline.extend(left[:-1])
-  l1, l2, lh = left[-1]
-  r1, r2, rh = right[0]
-  if r1 >= l2:
-    skyline.append([l1, l2, lh])
-    if r1 > l2:
-      skyline.append([l2, r1, 0])
+  leftmostRight = right[0][0]
+  rightmostLeft = left[-1][1]
+  if leftmostRight >= rightmostLeft:
+    skyline.extend(left)
+    if leftmostRight > rightmostLeft:
+      skyline.extend(rightmostLeft, leftmostRight, 0)
     skyline.extend(right)
-  else: # r1 < l2
+  else: # leftmostRight < rightmostLeft
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+      l1, l2, lh = left[i]
+      r1, r2, rh = right[i]
+      skylineEndpoint = skyline[-1][1] if len(skyline) > 0 else left[0][0]
+      if r1 >= l2:
+        if r1 > l2:
+          skyline.append([l1, l2, lh])
+        i += 1
+      else: # r1 < l2
+        if r1 > l1:
+          skyline.append([l1, r1, lh])
+        if r2 <= l2:
+          if rh > lh:
+            skyline.append([r1, r2, rh])
+          else:
+            skyline.append([r1, r2, lh])
+          j += 1
+        else: # r2 > l2
+          if rh > lh:
+            skyline.append([r1, l2, rh])
+          else:
+            skyline.append([r1, l2, lh])
+          i += 1
+    
     if r1 > l1:
       skyline.append([l1, r1, lh])
     i = 0
@@ -147,6 +172,7 @@ def getSkylineBuildings(buildings):
   clonedBuildings = buildings[:]
   clonedBuildings.sort(key=itemgetter(0,1,2))
   uniqueBuildings = filterDuplicates(clonedBuildings)
+  # pdb.set_trace()
   getSkylineRecursive(uniqueBuildings, skylineBuildings)
   return skylineBuildings
 
