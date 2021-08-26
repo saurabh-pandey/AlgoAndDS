@@ -6,8 +6,13 @@ class TestSkyline:
   def test_example1(self):
     buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]
     res = [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]
-    print(prob.getSkylineBuildings(buildings))
-    # assert prob.getSkyline(buildings) == res
+    # print(prob.getSkylineBuildings(buildings))
+    assert prob.getSkyline(buildings) == res
+  
+  def test_example2(self):
+    buildings = [[0,2,3],[2,5,3]]
+    res = [[0,3],[5,0]]
+    assert prob.getSkyline(buildings) == res
 
   def test_single(self):
     buildings = [[1,3,4]]
@@ -59,4 +64,17 @@ class TestSkyline:
   def test_one_in_backdrop(self):
     buildings = [[1,10,4], [2,3,2], [3,5,6], [6,8,4], [8,9,7]]
     res = [[1,3,4], [3,5,6], [5,8,4], [8,9,7], [9,10,4]]
+    # print(prob.getSkylineBuildings(buildings))
     assert prob.getSkylineBuildings(buildings) == res
+  
+  def test_left_leftover(self):
+    buildings = [[1,10,4], [3,8,7], [4,6,5], [6,8,3]]
+    res = [[1,3,4], [3,8,7], [8,10,4]]
+    # print(prob.getSkylineBuildings(buildings))
+    assert prob.getSkylineBuildings(buildings) == res
+  
+  def test_lc1(self):
+    buildings = [[2,14,4],[4,8,8],[6,16,4]]
+    res = [[2,4],[4,8],[8,4],[16,0]]
+    # print(prob.getSkylineBuildings(buildings))
+    assert prob.getSkyline(buildings) == res

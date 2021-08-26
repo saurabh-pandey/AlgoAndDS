@@ -60,12 +60,12 @@ def filterDuplicates(buildings):
   return uniqueBuildings
 
 
+def getEndPoint(skyline, left):
+  return skyline[-1][1] if len(skyline) > 0 else left[0][0]
+
+
+
 def mergeSkyline(left, right, skyline):
-  # IDEA
-  # For merge one idea is to not combine the same height buildings here. They could be combined as 
-  # a next step. This probably would make this code simpler
-  # NOTE: Also here we are not taking care of the case where r1 < l2 and also r2 < l2. Then a part 
-  # of the left building would be left-over in the skyline.
   if len(left) == 0:
     skyline.extend(right)
     return
@@ -77,58 +77,49 @@ def mergeSkyline(left, right, skyline):
   if leftmostRight >= rightmostLeft:
     skyline.extend(left)
     if leftmostRight > rightmostLeft:
-      skyline.extend(rightmostLeft, leftmostRight, 0)
+      skyline.append([rightmostLeft, leftmostRight, 0])
     skyline.extend(right)
   else: # leftmostRight < rightmostLeft
     i = 0
     j = 0
     while i < len(left) and j < len(right):
       l1, l2, lh = left[i]
-      r1, r2, rh = right[i]
-      skylineEndpoint = skyline[-1][1] if len(skyline) > 0 else left[0][0]
+      r1, r2, rh = right[j]
       if r1 >= l2:
         if r1 > l2:
-          skyline.append([l1, l2, lh])
+          skyline.append([getEndPoint(skyline, left), l2, lh])
         i += 1
       else: # r1 < l2
-        if r1 > l1:
-          skyline.append([l1, r1, lh])
+        if r1 > getEndPoint(skyline, left):
+          skyline.append([getEndPoint(skyline, left), r1, lh])
         if r2 <= l2:
           if rh > lh:
-            skyline.append([r1, r2, rh])
+            skyline.append([getEndPoint(skyline, left), r2, rh])
           else:
-            skyline.append([r1, r2, lh])
+            skyline.append([getEndPoint(skyline, left), r2, lh])
           j += 1
+          if r2 == l2:
+            i += 1
         else: # r2 > l2
           if rh > lh:
-            skyline.append([r1, l2, rh])
+            skyline.append([getEndPoint(skyline, left), l2, rh])
           else:
-            skyline.append([r1, l2, lh])
+            skyline.append([getEndPoint(skyline, left), l2, lh])
           i += 1
-    
-    if r1 > l1:
-      skyline.append([l1, r1, lh])
-    i = 0
-    while i < len(right):
-      r1, r2, rh = right[i]
-      if r1 >= l2:
-        break
-      elif r2 <= l2: # and l1 <= r1 < l2
-        if rh > lh:
-          skyline.append([r1, r2, rh])
-        else:
-          skyline.append([r1, r2, lh])
-      else: # r2 > l2 and l1 <= r1 < l2
-        if rh > lh:
-          skyline.append([r1, r2, rh])
-        else:
-          skyline.append([r1, l2, lh])
-          skyline.append([l2, r2, rh])
-      i += 1
-    if i < len(right):
-      skyline.extend(right[i:])
-    if right[-1][1] < l2:
-      skyline.append([right[-1][1], l2, lh])
+    if j < len(right):
+      ep = getEndPoint(skyline, left)
+      if ep == right[j][0]:
+        skyline.extend(right[j:])
+      elif ep < right[j][1]:
+        skyline.append([ep, right[j][1], right[j][2]])
+        skyline.extend(right[j + 1:])
+    if i < len(left):
+      ep = getEndPoint(skyline, left)
+      if ep == left[i][0]:
+        skyline.extend(left[i:])
+      elif ep < left[i][1]:
+        skyline.append([ep, left[i][1], left[i][2]])
+        skyline.extend(left[i + 1:])
     
 
 
@@ -136,7 +127,7 @@ def combineEqualHeight(skyline):
   i = 1
   while i < len(skyline):
     if skyline[i - 1][2] == skyline[i][2]:
-      assert skyline[i][1] > skyline[i-1][1]
+      assert skyline[i][1] > skyline[i-1][1], skyline
       skyline[i-1][1] = skyline[i][1]
       skyline.pop(i)
     else:
