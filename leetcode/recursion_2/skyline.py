@@ -86,8 +86,7 @@ def mergeSkyline(left, right, skyline):
       l1, l2, lh = left[i]
       r1, r2, rh = right[j]
       if r1 >= l2:
-        if r1 > l2:
-          skyline.append([getEndPoint(skyline, left), l2, lh])
+        skyline.append([getEndPoint(skyline, left), l2, lh])
         i += 1
       else: # r1 < l2
         if r1 > getEndPoint(skyline, left):
@@ -156,6 +155,7 @@ def getKeyPoints(skyline):
   keypoints.append([skyline[-1][1], 0])
   return keypoints
 
+
 def getSkylineBuildings(buildings):
   skylineBuildings = []
   l = len(buildings)
@@ -163,7 +163,6 @@ def getSkylineBuildings(buildings):
   clonedBuildings = buildings[:]
   clonedBuildings.sort(key=itemgetter(0,1,2))
   uniqueBuildings = filterDuplicates(clonedBuildings)
-  # pdb.set_trace()
   getSkylineRecursive(uniqueBuildings, skylineBuildings)
   return skylineBuildings
 
