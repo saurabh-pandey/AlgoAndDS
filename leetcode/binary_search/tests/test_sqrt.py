@@ -16,12 +16,12 @@ class TestSqrt:
     assert prob.mySqrt(x) == res
   
   def test_some(self):
-    nums = [i for i in range(1000)]
-    sqrts = [int(math.sqrt(n)) for n in nums]
-    for i in range(len(nums)):
-      assert prob.mySqrt(nums[i]) == sqrts[i], "Failed for " + str(nums[i])
+    nums = 1000
+    sqrts = [int(math.sqrt(i)) for i in range(nums)]
+    for i in range(nums):
+      assert prob.mySqrt(i) == sqrts[i], "Failed for " + str(i)
   
   def test_large(self):
     x = 2000000
-    res = 1414
+    res = int(math.sqrt(x))
     assert prob.mySqrt(x) == res
