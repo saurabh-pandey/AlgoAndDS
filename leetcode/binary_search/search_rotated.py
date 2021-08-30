@@ -47,7 +47,7 @@ def search_rotated(nums, target):
       pivot_index = i + 1
       break
   start = 0
-  end = l
+  end = l - 1
   while end >= start:
     mid = (start + end)//2
     num_index = (mid + pivot_index) % l
