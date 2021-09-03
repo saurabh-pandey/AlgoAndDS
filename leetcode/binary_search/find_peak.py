@@ -29,7 +29,7 @@ Constraints:
 -231 <= nums[i] <= 231 - 1
 nums[i] != nums[i + 1] for all valid i.
 """
-def findPeakElement(nums):
+def findPeakElement_v1(nums):
   l = len(nums)
   start = 0
   end = l - 1
@@ -57,3 +57,36 @@ def findPeakElement(nums):
       return l - 1
 
   return -1
+
+
+def findPeakElement_v2(nums):
+  l = len(nums)
+  if l == 0:
+    return -1
+  elif l == 1:
+    return 0
+  start = 0
+  end = l - 1
+  while start + 1 < end:
+    mid = (start + end)//2
+    if nums[mid] > nums[mid - 1]:
+      if nums[mid] > nums[mid + 1]:
+        return mid
+      else:
+        start = mid
+    else:
+      end = mid
+  
+  if nums[start] > nums[end]:
+    return start
+  elif nums[start] < nums[end]:
+    return end
+  return -1
+
+
+def findPeakElement(nums, use_v1 = False):
+  if use_v1:
+    return findPeakElement_v1(nums)
+  else:
+    return findPeakElement_v2(nums)
+  

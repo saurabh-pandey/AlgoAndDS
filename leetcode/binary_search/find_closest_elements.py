@@ -59,10 +59,8 @@ def findClosestElements(arr, k, x):
   if sz == 0 or k == 0:
     return []
   target = nearestToTarget(arr, x)
-  print(f'\nTarget = {target}')
   i = target
   j = target
-  # pdb.set_trace()
   while i > -1 and j < sz and j - i + 1 < k:
     if i == 0:
       j += 1
