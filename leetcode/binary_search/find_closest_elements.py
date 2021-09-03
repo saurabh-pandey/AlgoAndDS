@@ -32,15 +32,26 @@ import pdb
 def nearestToTarget(arr, x):
   start = 0
   end = len(arr) - 1
-  while start < end:
+  while start + 1 < end:
     mid = (start + end)//2
     if arr[mid] == x:
       return mid
     elif arr[mid] < x:
-      start = mid + 1
+      start = mid
     else: # arr[mid] > x
-      end = mid - 1
-  return start
+      end = mid
+  
+  dist_start = abs(arr[start] - x)
+  dist_end = abs(arr[end] - x)
+  if dist_start == dist_end:
+    if arr[start] <= arr[end]:
+      return start
+    else:
+      return end
+  elif dist_start < dist_end:
+    return start
+  else: # dist_start < dist_end
+    return end
   
 
 def findClosestElements(arr, k, x):
