@@ -31,6 +31,19 @@ Constraints:
 """
 import math
 
+def abs_power_recursive(x, n):
+  assert x > 0
+  if n == 0:
+    return 1
+  
+  result = abs_power_recursive(x, n//2)
+  result = result*result
+  if n % 2 != 0:
+    result = x * result
+  return result
+
+
+
 def abs_power(x, n):
   abs_x = abs(x)
   exp = math.log10(abs_x)
@@ -49,7 +62,8 @@ def abs_power(x, n):
     return result
 
 def power(x, n):
-  abs_pow = abs_power(x,n)
+  # abs_pow = abs_power(x,n)
+  abs_pow = abs_power_recursive(abs(x),n)
   if x < 0:
     if n%2 == 0:
       return abs_pow
