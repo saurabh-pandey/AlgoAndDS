@@ -41,14 +41,7 @@ def findMin(nums):
     return nums[0]
   if nums[0] < nums[l - 1]:
     return nums[0]
-  start = 0
-  end = l
-  while start < end:
-    mid = (start + end)//2
-    if nums[mid] < nums[0]:
-      end = mid
-    else:
-      if nums[mid + 1] < nums[mid]:
-        return nums[mid + 1]
-      else:
-        start = mid + 1
+  for i in range(l - 1):
+    if nums[i] > nums[i+1]:
+      return nums[i + 1]
+  return nums[0]
