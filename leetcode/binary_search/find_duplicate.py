@@ -64,8 +64,25 @@ def findDuplicate_n(nums):
       return n
     marker[n - 1] = True
 
+def findDuplicate_best(nums):
+  l = len(nums)
+  assert l > 0
+  fast = nums[0]
+  slow = nums[0]
+  while True:
+    fast = nums[nums[fast]]
+    slow = nums[slow]
+    if fast == slow:
+      break
+  slow = nums[0]
+  while slow != fast:
+    slow = nums[slow]
+    fast = nums[fast]
+  return slow
+
 
 
 def findDuplicate(nums):
   # return findDuplicate_bf(nums)
-  return findDuplicate_n(nums)
+  # return findDuplicate_n(nums)
+  return findDuplicate_best(nums)
