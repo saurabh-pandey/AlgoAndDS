@@ -86,4 +86,9 @@ def merge_find_median(nums1, nums2):
 
 
 def findMedianSortedArrays(nums1, nums2):
+  """
+  This function is O(m + n) and we should do it in O(log(m+n)) so the algo could be improved. Just 
+  by looking at the runtime it seems we need to effectively perform some kind of binary search on 
+  the merge array without actually merging. This is because merging itself takes O(m + n).
+  """
   return merge_find_median(nums1, nums2)
