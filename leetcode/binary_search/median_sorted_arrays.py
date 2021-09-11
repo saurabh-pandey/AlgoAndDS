@@ -85,6 +85,31 @@ def merge_find_median(nums1, nums2):
     return nums[i]
 
 
+def findMedianSortedArraysBinSearch(nums1, nums2):
+  """
+  Some ideas:
+  1. Let m = len(nums1) and n = len(nums2)
+  2. Let m <= n
+  3. Now if m == 0 then median is in n only
+  4. Median would be ~ (m + n)/2 index
+  5. Let N = (m + n)/2
+  6. Goal is to try to partition both the array such that:
+    6.1. Total elements on the left of partition is N
+    6.2. All left elements (in both arrays) are less than or equal to right elements
+    6.3. Above would mean that suppose the partition is at x1, x2 in nums1 and y1, y2 in nums2 then 
+    following inequality is true: x1 <= y2 and y1 <= x2
+  7. In order to achieve above goal assume that all elements are from nums1 and if needed then from 
+  nums2
+  8. Now (7) would give the initial partition and from here onwards we start with the following 
+  algo:
+    8.1. start = 0, end = m - 1
+    8.1. If (6.3) is not satisfied and start <= end
+    8.2. mid = (start + end)/2 where start is start of left
+  """
+  pass
+
+
+
 def findMedianSortedArrays(nums1, nums2):
   """
   This function is O(m + n) and we should do it in O(log(m+n)) so the algo could be improved. Just 
