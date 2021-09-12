@@ -106,7 +106,27 @@ def findMedianSortedArraysBinSearch(nums1, nums2):
     8.1. If (6.3) is not satisfied and start <= end
     8.2. mid = (start + end)/2 where start is start of left
   """
-  pass
+  m = len(nums1)
+  n = len(nums2)
+  X = nums1
+  Y = nums2
+  if m > n:
+    X = nums2
+    Y = nums1
+  m = len(X)
+  n = len(Y)
+  if m == 0 and n == 0:
+    return None
+  elif m == 0:
+    mid = n // 2
+    if n % 2 == 0:
+      return (Y[mid - 1] + Y[mid])/2
+    else:
+      return Y[mid]
+  else:
+    # Here m and n are not empty and m <= n
+    pass
+
 
 
 
