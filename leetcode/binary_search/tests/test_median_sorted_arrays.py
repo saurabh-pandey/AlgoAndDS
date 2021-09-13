@@ -33,3 +33,27 @@ class TestMedianSortedArrays:
     nums2 = []
     res = 2.0
     assert math.isclose(prob.findMedianSortedArrays(nums1, nums2), res)
+  
+  def test_my_example1(self):
+    nums1 = [1,2,3,4,5]
+    nums2 = []
+    res = 3.0
+    assert math.isclose(prob.findMedianSortedArrays(nums1, nums2), res)
+  
+  def test_my_example2(self):
+    nums1 = [1,2,3,4,5,6]
+    nums2 = []
+    res = 3.5
+    assert math.isclose(prob.findMedianSortedArrays(nums1, nums2), res)
+  
+  def test_my_example3(self):
+    nums1 = []
+    nums2 = [1,2,3,4,5]
+    res = 3.0
+    assert math.isclose(prob.findMedianSortedArrays(nums1, nums2), res)
+  
+  def test_my_example4(self):
+    nums1 = []
+    nums2 = [1,2,3,4,5,6]
+    res = 3.5
+    assert math.isclose(prob.findMedianSortedArrays(nums1, nums2), res)

@@ -125,15 +125,34 @@ def findMedianSortedArraysBinSearch(nums1, nums2):
       return Y[mid]
   else:
     # Here m and n are not empty and m <= n
-    pass
+    total_len = m + n
+    N = total_len//2 if total_len % 2 == 0 else (total_len + 1)//2
+    x_part = N if N <= m else m
+    y_part = 0 if N <= m else N - m
+    start = 0
+    end = x_part
+    while start < end:
+      x1 = None if x_part == 0 else nums1[x_part - 1]
+      x2 = None if x_part == m else nums1[x_part]
+      y1 = None if y_part == 0 else nums2[y_part - 1]
+      y2 = None if y_part == n else nums2[y_part]
+      x_part_valid = True
+      if x1 is not None and y2 is not None:
+        if x1 > y2:
+          x_part_valid = False
+      if x2 is not None and y1 is not None:
+        if y1 > x2:
+          x_part_valid = False
+      if not x_part_valid:
+        mid = (start + end)//2
+        
+
+      
+
 
 
 
 
 def findMedianSortedArrays(nums1, nums2):
-  """
-  This function is O(m + n) and we should do it in O(log(m+n)) so the algo could be improved. Just 
-  by looking at the runtime it seems we need to effectively perform some kind of binary search on 
-  the merge array without actually merging. This is because merging itself takes O(m + n).
-  """
-  return merge_find_median(nums1, nums2)
+  # return merge_find_median(nums1, nums2)
+  return findMedianSortedArraysBinSearch(nums1, nums2)
