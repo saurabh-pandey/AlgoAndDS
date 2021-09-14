@@ -47,6 +47,9 @@ nums2.length == n
 1 <= m + n <= 2000
 -106 <= nums1[i], nums2[i] <= 106
 """
+import sys
+
+
 def merge_sorted(nums1, nums2):
   l1 = len(nums1)
   l2 = len(nums2)
@@ -126,7 +129,8 @@ def findMedianSortedArraysBinSearch(nums1, nums2):
   else:
     # Here m and n are not empty and m <= n
     total_len = m + n
-    N = total_len//2 if total_len % 2 == 0 else (total_len + 1)//2
+    isSizeEven = total_len % 2 == 0
+    N = total_len//2 if isSizeEven else (total_len + 1)//2
     x_part = N if N <= m else m
     y_part = 0 if N <= m else N - m
     start = 0
@@ -140,15 +144,36 @@ def findMedianSortedArraysBinSearch(nums1, nums2):
       if x1 is not None and y2 is not None:
         if x1 > y2:
           x_part_valid = False
+      y_part_valid = True
       if x2 is not None and y1 is not None:
         if y1 > x2:
-          x_part_valid = False
+          y_part_valid = False
+      # In this case we shrink X
       if not x_part_valid:
         mid = (start + end)//2
-        
-
-      
-
+        x_part = mid
+        y_part += end - mid
+        end = mid
+      # In this case we expand X
+      if not y_part_valid:
+        mid = (end + m)//2
+        x_part = mid
+        y_part -= end - mid
+        end = mid
+    
+    # Once here we have a valid x_part and y_part
+    minint = -sys.maxsize - 1
+    maxint = sys.maxsize
+    x1 = minint if x_part == 0 else nums1[x_part - 1]
+    x2 = maxint if x_part == m else nums1[x_part]
+    y1 = minint if y_part == 0 else nums2[y_part - 1]
+    y2 = maxint if y_part == n else nums2[y_part]
+    if isSizeEven:
+      # Median is avg of max(x1, y1) and min(x2, y2)
+      return (max(x1, y1) + min(x2, y2))/2
+    else:
+      # Median is avg of max(x1, y1)
+      return max(x1, y1)
 
 
 
