@@ -48,6 +48,7 @@ nums2.length == n
 -106 <= nums1[i], nums2[i] <= 106
 """
 import sys
+import pdb
 
 
 def merge_sorted(nums1, nums2):
@@ -89,26 +90,6 @@ def merge_find_median(nums1, nums2):
 
 
 def findMedianSortedArraysBinSearch(nums1, nums2):
-  """
-  Some ideas:
-  1. Let m = len(nums1) and n = len(nums2)
-  2. Let m <= n
-  3. Now if m == 0 then median is in n only
-  4. Median would be ~ (m + n)/2 index
-  5. Let N = (m + n)/2
-  6. Goal is to try to partition both the array such that:
-    6.1. Total elements on the left of partition is N
-    6.2. All left elements (in both arrays) are less than or equal to right elements
-    6.3. Above would mean that suppose the partition is at x1, x2 in nums1 and y1, y2 in nums2 then 
-    following inequality is true: x1 <= y2 and y1 <= x2
-  7. In order to achieve above goal assume that all elements are from nums1 and if needed then from 
-  nums2
-  8. Now (7) would give the initial partition and from here onwards we start with the following 
-  algo:
-    8.1. start = 0, end = m - 1
-    8.1. If (6.3) is not satisfied and start <= end
-    8.2. mid = (start + end)/2 where start is start of left
-  """
   m = len(nums1)
   n = len(nums2)
   X = nums1
@@ -136,10 +117,10 @@ def findMedianSortedArraysBinSearch(nums1, nums2):
     start = 0
     end = x_part
     while start < end:
-      x1 = None if x_part == 0 else nums1[x_part - 1]
-      x2 = None if x_part == m else nums1[x_part]
-      y1 = None if y_part == 0 else nums2[y_part - 1]
-      y2 = None if y_part == n else nums2[y_part]
+      x1 = None if x_part == 0 else X[x_part - 1]
+      x2 = None if x_part == m else X[x_part]
+      y1 = None if y_part == 0 else Y[y_part - 1]
+      y2 = None if y_part == n else Y[y_part]
       x_part_valid = True
       if x1 is not None and y2 is not None:
         if x1 > y2:
@@ -148,26 +129,28 @@ def findMedianSortedArraysBinSearch(nums1, nums2):
       if x2 is not None and y1 is not None:
         if y1 > x2:
           y_part_valid = False
-      # In this case we shrink X
-      if not x_part_valid:
+      if x_part_valid and y_part_valid:
+        break
+      elif not x_part_valid:
+        # In this case we shrink X
+        end = x_part
         mid = (start + end)//2
         x_part = mid
         y_part += end - mid
-        end = mid
-      # In this case we expand X
-      if not y_part_valid:
-        mid = (end + m)//2
+      elif not y_part_valid:
+        # In this case we expand X
+        start = x_part
+        mid = (start + end)//2
         x_part = mid
-        y_part -= end - mid
-        end = mid
+        y_part -= x_part - start
     
     # Once here we have a valid x_part and y_part
     minint = -sys.maxsize - 1
     maxint = sys.maxsize
-    x1 = minint if x_part == 0 else nums1[x_part - 1]
-    x2 = maxint if x_part == m else nums1[x_part]
-    y1 = minint if y_part == 0 else nums2[y_part - 1]
-    y2 = maxint if y_part == n else nums2[y_part]
+    x1 = minint if x_part == 0 else X[x_part - 1]
+    x2 = maxint if x_part == m else X[x_part]
+    y1 = minint if y_part == 0 else Y[y_part - 1]
+    y2 = maxint if y_part == n else Y[y_part]
     if isSizeEven:
       # Median is avg of max(x1, y1) and min(x2, y2)
       return (max(x1, y1) + min(x2, y2))/2
