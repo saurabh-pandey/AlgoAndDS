@@ -50,4 +50,7 @@ def kthSmallestDist_bf(nums, k):
   return dists[k - 1]
 
 def kthSmallestDistancePair(nums, k):
+  '''
+  IDEA: We know max and min possible dist value by scanning nums once O(n). Now we know the bounds of dist so if we create an array (or hash table) such that array index (or hash table key) is the dist and array value (or hash table value) is the number of pairs. Then we can tell the kth smallest dist. This would be O(n^2) since we are filling all pairs.
+  '''
   return kthSmallestDist_bf(nums, k)
