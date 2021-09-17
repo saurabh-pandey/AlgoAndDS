@@ -49,8 +49,31 @@ def kthSmallestDist_bf(nums, k):
   dists.sort()
   return dists[k - 1]
 
+
+def kthSmallestDist_hashMap(nums, k):
+  n = len(nums)
+  total_dists = n * (n - 1)//2
+  assert k <= total_dists, "k out-of-range"
+  dist_map = {}
+  for i in range(n):
+    for j in range(i + 1, n):
+      dist = abs(nums[i] - nums[j])
+      dist_map[dist] = dist_map.get(dist, 0) + 1
+  # print(dist_map)
+  counter = 0
+  for dist in sorted(dist_map):
+    counter += dist_map[dist]
+    if k <= counter:
+      return dist
+  assert False, "Reached end"
+
+
+def kthSmallestDist_bin_search(nums, k):
+  n = len(nums)
+  total_dists = n * (n - 1)//2
+  assert k <= total_dists, "k out-of-range"
+
+
 def kthSmallestDistancePair(nums, k):
-  '''
-  IDEA: We know max and min possible dist value by scanning nums once O(n). Now we know the bounds of dist so if we create an array (or hash table) such that array index (or hash table key) is the dist and array value (or hash table value) is the number of pairs. Then we can tell the kth smallest dist. This would be O(n^2) since we are filling all pairs.
-  '''
-  return kthSmallestDist_bf(nums, k)
+  # return kthSmallestDist_bf(nums, k)
+  return kthSmallestDist_hashMap(nums, k)
