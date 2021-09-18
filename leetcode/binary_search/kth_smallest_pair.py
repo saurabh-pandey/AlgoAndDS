@@ -36,6 +36,8 @@ n == nums.length
 0 <= nums[i] <= 106
 1 <= k <= n * (n - 1) / 2
 """
+import sys
+
 def kthSmallestDist_bf(nums, k):
   n = len(nums)
   total_dists = n * (n - 1)//2
@@ -67,13 +69,53 @@ def kthSmallestDist_hashMap(nums, k):
       return dist
   assert False, "Reached end"
 
+def get_cumlative_pairs_map(nums):
+  n = len(nums)
+  total_dists = n * (n - 1)//2
+  dist_map = {}
+  for i in range(n):
+    for j in range(i + 1, n):
+      dist = abs(nums[i] - nums[j])
+      dist_map[dist] = dist_map.get(dist, 0) + 1
+  cumlative_pairs_map = {}
+  cumlative_pairs = 0
+  for dist in sorted(dist_map):
+    cumlative_pairs += dist_map[dist]
+    cumlative_pairs_map[dist] = cumlative_pairs
+  return cumlative_pairs_map
 
 def kthSmallestDist_bin_search(nums, k):
   n = len(nums)
   total_dists = n * (n - 1)//2
   assert k <= total_dists, "k out-of-range"
+  min_val = sys.maxsize
+  max_val = -sys.maxsize - 1
+  for n in nums:
+    min_val = n if n < min_val else min_val
+    max_val = n if n > max_val else max_val
+  
+  cumlative_pairs_map = get_cumlative_pairs_map(nums)
+  min_dist = 0
+  max_dist = max_val - min_val
+  start = min_dist
+  end = max_dist
+  while start < end:
+    mid = (start + end)//2
+    # Find how many pairs have dist <= mid.
+    # If num_pairs == k then we found the answer
+    # If num_pairs > k search left
+    # If num_pairs < k search right
+    num_pairs = cumlative_pairs_map[mid]
+    if num_pairs == k:
+      return mid
+    elif num_pairs > k:
+      end = mid - 1
+    else:
+      start = mid + 1
+  return start
 
 
 def kthSmallestDistancePair(nums, k):
   # return kthSmallestDist_bf(nums, k)
-  return kthSmallestDist_hashMap(nums, k)
+  # return kthSmallestDist_hashMap(nums, k)
+  return kthSmallestDist_bin_search(nums, k)
