@@ -38,6 +38,9 @@ n == nums.length
 """
 import sys
 
+import pdb
+import time
+
 def kthSmallestDist_bf(nums, k):
   n = len(nums)
   total_dists = n * (n - 1)//2
@@ -69,18 +72,42 @@ def kthSmallestDist_hashMap(nums, k):
       return dist
   assert False, "Reached end"
 
+# def get_cumlative_pairs_map(nums):
+#   n = len(nums)
+#   dist_map = {}
+#   for i in range(n):
+#     for j in range(i + 1, n):
+#       dist = abs(nums[i] - nums[j])
+#       dist_map[dist] = dist_map.get(dist, 0) + 1
+#   cumlative_pairs_map = {}
+#   cumlative_pairs = 0
+#   for dist in sorted(dist_map):
+#     cumlative_pairs += dist_map[dist]
+#     cumlative_pairs_map[dist] = cumlative_pairs
+#   return cumlative_pairs_map
+
+
 def get_cumlative_pairs_map(nums):
   n = len(nums)
-  dist_map = {}
+  unique_nums = {}
   for i in range(n):
-    for j in range(i + 1, n):
-      dist = abs(nums[i] - nums[j])
-      dist_map[dist] = dist_map.get(dist, 0) + 1
+    unique_nums[nums[i]] = unique_nums.get(nums[i], 0) + 1
+  dist_map = {}
+  u_nums = sorted(unique_nums)
+  for i in range(len(u_nums)):
+    count = unique_nums[u_nums[i]]
+    if count > 1:
+      increment = count * (count - 1)//2
+      dist_map[0] = dist_map.get(0, 0) + increment
+    for j in range(i + 1, len(u_nums)):
+      dist = abs(u_nums[i] - u_nums[j])
+      increment = count * unique_nums[u_nums[j]]
+      dist_map[dist] = dist_map.get(dist, 0) + increment
   cumlative_pairs_map = {}
   cumlative_pairs = 0
-  for dist in sorted(dist_map):
-    cumlative_pairs += dist_map[dist]
-    cumlative_pairs_map[dist] = cumlative_pairs
+  for key, val in dist_map.items():
+    cumlative_pairs += val
+    cumlative_pairs_map[key] = cumlative_pairs
   return cumlative_pairs_map
   
 
@@ -88,24 +115,15 @@ def kthSmallestDist_bin_search(nums, k):
   n = len(nums)
   total_dists = n * (n - 1)//2
   assert k <= total_dists, "k out-of-range"
-  min_val = sys.maxsize
-  max_val = -sys.maxsize - 1
-  for n in nums:
-    min_val = n if n < min_val else min_val
-    max_val = n if n > max_val else max_val
-  
-  min_dist = 0
-  max_dist = max_val - min_val
+  # start = time.time()
   cumlative_pairs_map = get_cumlative_pairs_map(nums)
+  # end = time.time()
+  # print(f"Time = {end - start}")
   sorted_dists = sorted(cumlative_pairs_map)
   start = 0
   end = len(sorted_dists)
   while start < end:
     mid = (start + end)//2
-    # Find how many pairs have dist <= mid.
-    # If num_pairs == k then we found the answer
-    # If num_pairs > k search left
-    # If num_pairs < k search right
     dist = sorted_dists[mid]
     num_pairs = cumlative_pairs_map[sorted_dists[mid]]
     if num_pairs == k:
@@ -113,7 +131,7 @@ def kthSmallestDist_bin_search(nums, k):
     elif num_pairs > k:
       if mid - 1 >= 0:
         prev_num_pairs = cumlative_pairs_map[sorted_dists[mid - 1]]
-        if prev_num_pairs > k:
+        if prev_num_pairs < k:
           return dist
       end = mid - 1
     else:
