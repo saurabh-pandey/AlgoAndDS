@@ -36,10 +36,8 @@ n == nums.length
 0 <= nums[i] <= 106
 1 <= k <= n * (n - 1) / 2
 """
-import sys
+import bisect
 
-import pdb
-import time
 
 def kthSmallestDist_bf(nums, k):
   n = len(nums)
@@ -111,35 +109,38 @@ def get_cumlative_pairs_map(nums):
     cumlative_pairs += dist_map[key]
     cumlative_pairs_map[key] = cumlative_pairs
   return cumlative_pairs_map
-  
+
+
+def find_pairs_not_greater(sorted_nums, mid):
+  num_pairs = 0
+  for i in range(len(sorted_nums) - 1):
+    partition = bisect.bisect_right(sorted_nums, sorted_nums[i] + mid, lo=i)
+    num_pairs += (partition - i - 1)
+  return num_pairs
+
 
 def kthSmallestDist_bin_search(nums, k):
   n = len(nums)
   total_dists = n * (n - 1)//2
   assert k <= total_dists, "k out-of-range"
-  # start = time.time()
-  cumlative_pairs_map = get_cumlative_pairs_map(nums)
-  # print(cumlative_pairs_map)
-  # end = time.time()
-  # print(f"Time = {end - start}")
-  sorted_dists = sorted(cumlative_pairs_map)
-  start = 0
-  end = len(sorted_dists) - 1
-  while start <= end:
+  sorted_nums = sorted(nums)
+  min_dist = sorted_nums[1] - sorted_nums[0]
+  max_dist = sorted_nums[-1] - sorted_nums[0]
+  for i in range(2, n):
+    dist = sorted_nums[i] - sorted_nums[i - 1]
+    min_dist = dist if dist < min_dist else min_dist
+    if min_dist == 0:
+      break
+  start = min_dist
+  end = max_dist
+  while start < end:
     mid = (start + end)//2
-    dist = sorted_dists[mid]
-    num_pairs = cumlative_pairs_map[dist]
-    if num_pairs == k:
-      return dist
-    elif num_pairs > k:
-      if mid - 1 >= 0:
-        prev_num_pairs = cumlative_pairs_map[sorted_dists[mid - 1]]
-        if prev_num_pairs < k:
-          return dist
-      end = mid - 1
-    else:
+    num_pairs = find_pairs_not_greater(sorted_nums, mid)
+    if num_pairs < k:
       start = mid + 1
-  return sorted_dists[start]
+    else:
+      end = mid
+  return start
 
 
 def kthSmallestDistancePair(nums, k):
