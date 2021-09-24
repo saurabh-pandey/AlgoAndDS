@@ -34,6 +34,7 @@ Constraints:
 0 <= nums[i] <= 106
 1 <= m <= min(50, nums.length)
 """
+
 def findPartialSums(nums, partitions):
   partialSums = [0 for i in range(len(partitions) + 1)]
   bounds = [0]
@@ -42,9 +43,10 @@ def findPartialSums(nums, partitions):
   for i in range(len(bounds) - 1):
     sum = 0
     for j in range(bounds[i], bounds[i + 1]):
-      sum += nums[i]
+      sum += nums[j]
     partialSums[i] = sum
   return partialSums
+
 
 def isValidPartition(partitions, n):
   if len(partitions) == 0:
@@ -56,27 +58,34 @@ def isValidPartition(partitions, n):
       return False
   return True
 
+
 def nextPartition(partitions, n):
-  i = len(partitions) - 1
+  m = len(partitions)
+  i = m - 1
   while i >= 0:
     part = partitions[i]
-    if part == n - 1:
-      pass
+    maxPartVal = n - m + i
+    if part < maxPartVal:
+      partitions[i] += 1
+      break
+    i -= 1
+  for j in range(i + 1, m):
+    partitions[j] = partitions[j - 1] + 1
+
 
 def splitArray(nums, m):
+  n = len(nums)
   partitions = [(i + 1) for i in range(m - 1)]
-  # sums = [0 for i in range(len(nums))]
-  sum = 0
-  for i in range(len(nums)):
-    sum += nums[i]
-  #   sums[i] = sum
-  minSum = sum
-  while isValidPartition(partitions, len(nums)):
+  nums_sum = 0
+  for i in range(n):
+    nums_sum += nums[i]
+  minSum = nums_sum
+  while isValidPartition(partitions, n):
     partialSums = findPartialSums(nums, partitions)
     maxPartSum = 0
     for ps in partialSums:
       maxPartSum = ps if ps > maxPartSum else maxPartSum
     minSum = maxPartSum if maxPartSum < minSum else minSum
-    nextPartition(partitions)
+    nextPartition(partitions, n)
   return minSum
 
