@@ -40,6 +40,8 @@ def findPartialSums(nums, partitions):
   bounds = [0]
   bounds.extend(partitions)
   bounds.append(len(nums))
+  # IDEA: What if we keep an array of sums?
+  # This can help in avoiding this loop. Check.
   for i in range(len(bounds) - 1):
     sum = 0
     for j in range(bounds[i], bounds[i + 1]):
