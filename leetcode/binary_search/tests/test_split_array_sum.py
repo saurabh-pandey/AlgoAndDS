@@ -11,10 +11,11 @@ class TestSplitArraySum:
       size = random.randint(1, 20)
       nums = [random.randint(0, 50) for i in range(size)]
       m = random.randint(1, 10)
-      nums_sum = sum(nums)
+      sums = prob.cummulative_sum(nums)
+      nums_sum = sums[-1]
       partitions = [(i + 1) for i in range(m - 1)]
       while prob.isValidPartition(partitions, len(nums)):
-        partialSums = prob.findPartialSums(nums, partitions)
+        partialSums = prob.findPartialSums(sums, partitions)
         assert nums_sum == sum(partialSums), "Partial sum is wrong"
         prob.nextPartition(partitions, len(nums))
   

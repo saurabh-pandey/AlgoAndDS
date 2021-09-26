@@ -35,18 +35,22 @@ Constraints:
 1 <= m <= min(50, nums.length)
 """
 
-def findPartialSums(nums, partitions):
+def cummulative_sum(nums):
+  sums = [0 for _ in nums]
+  sums[0] = nums[0]
+  for i in range(1, len(nums)):
+    sums[i] = sums[i - 1] + nums[i]
+  return sums
+
+
+def findPartialSums(sums, partitions):
   partialSums = [0 for i in range(len(partitions) + 1)]
-  bounds = [0]
+  bounds = []
   bounds.extend(partitions)
-  bounds.append(len(nums))
-  # IDEA: What if we keep an array of sums?
-  # This can help in avoiding this loop. Check.
-  for i in range(len(bounds) - 1):
-    sum = 0
-    for j in range(bounds[i], bounds[i + 1]):
-      sum += nums[j]
-    partialSums[i] = sum
+  bounds.append(len(sums))
+  partialSums[0] = sums[partitions[0] - 1]
+  for i in range(1, len(bounds)):
+    partialSums[i] = sums[bounds[i] - 1] - sums[bounds[i - 1] - 1]
   return partialSums
 
 
@@ -78,12 +82,10 @@ def nextPartition(partitions, n):
 def splitArray(nums, m):
   n = len(nums)
   partitions = [(i + 1) for i in range(m - 1)]
-  nums_sum = 0
-  for i in range(n):
-    nums_sum += nums[i]
-  minSum = nums_sum
+  sums = cummulative_sum(nums)
+  minSum = sums[-1]
   while isValidPartition(partitions, n):
-    partialSums = findPartialSums(nums, partitions)
+    partialSums = findPartialSums(sums, partitions)
     maxPartSum = 0
     for ps in partialSums:
       maxPartSum = ps if ps > maxPartSum else maxPartSum
