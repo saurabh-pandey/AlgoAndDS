@@ -79,7 +79,7 @@ def nextPartition(partitions, n):
     partitions[j] = partitions[j - 1] + 1
 
 
-def splitArray(nums, m):
+def splitArray_iterative(nums, m):
   n = len(nums)
   partitions = [(i + 1) for i in range(m - 1)]
   sums = cummulative_sum(nums)
@@ -93,3 +93,15 @@ def splitArray(nums, m):
     nextPartition(partitions, n)
   return minSum
 
+
+### IDEA
+# Might try a recursive approach:
+# 1. Something like backtracking
+# 2. Implement the basic recursive algo
+# 3. Try to shrink the search directions using some sum metrics
+def splitArray_recursive(nums, m):
+  pass
+
+
+def splitArray(nums, m):
+  return splitArray_iterative(nums, m)
