@@ -94,25 +94,22 @@ def splitArray_iterative(nums, m):
   return minSum
 
 
-### IDEA
-# Might try a recursive approach:
-# 1. Something like backtracking
-# 2. Implement the basic recursive algo
-# 3. Try to shrink the search directions using some sum metrics
-def splitArray_recursive_impl(nums, m, part, max_sum, min_sum):
-  end = len(nums) - m + part + 1
-  nums_sum = sum(nums[part:end])
-  max_sum = nums_sum if nums_sum > max_sum else max_sum
+def splitArray_recursive_impl(nums, m, part, start, max_sum, min_sum):
+  end = len(nums) - m + part + 2
   if part == m - 1:
+    nums_sum = sum(nums[start:end])
+    max_sum = nums_sum if nums_sum > max_sum else max_sum
     min_sum = max_sum if max_sum < min_sum else min_sum
   elif part < m - 1:
-    for i in range(part, end):
-      min_sum = splitArray_recursive_impl(nums, m, part + 1, max_sum)
+    for i in range(start + 1, end):
+      nums_sum = sum(nums[start:i])
+      max_sum = nums_sum if nums_sum > max_sum else max_sum
+      min_sum = splitArray_recursive_impl(nums, m, part + 1, i, max_sum, min_sum)
   return min_sum
 
 def splitArray_recursive(nums, m):
   min_sum = sum(nums)
-  return splitArray_recursive_impl(nums, m, 0, 0, min_sum)
+  return splitArray_recursive_impl(nums, m, 0, 0, 0, min_sum)
 
 
 def splitArray(nums, m):
