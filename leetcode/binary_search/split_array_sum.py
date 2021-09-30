@@ -43,6 +43,15 @@ def cummulative_sum(nums):
   return sums
 
 
+def get_sum(sums, start, end):
+  assert start < len(sums), f"{start}, {len(sums)}"
+  assert end <= len(sums), f"{end}, {len(sums)}"
+  if start == 0:
+    return sums[end - 1]
+  else:
+    return sums[end - 1] - sums[start - 1]
+
+
 def findPartialSums(sums, partitions):
   partialSums = [0 for i in range(len(partitions) + 1)]
   bounds = []
@@ -94,22 +103,24 @@ def splitArray_iterative(nums, m):
   return minSum
 
 
-def splitArray_recursive_impl(nums, m, part, start, max_sum, min_sum):
-  end = len(nums) - m + part + 2
+def splitArray_recursive_impl(sums, m, part, start, max_sum, min_sum):
+  end = len(sums) - m + part + 1
   if part == m - 1:
-    nums_sum = sum(nums[start:end])
+    nums_sum = get_sum(sums, start, end)
     max_sum = nums_sum if nums_sum > max_sum else max_sum
     min_sum = max_sum if max_sum < min_sum else min_sum
   elif part < m - 1:
-    for i in range(start + 1, end):
-      nums_sum = sum(nums[start:i])
+    for i in range(start + 1, end + 1):
+      nums_sum = get_sum(sums, start, i)
       max_sum = nums_sum if nums_sum > max_sum else max_sum
-      min_sum = splitArray_recursive_impl(nums, m, part + 1, i, max_sum, min_sum)
+      min_sum = splitArray_recursive_impl(sums, m, part + 1, i, max_sum, min_sum)
   return min_sum
 
+
 def splitArray_recursive(nums, m):
-  min_sum = sum(nums)
-  return splitArray_recursive_impl(nums, m, 0, 0, 0, min_sum)
+  sums = cummulative_sum(nums)
+  min_sum = sums[-1]
+  return splitArray_recursive_impl(sums, m, 0, 0, 0, min_sum)
 
 
 def splitArray(nums, m):
