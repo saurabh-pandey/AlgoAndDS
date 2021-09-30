@@ -44,8 +44,6 @@ def cummulative_sum(nums):
 
 
 def get_sum(sums, start, end):
-  assert start < len(sums), f"{start}, {len(sums)}"
-  assert end <= len(sums), f"{end}, {len(sums)}"
   if start == 0:
     return sums[end - 1]
   else:
@@ -57,9 +55,9 @@ def findPartialSums(sums, partitions):
   bounds = []
   bounds.extend(partitions)
   bounds.append(len(sums))
-  partialSums[0] = sums[partitions[0] - 1]
+  partialSums[0] = get_sum(sums, 0,partitions[0])
   for i in range(1, len(bounds)):
-    partialSums[i] = sums[bounds[i] - 1] - sums[bounds[i - 1] - 1]
+    partialSums[i] = get_sum(sums, bounds[i - 1], bounds[i])
   return partialSums
 
 
