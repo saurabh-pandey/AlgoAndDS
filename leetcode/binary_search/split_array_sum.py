@@ -121,6 +121,21 @@ def splitArray_recursive(nums, m):
   return splitArray_recursive_impl(sums, m, 0, 0, 0, min_sum)
 
 
+def splitArray_bin_search(nums, m):
+  """
+  IDEA:
+  After reading some ideas on the net the basic approach seems to be as follows:
+  1. Min of max partial sum (min_max_sum) will be between max(nums) and sum(nums)
+  2. max(nums) is possible when m = len(nums)
+  3. sum(nums) is possible when m = 1
+  4. Now when 1 < m < len(nums) then max(nums) < min_max_sum < sum(nums)
+  5. So the algo is to fix min_max_sum and see what M is needed to achive it
+  6. Now if M found is s.t. M <= m then we move left i.e. further decrease min_max_sum
+  7. Otherwise we increase min_max_sum and find M <= m
+  8. Now if keep doing this binary search till we find the minimum min_max_sum that satisfies M <= m
+  """
+  pass
+
 def splitArray(nums, m):
   # return splitArray_iterative(nums, m)
   return splitArray_recursive(nums, m)
