@@ -134,7 +134,16 @@ def splitArray_bin_search(nums, m):
   7. Otherwise we increase min_max_sum and find M <= m
   8. Now if keep doing this binary search till we find the minimum min_max_sum that satisfies M <= m
   """
-  pass
+  min_sum = max(nums)
+  max_sum = sum(nums)
+  start = min_sum
+  end = max_sum
+  while start <= end:
+    mid = start + (end - start)//2
+    M = checkFeasable(mid)
+    if M < m:
+      
+
 
 def splitArray(nums, m):
   # return splitArray_iterative(nums, m)
