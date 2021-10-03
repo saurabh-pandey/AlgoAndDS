@@ -10,7 +10,7 @@ class TestSplitArraySum:
     for i in range(num_trails):
       size = random.randint(1, 20)
       nums = [random.randint(0, 50) for i in range(size)]
-      m = random.randint(1, 10)
+      m = random.randint(1, min(10, size))
       sums = prob.cummulative_sum(nums)
       nums_sum = sums[-1]
       partitions = [(i + 1) for i in range(m - 1)]
@@ -22,8 +22,7 @@ class TestSplitArraySum:
       res_rec = prob.splitArray_recursive(nums, m)
       res_bin = prob.splitArray_bin_search(nums, m)
       assert res_it == res_rec
-      assert res_rec == res_bin
-  
+      assert res_rec == res_bin  
   
   def test_example1(self):
     nums = [7,2,5,10,8]
