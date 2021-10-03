@@ -121,6 +121,17 @@ def splitArray_recursive(nums, m):
   return splitArray_recursive_impl(sums, m, 0, 0, 0, min_sum)
 
 
+def checkFeasable(nums, mid):
+  nums_sum = 0
+  count = 0
+  for n in nums:
+    nums_sum += n
+    if nums_sum > mid:
+      count += 1
+      nums_sum = 0
+  return count
+
+
 def splitArray_bin_search(nums, m):
   """
   IDEA:
@@ -142,7 +153,9 @@ def splitArray_bin_search(nums, m):
     mid = start + (end - start)//2
     M = checkFeasable(mid)
     if M < m:
-      
+      return mid
+    elif M > m:
+      pass
 
 
 def splitArray(nums, m):
