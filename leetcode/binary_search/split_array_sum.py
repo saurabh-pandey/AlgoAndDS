@@ -34,6 +34,7 @@ Constraints:
 0 <= nums[i] <= 106
 1 <= m <= min(50, nums.length)
 """
+import pdb
 
 def cummulative_sum(nums):
   sums = [0 for _ in nums]
@@ -121,43 +122,36 @@ def splitArray_recursive(nums, m):
   return splitArray_recursive_impl(sums, m, 0, 0, 0, min_sum)
 
 
-def checkFeasable(nums, mid):
+def checkFeasable(nums, m, mid):
   nums_sum = 0
-  count = 0
+  count = 1
   for n in nums:
     nums_sum += n
     if nums_sum > mid:
       count += 1
-      nums_sum = 0
-  return count
+      nums_sum = n
+      if count > m:
+        return False
+  return True
 
 
 def splitArray_bin_search(nums, m):
-  """
-  IDEA:
-  After reading some ideas on the net the basic approach seems to be as follows:
-  1. Min of max partial sum (min_max_sum) will be between max(nums) and sum(nums)
-  2. max(nums) is possible when m = len(nums)
-  3. sum(nums) is possible when m = 1
-  4. Now when 1 < m < len(nums) then max(nums) < min_max_sum < sum(nums)
-  5. So the algo is to fix min_max_sum and see what M is needed to achive it
-  6. Now if M found is s.t. M <= m then we move left i.e. further decrease min_max_sum
-  7. Otherwise we increase min_max_sum and find M <= m
-  8. Now if keep doing this binary search till we find the minimum min_max_sum that satisfies M <= m
-  """
   min_sum = max(nums)
   max_sum = sum(nums)
   start = min_sum
   end = max_sum
-  while start <= end:
+  if m == 1:
+    return max_sum
+  while start < end:
     mid = start + (end - start)//2
-    M = checkFeasable(mid)
-    if M < m:
-      return mid
-    elif M > m:
-      pass
+    if checkFeasable(nums, m, mid):
+      end = mid
+    else:
+      start = mid + 1
+  return end
 
 
 def splitArray(nums, m):
   # return splitArray_iterative(nums, m)
-  return splitArray_recursive(nums, m)
+  # return splitArray_recursive(nums, m)
+  return splitArray_bin_search(nums, m)

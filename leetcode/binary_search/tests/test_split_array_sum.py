@@ -18,7 +18,11 @@ class TestSplitArraySum:
         partialSums = prob.findPartialSums(sums, partitions)
         assert nums_sum == sum(partialSums), "Partial sum is wrong"
         prob.nextPartition(partitions, len(nums))
-      assert prob.splitArray_iterative(nums, m) == prob.splitArray_recursive(nums, m)
+      res_it = prob.splitArray_iterative(nums, m)
+      res_rec = prob.splitArray_recursive(nums, m)
+      res_bin = prob.splitArray_bin_search(nums, m)
+      assert res_it == res_rec
+      assert res_rec == res_bin
   
   
   def test_example1(self):
