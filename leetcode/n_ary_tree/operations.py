@@ -33,9 +33,9 @@ def create(in_list):
 
 def toList(root):
   """
-  Create a BFS list and from binary tree.
-  Here the list is of the form [Node, Node.Left, Node.Right] and all null branches are ignored. Thus
-  the array is not a complete tree representation
+  Create a BFS list from N-ary tree
+  Here the list is of the form [Node, Node.child1, Node.child2] and all null branches are ignored. 
+  Thus the array is not a complete tree representation
   """
   if root is None:
     return []
@@ -46,6 +46,6 @@ def toList(root):
     node = nodes_queue.pop(0)
     if node is not None:
       treeList.append(node.val)
-      nodes_queue.append(node.left)
-      nodes_queue.append(node.right)
+      for child in node.children:
+        nodes_queue.append(child)
   return treeList

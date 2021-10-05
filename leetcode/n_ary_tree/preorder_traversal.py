@@ -30,5 +30,17 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 """
 from node import Node
 
+def preorder_recursive(node, preorder_list = None):
+  if preorder_list is None:
+    preorder_list = []
+  if node is None:
+    return preorder_list
+  preorder_list.append(node.val)
+  for child in node.children:
+      preorder_recursive(child, preorder_list)
+  return preorder_list
+
+
+
 def preorder(root):
-  pass
+  return preorder_recursive(root)
