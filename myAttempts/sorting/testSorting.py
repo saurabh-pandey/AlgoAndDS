@@ -7,6 +7,7 @@ import selectionSort
 import bubbleSort
 import insertionSort
 import quickSort
+import simpleUnintutiveSort
 
 def isSorted(arr):
   """
@@ -38,6 +39,7 @@ def test():
   tmBS = [] # Bubble sort timing
   tmSS = [] # Selection sort timimg
   tmQS = [] # Quick sort timing
+  tmSU = [] # Simple Unintutive sort timing
   for size in sizes:
     arr = [random.randint(-size, size) for i in range(size)]
     runSort(mergeSort.sort, arr, tmMS, "Merge Sort")
@@ -45,12 +47,14 @@ def test():
     runSort(selectionSort.sort, arr, tmSS, "Selection Sort")
     runSort(bubbleSort.sort, arr, tmBS, "Bubble Sort")
     runSort(quickSort.sort, arr, tmQS, "Quick Sort")
+    runSort(simpleUnintutiveSort.sort, arr, tmSU, "Simple Unintutive Sort")
 
   plt.plot(sizes, tmMS, 'k--', label = "Merge Sort")
   plt.plot(sizes, tmIS, 'r-.', label = "Insertion Sort")
   plt.plot(sizes, tmSS, 'b:', label = "Selection Sort")
   plt.plot(sizes, tmBS, 'g--', label = "Bubble Sort")
-  plt.plot(sizes, tmQS, 'c-', label = "Quick Sort")
+  plt.plot(sizes, tmQS, '--', label = "Quick Sort", color='orange')
+  plt.plot(sizes, tmSU, 'o-', label = "Simple Unintutive Sort")
   plt.legend(loc='upper left')
   plt.title("Sorting Performance Comparison")
   plt.xlabel("Array size")
