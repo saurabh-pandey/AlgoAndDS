@@ -1,5 +1,6 @@
 from n_ary_tree.node import Node
 
+import pdb
 
 def create(in_list):
   """
@@ -7,27 +8,27 @@ def create(in_list):
   Here the list is of the form [Node, Node.Left, Node.Right] and all null branches are ignored. Thus
   the array is not a complete tree representation
   """
+  # pdb.set_trace()
   if len(in_list) == 0:
     return None
   if in_list[0] == None:
     return None
   
-  val_queue = in_list[1:]
   root = Node(in_list[0])
+  if len(in_list) > 1:
+    assert in_list[1] is None
+  val_queue = in_list[1:]
   nodes_queue = [root]
+  parent_node = None
   while len(val_queue) > 0:
-    leftVal = None if len(val_queue) == 0 else val_queue.pop(0)
-    rightVal = None if len(val_queue) == 0 else val_queue.pop(0)
-
-    currNode = nodes_queue.pop(0)
-    if leftVal is not None:
-      leftNode = Node(leftVal)
-      currNode.left = leftNode
-      nodes_queue.append(leftNode)
-    if rightVal is not None:
-      rightNode = Node(rightVal)
-      currNode.right = rightNode
-      nodes_queue.append(rightNode)
+    curr_val = val_queue.pop(0)
+    if curr_val is None:
+      parent_node = nodes_queue.pop(0)
+    else:
+      assert parent_node is not None, "Parent node None"
+      child_node = Node(curr_val)
+      parent_node.children.append(child_node)
+      nodes_queue.append(child_node)
   return root
 
 

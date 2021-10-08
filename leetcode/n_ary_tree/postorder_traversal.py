@@ -28,9 +28,6 @@ The height of the n-ary tree is less than or equal to 1000.
 
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
-from node import Node
-
-
 def postorder_recursive(node, postorder_list = None):
   if postorder_list is None:
     postorder_list = []
