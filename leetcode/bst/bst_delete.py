@@ -41,22 +41,30 @@ root is a valid binary search tree.
 
 Follow up: Could you solve it with time complexity O(height of tree)?
 """
+import pdb
+
 def findAndDeletePredecessor(node):
     prevNode = node
-    currNode = node
+    currNode = node.left
     while currNode.right is not None:
         prevNode = currNode
         currNode = currNode.right
-    prevNode.left = None
+    if prevNode.left == currNode:
+        prevNode.left = currNode.left
+    else:
+        prevNode.right = currNode.right
     return currNode.val
 
 def findAndDeleteSuccessor(node):
     prevNode = node
-    currNode = node
+    currNode = node.right
     while currNode.left is not None:
         prevNode = currNode
         currNode = currNode.left
-    prevNode.left = None
+    if prevNode.left == currNode:
+        prevNode.left = currNode.left
+    else:
+        prevNode.right = currNode.right
     return currNode.val
 
 def checkNodeAndDelete(node, is_pred = False):
@@ -66,11 +74,11 @@ def checkNodeAndDelete(node, is_pred = False):
     elif node.left is not None and node.right is not None:
         # Find predecessor (or successor), swap and then delete
         if is_pred:
-            predVal = findAndDeletePredecessor(node.left)
+            predVal = findAndDeletePredecessor(node)
             node.val = predVal
             return node
         else:
-            succVal = findAndDeleteSuccessor(node.right)
+            succVal = findAndDeleteSuccessor(node)
             node.val = succVal
             return node
     elif node.left is not None and node.right is None:
@@ -86,19 +94,20 @@ def deleteChildNode(node, key):
         if node.left.val == key:
             node.left = checkNodeAndDelete(node.left)
         else:
-            deleteChildNode(node.left)
-    elif node.right is not None:
+            deleteChildNode(node.left, key)
+    if node.right is not None:
         if node.right.val == key:
             node.right = checkNodeAndDelete(node.right)
         else:
-            deleteChildNode(node.right)
+            deleteChildNode(node.right, key)
 
 def deleteNode(root, key):
+    # pdb.set_trace()
     if root is None:
         return None
     else:
         if root.val == key:
-            newRoot = checkNodeAndDelete(root, key)
+            newRoot = checkNodeAndDelete(root)
             return newRoot
         else:
             deleteChildNode(root, key)
