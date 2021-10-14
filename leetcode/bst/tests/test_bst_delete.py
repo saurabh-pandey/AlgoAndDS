@@ -43,7 +43,6 @@ class TestBstDelete:
         rootNode = bst.create(root)
         newRoot = prob.deleteNode(rootNode, key)
         assert bst.toList(newRoot) == res
-        # print(bst.toList(newRoot))
     
     def test_lc3(self):
         root = [3,2,4,1]
@@ -51,5 +50,4 @@ class TestBstDelete:
         res = [4,2,None,1]
         rootNode = bst.create(root)
         newRoot = prob.deleteNode(rootNode, key)
-        # assert bst.toList(newRoot) == res
-        print(bst.toList(newRoot))
+        assert bst.toList(newRoot) == res
