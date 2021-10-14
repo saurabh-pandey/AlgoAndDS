@@ -72,6 +72,9 @@ def checkNodeAndDelete(node, is_pred = False):
     if node.left is None and node.right is None:
         return None
     elif node.left is not None and node.right is not None:
+        # One idea is to swap the predecessor (or successor) value with the current node. Next
+        # perform a fresh delete which will remove the swapped predecessor (or successor)
+        
         # Find predecessor (or successor), swap and then delete
         if is_pred:
             predVal = findAndDeletePredecessor(node)
