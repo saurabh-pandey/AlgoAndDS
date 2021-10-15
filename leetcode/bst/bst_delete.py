@@ -41,81 +41,48 @@ root is a valid binary search tree.
 
 Follow up: Could you solve it with time complexity O(height of tree)?
 """
-import pdb
+def findSuccessor(node):
+    curr_node = node.right
+    while curr_node.left is not None:
+        curr_node = curr_node.left
+    return curr_node
 
-def findAndDeletePredecessor(node):
-    prevNode = node
-    currNode = node.left
-    while currNode.right is not None:
-        prevNode = currNode
-        currNode = currNode.right
-    if prevNode.left == currNode:
-        prevNode.left = currNode.left
-    else:
-        prevNode.right = currNode.right
-    return currNode.val
-
-def findAndDeleteSuccessor(node):
-    prevNode = node
-    currNode = node.right
-    while currNode.left is not None:
-        prevNode = currNode
-        currNode = currNode.left
-    if prevNode.left == currNode:
-        prevNode.left = currNode.left
-    else:
-        prevNode.right = currNode.right
-    return currNode.val
-
-def checkNodeAndDelete(node, is_pred = False):
-    assert node is not None, f"Node {node.val} is set to None"
-    if node.left is None and node.right is None:
-        return None
-    elif node.left is not None and node.right is not None:
-        # One idea is to swap the predecessor (or successor) value with the current node. Next
-        # perform a fresh delete which will remove the swapped predecessor (or successor)
-        
-        # Find predecessor (or successor), swap and then delete
-        if is_pred:
-            predVal = findAndDeletePredecessor(node)
-            node.val = predVal
-            return node
-        else:
-            succVal = findAndDeleteSuccessor(node)
-            node.val = succVal
-            return node
-    elif node.left is not None and node.right is None:
-        # Swap with left child and delete
-        return node.left
-    elif node.left is None and node.right is not None:
-        # Swap with right child and delete
-        return node.right
-
-
-def deleteChildNode(node, key):
-    if node.left is not None:
-        if node.left.val == key:
-            node.left = checkNodeAndDelete(node.left)
-        else:
-            deleteChildNode(node.left, key)
-    if node.right is not None:
-        if node.right.val == key:
-            node.right = checkNodeAndDelete(node.right)
-        else:
-            deleteChildNode(node.right, key)
 
 def deleteNode(root, key):
-    # pdb.set_trace()
-    if root is None:
-        return None
-    else:
-        if root.val == key:
-            newRoot = checkNodeAndDelete(root)
-            return newRoot
+    parent_node = None
+    curr_node = root
+    while curr_node and curr_node.val != key:
+        parent_node = curr_node
+        if key < curr_node.val:
+            curr_node = curr_node.left
         else:
-            deleteChildNode(root, key)
-            return root
-
-            
-
+            curr_node = curr_node.right
     
+    if curr_node is None:
+        return root
+    
+    if curr_node.left is None and curr_node.right is None:
+        if curr_node != root:
+            if parent_node.left == curr_node:
+                parent_node.left = None
+            else:
+                parent_node.right = None
+            return root
+        else:
+            return None
+    elif curr_node.left and curr_node.right:
+        succ_node = findSuccessor(curr_node)
+        val = succ_node.val
+        deleteNode(curr_node, succ_node.val)
+        curr_node.val = val
+        return root
+    else:
+        child = curr_node.left if curr_node.left else curr_node.right
+        if curr_node != root:
+            if parent_node.left == curr_node:
+                parent_node.left = child
+            else:
+                parent_node.right = child
+            return root
+        else:
+            return child

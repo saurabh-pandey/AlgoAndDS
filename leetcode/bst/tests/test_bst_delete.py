@@ -10,6 +10,7 @@ class TestBstDelete:
         res = [5,4,6,2,None,None,7]
         rootNode = bst.create(root)
         newRoot = prob.deleteNode(rootNode, key)
+        # print(bst.toList(newRoot))
         assert bst.toList(newRoot) == res
     
     def test_example2(self):
