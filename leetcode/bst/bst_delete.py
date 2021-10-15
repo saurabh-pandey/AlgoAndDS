@@ -73,7 +73,7 @@ def deleteNode(root, key):
     elif curr_node.left and curr_node.right:
         succ_node = findSuccessor(curr_node)
         val = succ_node.val
-        deleteNode(curr_node, succ_node.val)
+        deleteNode(curr_node, val)
         curr_node.val = val
         return root
     else:
