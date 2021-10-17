@@ -40,10 +40,14 @@ element.
 
 class KthLargest:
 
-    def __init__(self, k: int, nums: List[int]):
-        pass
-        
+    def __init__(self, k, nums):
+        self.k = k
+        self.nums = nums
+    
 
-    def add(self, val: int) -> int:
-        pass
+    def add(self, val):
+        self.nums.append(val)
+        self.nums.sort(reverse=True)
+        assert self.k <= len(self.nums)
+        return self.nums[self.k - 1]
         
