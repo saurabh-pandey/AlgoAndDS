@@ -37,17 +37,19 @@ At most 104 calls will be made to add.
 It is guaranteed that there will be at least k elements in the array when you search for the kth 
 element.
 """
+import bisect
 
 class KthLargest:
 
     def __init__(self, k, nums):
         self.k = k
         self.nums = nums
+        self.nums.sort()
     
 
     def add(self, val):
-        self.nums.append(val)
-        self.nums.sort(reverse=True)
+        it = bisect.bisect_left(self.nums, val)
+        self.nums.insert(it, val)
         assert self.k <= len(self.nums)
-        return self.nums[self.k - 1]
+        return self.nums[-self.k]
         
