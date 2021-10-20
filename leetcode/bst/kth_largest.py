@@ -60,12 +60,12 @@ class KthLargest:
         self.nums = nums
         # pdb.set_trace()
         self.root = None
-        for n in nums:
-            if self.root is None:
-                self.root = TreeNode(n)
-                self.root.count = 1
-            else:
-                self._insert(self.root, n)
+        # for n in nums:
+        #     if self.root is None:
+        #         self.root = TreeNode(n)
+        #         self.root.count = 1
+        #     else:
+        #         self._insert(self.root, n)
         self.nums.sort()
 
 
@@ -73,17 +73,26 @@ class KthLargest:
         if val < node.val:
             if node.left is None:
                 node.left = TreeNode(val)
-                node.left.count = 1
+                node.left.count = node.count + 1
             else:
                 self._insert(node.left, val)
         else:
             if node.right is None:
                 node.right = TreeNode(val)
-                node.right.count = 1
-                node.count += 1
+                node.right.count = node.count
+                # node.count += 1
             else:
                 self._insert(node.right, val)
-                node.count += 1
+                # node.count += 1
+            # If a node is added to the right sub-tree then root and left subtree count is incremented by 1
+            nodes = [node]
+            while nodes:
+                currNode = nodes.pop(0)
+                currNode.count += 1
+                if currNode.left:
+                    nodes.append(currNode.left)
+                if currNode.right:
+                    nodes.append(currNode.right)
     
     
     def add(self, val):
@@ -94,7 +103,11 @@ class KthLargest:
     
     
     def new_add(self, val):
-        self._insert(self.root, val)
+        if self.root is None:
+                self.root = TreeNode(val)
+                self.root.count = 1
+        else:
+            self._insert(self.root, val)
         tree_list = []
         nodes = [self.root]
         while nodes:
