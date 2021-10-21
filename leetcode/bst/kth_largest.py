@@ -88,7 +88,8 @@ class KthLargest:
             nodes = [node]
             while nodes:
                 currNode = nodes.pop(0)
-                currNode.count += 1
+                if currNode.val < val:
+                    currNode.count += 1
                 if currNode.left:
                     nodes.append(currNode.left)
                 if currNode.right:
