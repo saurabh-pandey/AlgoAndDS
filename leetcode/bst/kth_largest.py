@@ -90,10 +90,10 @@ class KthLargest:
                 currNode = nodes.pop(0)
                 if currNode.val < val:
                     currNode.count += 1
-                if currNode.left:
-                    nodes.append(currNode.left)
-                if currNode.right:
-                    nodes.append(currNode.right)
+                    if currNode.left:
+                        nodes.append(currNode.left)
+                    if currNode.right:
+                        nodes.append(currNode.right)
     
     
     def add(self, val):
