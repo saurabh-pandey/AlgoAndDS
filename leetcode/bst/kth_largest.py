@@ -85,6 +85,7 @@ class KthLargest:
                 self._insert(node.right, val)
                 # node.count += 1
             # If a node is added to the right sub-tree then root and left subtree count is incremented by 1
+            # This seems bad need to think of a new approach
             nodes = [node]
             while nodes:
                 currNode = nodes.pop(0)
