@@ -86,6 +86,10 @@ class KthLargest:
                 # node.count += 1
             # If a node is added to the right sub-tree then root and left subtree count is incremented by 1
             # This seems bad need to think of a new approach
+            # What if on return from this recursive insert I do another recursive cound increment 
+            # but only for nodes less than val
+            # Also if nodes val is greater than or equal to val we need not search the right 
+            # subtree,
             nodes = [node]
             while nodes:
                 currNode = nodes.pop(0)
