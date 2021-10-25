@@ -90,16 +90,32 @@ class KthLargest:
             # but only for nodes less than val
             # Also if nodes val is greater than or equal to val we need not search the right 
             # subtree,
-            nodes = [node]
-            while nodes:
-                currNode = nodes.pop(0)
-                if currNode.val < val:
-                    currNode.count += 1
-                    if currNode.left:
-                        nodes.append(currNode.left)
-                    if currNode.right:
-                        nodes.append(currNode.right)
+            # nodes = [node]
+            # while nodes:
+            #     currNode = nodes.pop(0)
+            #     if currNode.val < val:
+            #         currNode.count += 1
+            #         if currNode.left:
+            #             nodes.append(currNode.left)
+            #         if currNode.right:
+            #             nodes.append(currNode.right)
     
+    
+    def _increment_count(self, node, val):
+        nodes = [node]
+        while nodes:
+            currNode = nodes.pop(0)
+            if currNode.val < val:
+                currNode.count += 1
+                if currNode.left:
+                    nodes.append(currNode.left)
+                if currNode.right:
+                    nodes.append(currNode.right)
+            else:
+                if currNode.left:
+                    nodes.append(currNode.left)
+
+
     
     def add(self, val):
         it = bisect.bisect_left(self.nums, val)
@@ -114,6 +130,7 @@ class KthLargest:
                 self.root.count = 1
         else:
             self._insert(self.root, val)
+            self._increment_count(self.root, val)
         tree_list = []
         nodes = [self.root]
         while nodes:
