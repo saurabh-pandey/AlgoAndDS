@@ -58,15 +58,8 @@ class KthLargest:
     def __init__(self, k, nums):
         self.k = k
         self.nums = nums
-        # pdb.set_trace()
-        self.root = None
-        # for n in nums:
-        #     if self.root is None:
-        #         self.root = TreeNode(n)
-        #         self.root.count = 1
-        #     else:
-        #         self._insert(self.root, n)
         self.nums.sort()
+        self.root = None
 
 
     def _insert(self, node, val):
@@ -80,25 +73,8 @@ class KthLargest:
             if node.right is None:
                 node.right = TreeNode(val)
                 node.right.count = node.count
-                # node.count += 1
             else:
                 self._insert(node.right, val)
-                # node.count += 1
-            # If a node is added to the right sub-tree then root and left subtree count is incremented by 1
-            # This seems bad need to think of a new approach
-            # What if on return from this recursive insert I do another recursive cound increment 
-            # but only for nodes less than val
-            # Also if nodes val is greater than or equal to val we need not search the right 
-            # subtree,
-            # nodes = [node]
-            # while nodes:
-            #     currNode = nodes.pop(0)
-            #     if currNode.val < val:
-            #         currNode.count += 1
-            #         if currNode.left:
-            #             nodes.append(currNode.left)
-            #         if currNode.right:
-            #             nodes.append(currNode.right)
     
     
     def _increment_count(self, node, val):
@@ -114,23 +90,24 @@ class KthLargest:
             else:
                 if currNode.left:
                     nodes.append(currNode.left)
+    
+
+    def find_kth(self, node):
+        if self.k == node.count:
+            return node
+        if self.k < node.count:
+            if node.right:
+                return self.find_kth(node.right)
+            else:
+                return None
+        if self.k > node.count:
+            if node.left:
+                return self.find_kth(node.left)
+            else:
+                return None
 
 
-    
-    def add(self, val):
-        it = bisect.bisect_left(self.nums, val)
-        self.nums.insert(it, val)
-        assert self.k <= len(self.nums)
-        return self.nums[-self.k]
-    
-    
-    def new_add(self, val):
-        if self.root is None:
-                self.root = TreeNode(val)
-                self.root.count = 1
-        else:
-            self._insert(self.root, val)
-            self._increment_count(self.root, val)
+    def toList(self):
         tree_list = []
         nodes = [self.root]
         while nodes:
@@ -140,6 +117,31 @@ class KthLargest:
                 nodes.append(node.left)
             if node.right:
                 nodes.append(node.right)
-        print(tree_list)
-
+        return tree_list
+    
+    
+    def add(self, val):
+        it = bisect.bisect_left(self.nums, val)
+        self.nums.insert(it, val)
+        # assert self.k <= len(self.nums)
+        if self.k > len(self.nums):
+            return None
+        else:
+            return self.nums[-self.k]
+    
+    
+    def new_add(self, val):
+        if self.root is None:
+                self.root = TreeNode(val)
+                self.root.count = 1
+        else:
+            self._insert(self.root, val)
+            self._increment_count(self.root, val)
+        kth_node = self.find_kth(self.root)
+        if kth_node:
+            # print(kth_node.val)
+            return kth_node.val
+        else:
+            # print(None)
+            return None
         
