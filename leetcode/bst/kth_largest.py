@@ -118,6 +118,10 @@ class KthLargest:
             if node.right:
                 nodes.append(node.right)
         return tree_list
+
+    
+    def _nums(self):
+        return self.nums
     
     
     def add(self, val):

@@ -53,3 +53,21 @@ class TestKthLargest:
                 print(f"Passing for n = {n}, res = {new_add_res}")
             else:
                 print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
+                print(kthLargest._nums())
+                print(kthLargest.toList())
+                break
+    
+    def test_my_example4(self):
+        print()
+        kthLargest = KthLargest(3, [])
+        all_nums = [3, 17, 17, 15]
+        for n in all_nums:
+            add_res = kthLargest.add(n)
+            new_add_res = kthLargest.new_add(n)
+            if add_res == new_add_res:
+                print(f"Passing for n = {n}, res = {new_add_res}")
+            else:
+                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
+                print(kthLargest._nums())
+                print(kthLargest.toList())
+                break
