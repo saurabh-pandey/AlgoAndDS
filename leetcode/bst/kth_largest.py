@@ -78,9 +78,12 @@ class KthLargest:
     
     
     def _increment_count(self, node, val):
+        # Have to also increment the nodes that are equal in value
+        # Equal nodes are still not handled
         nodes = [node]
         while nodes:
             currNode = nodes.pop(0)
+            # if currNode.val <= val:
             if currNode.val < val:
                 currNode.count += 1
                 if currNode.left:
@@ -139,6 +142,7 @@ class KthLargest:
                 self.root = TreeNode(val)
                 self.root.count = 1
         else:
+            # self._increment_count(self.root, val)
             self._insert(self.root, val)
             self._increment_count(self.root, val)
         kth_node = self.find_kth(self.root)

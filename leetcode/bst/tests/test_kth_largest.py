@@ -61,6 +61,9 @@ class TestKthLargest:
         print()
         kthLargest = KthLargest(3, [])
         all_nums = [3, 17, 17, 15]
+        # all_nums = [3, 17, 15, 17] # This works
+        # all_nums = [3, 15, 17, 17] # This also works
+        # all_nums = [17, 17, 3, 15] # But this doesn't
         for n in all_nums:
             add_res = kthLargest.add(n)
             new_add_res = kthLargest.new_add(n)
