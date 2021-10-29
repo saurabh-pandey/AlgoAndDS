@@ -60,10 +60,11 @@ class KthLargest:
         self.nums = nums
         self.nums.sort()
         self.root = None
+        self.kth = None
 
 
     def _insert(self, node, val):
-        if val < node.val:
+        if val <= node.val:
             if node.left is None:
                 node.left = TreeNode(val)
                 node.left.count = node.count + 1
@@ -96,6 +97,8 @@ class KthLargest:
     
 
     def find_kth(self, node):
+        if not node:
+            return None
         if self.k == node.count:
             return node
         if self.k < node.count:
@@ -138,6 +141,11 @@ class KthLargest:
     
     
     def new_add(self, val):
+        # kth_node = self.find_kth(self.root)
+        if self.kth and self.kth.val > val:
+                # print("IGNORE")
+                return self.kth.val
+        
         if self.root is None:
                 self.root = TreeNode(val)
                 self.root.count = 1
@@ -145,10 +153,10 @@ class KthLargest:
             # self._increment_count(self.root, val)
             self._insert(self.root, val)
             self._increment_count(self.root, val)
-        kth_node = self.find_kth(self.root)
-        if kth_node:
+        self.kth = self.find_kth(self.root)
+        if self.kth:
             # print(kth_node.val)
-            return kth_node.val
+            return self.kth.val
         else:
             # print(None)
             return None

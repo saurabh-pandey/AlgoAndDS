@@ -43,10 +43,10 @@ class TestKthLargest:
     
     def test_my_example3(self):
         print()
-        kthLargest = KthLargest(3, [])
-        rounds = 20
+        kthLargest = KthLargest(6, [])
+        rounds = 40
         for i in range(rounds):
-            n = random.randint(1, 20)
+            n = random.randint(1, 40)
             add_res = kthLargest.add(n)
             new_add_res = kthLargest.new_add(n)
             if add_res == new_add_res:
@@ -67,6 +67,25 @@ class TestKthLargest:
         for n in all_nums:
             add_res = kthLargest.add(n)
             new_add_res = kthLargest.new_add(n)
+            print(kthLargest.toList())
+            if add_res == new_add_res:
+                print(f"Passing for n = {n}, res = {new_add_res}")
+            else:
+                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
+                print(kthLargest._nums())
+                print(kthLargest.toList())
+                break
+    
+    def test_reverse(self):
+        kthLargest = KthLargest(3, [])
+        # all_nums = range(20, 0, -1)
+        # all_nums = [3, 17, 15, 17] # This works
+        # all_nums = [3, 15, 17, 17] # This also works
+        # all_nums = [17, 17, 3, 15] # But this doesn't
+        for n in range(20, 0, -1):
+            add_res = kthLargest.add(n)
+            new_add_res = kthLargest.new_add(n)
+            # print(kthLargest.toList())
             if add_res == new_add_res:
                 print(f"Passing for n = {n}, res = {new_add_res}")
             else:
