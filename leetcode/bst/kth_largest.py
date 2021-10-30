@@ -37,8 +37,6 @@ At most 104 calls will be made to add.
 It is guaranteed that there will be at least k elements in the array when you search for the kth 
 element.
 """
-import bisect
-# from bst.node import Node
 
 import pdb
 
@@ -60,6 +58,7 @@ class KthLargest:
         self.nums = nums
         self.nums.sort()
         self.root = None
+        self.size = 0
         self.kth = None
 
 
@@ -124,40 +123,27 @@ class KthLargest:
             if node.right:
                 nodes.append(node.right)
         return tree_list
-
-    
-    def _nums(self):
-        return self.nums
     
     
     def add(self, val):
-        it = bisect.bisect_left(self.nums, val)
-        self.nums.insert(it, val)
-        # assert self.k <= len(self.nums)
-        if self.k > len(self.nums):
-            return None
-        else:
-            return self.nums[-self.k]
-    
-    
-    def new_add(self, val):
-        # kth_node = self.find_kth(self.root)
+        self.size += 1
+        
         if self.kth and self.kth.val > val:
-                # print("IGNORE")
                 return self.kth.val
         
         if self.root is None:
                 self.root = TreeNode(val)
                 self.root.count = 1
         else:
-            # self._increment_count(self.root, val)
             self._insert(self.root, val)
             self._increment_count(self.root, val)
+        
+        if self.size < self.k:
+            return None
+        
         self.kth = self.find_kth(self.root)
         if self.kth:
-            # print(kth_node.val)
             return self.kth.val
         else:
-            # print(None)
             return None
         
