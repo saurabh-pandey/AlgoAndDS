@@ -55,11 +55,11 @@ class KthLargest:
 
     def __init__(self, k, nums):
         self.k = k
-        self.nums = nums
-        self.nums.sort()
         self.root = None
         self.size = 0
         self.kth = None
+        for n in nums:
+            self.add(n)
 
 
     def _insert(self, node, val):

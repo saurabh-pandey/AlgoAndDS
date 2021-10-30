@@ -3,10 +3,7 @@ import pytest
 from bst.kth_largest import KthLargest
 
 import random
-
 import bisect
-
-import pdb
 
 class KthLargestAsArray:
     def __init__(self, k, nums) -> None:
@@ -36,29 +33,35 @@ class KthLargestAsArray:
 class TestKthLargest:
     def test_example1(self):
         kthLargestAsArr = KthLargestAsArray(3, [4, 5, 8, 2])
-        assert kthLargestAsArr.add(3) == 4
-        assert kthLargestAsArr.add(5) == 5
-        assert kthLargestAsArr.add(10) == 5
-        assert kthLargestAsArr.add(9) == 8
-        assert kthLargestAsArr.add(4) == 8
+        kthLargest = KthLargest(3, [4, 5, 8, 2])
+        assert kthLargestAsArr.add(3) == kthLargest.add(3)
+        assert kthLargestAsArr.add(5) == kthLargest.add(5)
+        assert kthLargestAsArr.add(10) == kthLargest.add(10)
+        assert kthLargestAsArr.add(9) == kthLargest.add(9)
+        assert kthLargestAsArr.add(4) == kthLargest.add(4)
     
     def test_decreasing(self):
         k = 2
         max_val = 1000
         kthLargestAsArr = KthLargestAsArray(k, [])
+        kthLargest = KthLargest(k, [])
         for i in range(k - 1):
-            assert kthLargestAsArr.add(max_val - i) == None
+            assert kthLargestAsArr.add(max_val - i) == kthLargest.add(max_val - i)
         for n in range(max_val - k + 1, -1, -1):
-            assert kthLargestAsArr.add(n) == max_val - k + 1
+            assert kthLargestAsArr.add(n) == kthLargest.add(n)
     
     def test_increasing(self):
         k = 4
         max_val = 1000
         kthLargestAsArr = KthLargestAsArray(k, [])
+        kthLargest = KthLargest(k, [])
+        print()
         for i in range(k - 1):
-            assert kthLargestAsArr.add(i) == None
+            print(i)
+            assert kthLargestAsArr.add(i) == kthLargest.add(i)
         for n in range(k - 1, max_val + 1):
-            assert kthLargestAsArr.add(n) == n - k + 1
+            print(n)
+            assert kthLargestAsArr.add(n) == kthLargest.add(n)
     
     def test_my_example1(self):
         kthLargest = KthLargest(3, [])
