@@ -52,107 +52,55 @@ class TestKthLargest:
     
     def test_increasing(self):
         k = 4
-        max_val = 1000
+        max_val = 100
         kthLargestAsArr = KthLargestAsArray(k, [])
         kthLargest = KthLargest(k, [])
-        print()
         for i in range(k - 1):
-            print(i)
             assert kthLargestAsArr.add(i) == kthLargest.add(i)
         for n in range(k - 1, max_val + 1):
-            print(n)
             assert kthLargestAsArr.add(n) == kthLargest.add(n)
     
     def test_my_example1(self):
-        kthLargest = KthLargest(3, [])
-        kthLargest.new_add(6)
-        kthLargest.new_add(4)
-        kthLargest.new_add(10)
-        kthLargest.new_add(8)
-        kthLargest.new_add(5)
-        kthLargest.new_add(9)
-        kthLargest.new_add(11)
-        kthLargest.new_add(3)
-        kthLargest.new_add(7)
-        # print(kthLargest.toList())
-    
-    def test_my_example2(self):
-        print()
-        kthLargest = KthLargest(3, [])
+        k = 3
+        kthLargest = KthLargest(k, [])
+        kthLargestAsArr = KthLargestAsArray(k, [])
         all_nums = [6,4,10,8,5,9,11,3,7]
         for n in all_nums:
-            add_res = kthLargest.add(n)
-            new_add_res = kthLargest.new_add(n)
-            if add_res == new_add_res:
-                print(f"Passing for n = {n}, res = {new_add_res}")
-            else:
-                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
+            assert kthLargestAsArr.add(n) == kthLargest.add(n)
+
     
-    def test_my_example3(self):
-        print()
-        kthLargest = KthLargest(6, [])
+    def test_random(self):
+        k = 6
+        kthLargest = KthLargest(k, [])
+        kthLargestAsArr = KthLargestAsArray(k, [])
         rounds = 40
         for i in range(rounds):
             n = random.randint(1, 40)
-            add_res = kthLargest.add(n)
-            new_add_res = kthLargest.new_add(n)
-            if add_res == new_add_res:
-                print(f"Passing for n = {n}, res = {new_add_res}")
-            else:
-                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
-                print(kthLargest._nums())
-                print(kthLargest.toList())
-                break
+            arr_res = kthLargestAsArr.add(n)
+            bst_res = kthLargest.add(n)
+            assert arr_res == bst_res
     
-    def test_my_example4(self):
-        kthLargest = KthLargest(3, [])
+    
+    def test_duplicate(self):
+        k = 3
+        kthLargestAsArr = KthLargestAsArray(k, [])
+        kthLargest = KthLargest(k, [])
         all_nums = [3, 17, 17, 15]
-        # all_nums = [3, 17, 15, 17] # This works
-        # all_nums = [3, 15, 17, 17] # This also works
-        # all_nums = [17, 17, 3, 15] # But this doesn't
         for n in all_nums:
-            add_res = kthLargest.add(n)
-            new_add_res = kthLargest.new_add(n)
-            if add_res == new_add_res:
-                print(f"Passing for n = {n}, res = {new_add_res}")
-            else:
-                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
-                print(kthLargest._nums())
-                print(kthLargest.toList())
-                break
-    
-    def test_reverse(self):
-        kthLargest = KthLargest(3, [])
-        # all_nums = range(20, 0, -1)
-        # all_nums = [3, 17, 15, 17] # This works
-        # all_nums = [3, 15, 17, 17] # This also works
-        # all_nums = [17, 17, 3, 15] # But this doesn't
-        for n in range(20, 0, -1):
-            add_res = kthLargest.add(n)
-            new_add_res = kthLargest.new_add(n)
-            # print(kthLargest.toList())
-            if add_res == new_add_res:
-                print(f"Passing for n = {n}, res = {new_add_res}")
-            else:
-                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
-                print(kthLargest._nums())
-                print(kthLargest.toList())
-                break
+            bst_res = kthLargest.add(n)
+            arr_res = kthLargestAsArr.add(n)
+            assert arr_res == bst_res
     
 
-    def test_large(self):
-        kthLargest = KthLargest(9999, [])
-        # all_nums = range(20, 0, -1)
-        # all_nums = [3, 17, 15, 17] # This works
-        # all_nums = [3, 15, 17, 17] # This also works
-        # all_nums = [17, 17, 3, 15] # But this doesn't
-        for i in range(20000):
-            n = random.randint(-5000, 5000)
-            add_res = kthLargest.add(n)
-            new_add_res = kthLargest.new_add(n)
-            # print(kthLargest.toList())
-            if add_res != new_add_res:
-                print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
-                print(kthLargest._nums())
-                print(kthLargest.toList())
-                break
+    # def test_large(self):
+    #     kthLargest = KthLargest(9999, [])
+    #     for i in range(20000):
+    #         n = random.randint(-5000, 5000)
+    #         add_res = kthLargest.add(n)
+    #         new_add_res = kthLargest.new_add(n)
+    #         # print(kthLargest.toList())
+    #         if add_res != new_add_res:
+    #             print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
+    #             print(kthLargest._nums())
+    #             print(kthLargest.toList())
+    #             break
