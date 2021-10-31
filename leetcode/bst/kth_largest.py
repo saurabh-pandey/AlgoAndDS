@@ -45,7 +45,7 @@ class TreeNode:
         self.val = val
         self.left = None
         self.right = None
-        self.count = 0
+        self.count = 1
     
     def toStr(self):
         return f"[val = {self.val}, count = {self.count}]"
@@ -56,49 +56,49 @@ class KthLargest:
     def __init__(self, k, nums):
         self.k = k
         self.root = None
-        self.size = 0
         self.kth = None
         for n in nums:
             self.add(n)
 
 
     def _insert(self, node, val):
+        node.count += 1
         if val <= node.val:
             if node.left is None:
                 node.left = TreeNode(val)
-                node.left.count = node.count + 1
+                # node.left.count = node.count + 1
             else:
                 self._insert(node.left, val)
         else:
             if node.right is None:
                 node.right = TreeNode(val)
-                node.right.count = node.count
+                # node.right.count = node.count
             else:
                 self._insert(node.right, val)
     
     
-    def _increment_count(self, node, val):
-        # Have to also increment the nodes that are equal in value
-        # Equal nodes are still not handled
-        nodes = [node]
-        while nodes:
-            currNode = nodes.pop(0)
-            # if currNode.val <= val:
-            if currNode.val < val:
-                currNode.count += 1
-                if currNode.left:
-                    nodes.append(currNode.left)
-                if currNode.right:
-                    nodes.append(currNode.right)
-            else:
-                if currNode.left:
-                    nodes.append(currNode.left)
+    # def _increment_count(self, node, val):
+    #     # Have to also increment the nodes that are equal in value
+    #     # Equal nodes are still not handled
+    #     nodes = [node]
+    #     while nodes:
+    #         currNode = nodes.pop(0)
+    #         # if currNode.val <= val:
+    #         if currNode.val < val:
+    #             currNode.count += 1
+    #             if currNode.left:
+    #                 nodes.append(currNode.left)
+    #             if currNode.right:
+    #                 nodes.append(currNode.right)
+    #         else:
+    #             if currNode.left:
+    #                 nodes.append(currNode.left)
     
 
     def find_kth(self, node):
         if not node:
             return None
-        if self.k == node.count:
+        if self.k == node.count and not node.left:
             return node
         if self.k < node.count:
             if node.right:
@@ -126,8 +126,6 @@ class KthLargest:
     
     
     def add(self, val):
-        self.size += 1
-        
         if self.kth and self.kth.val > val:
                 return self.kth.val
         
@@ -136,9 +134,9 @@ class KthLargest:
                 self.root.count = 1
         else:
             self._insert(self.root, val)
-            self._increment_count(self.root, val)
+            # self._increment_count(self.root, val)
         
-        if self.size < self.k:
+        if self.root.count < self.k:
             return None
         
         self.kth = self.find_kth(self.root)

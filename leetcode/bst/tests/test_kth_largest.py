@@ -40,6 +40,16 @@ class TestKthLargest:
         assert kthLargestAsArr.add(9) == kthLargest.add(9)
         assert kthLargestAsArr.add(4) == kthLargest.add(4)
     
+
+    def test_my_example1(self):
+        k = 3
+        kthLargest = KthLargest(k, [])
+        kthLargestAsArr = KthLargestAsArray(k, [])
+        all_nums = [6,4,10,8,5,9,11,3,7]
+        for n in all_nums:
+            assert kthLargestAsArr.add(n) == kthLargest.add(n)
+    
+    
     def test_decreasing(self):
         k = 2
         max_val = 1000
@@ -58,14 +68,6 @@ class TestKthLargest:
         for i in range(k - 1):
             assert kthLargestAsArr.add(i) == kthLargest.add(i)
         for n in range(k - 1, max_val + 1):
-            assert kthLargestAsArr.add(n) == kthLargest.add(n)
-    
-    def test_my_example1(self):
-        k = 3
-        kthLargest = KthLargest(k, [])
-        kthLargestAsArr = KthLargestAsArray(k, [])
-        all_nums = [6,4,10,8,5,9,11,3,7]
-        for n in all_nums:
             assert kthLargestAsArr.add(n) == kthLargest.add(n)
 
     
