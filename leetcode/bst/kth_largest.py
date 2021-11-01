@@ -54,6 +54,7 @@ class TreeNode:
 class KthLargest:
 
     def __init__(self, k, nums):
+        # pdb.set_trace()
         self.k = k
         self.root = None
         self.kth = None
@@ -95,22 +96,25 @@ class KthLargest:
     #                 nodes.append(currNode.left)
     
 
-    def find_kth(self, node):
+    def find_kth(self, node, k):
         if not node:
             return None
-        if self.k == node.count and not node.left:
-            return node
-        if self.k < node.count:
-            if node.right:
-                return self.find_kth(node.right)
-            else:
-                return None
-        if self.k > node.count:
-            if node.left:
-                return self.find_kth(node.left)
-            else:
-                return None
+        
+        if k > node.count:
+            return None
 
+        right_res = self.find_kth(node.right, k)
+        if right_res:
+            return right_res
+        elif not right_res:
+            if node.right:
+                if k == (node.right.count + 1):
+                    return node
+        else:
+            right_count = 0 if not node.right else node.right.count
+            new_k = k - right_count - 1
+            return self.find_kth(node.left, new_k) 
+        
 
     def toList(self):
         tree_list = []
@@ -126,20 +130,20 @@ class KthLargest:
     
     
     def add(self, val):
-        if self.kth and self.kth.val > val:
-                return self.kth.val
+        # if self.kth and self.kth.val > val:
+        #         return self.kth.val
         
         if self.root is None:
                 self.root = TreeNode(val)
-                self.root.count = 1
+                # self.root.count = 1
         else:
             self._insert(self.root, val)
             # self._increment_count(self.root, val)
-        
+        print(self.toList())
         if self.root.count < self.k:
             return None
         
-        self.kth = self.find_kth(self.root)
+        self.kth = self.find_kth(self.root, self.k)
         if self.kth:
             return self.kth.val
         else:

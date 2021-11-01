@@ -32,6 +32,7 @@ class KthLargestAsArray:
 
 class TestKthLargest:
     def test_example1(self):
+        print()
         kthLargestAsArr = KthLargestAsArray(3, [4, 5, 8, 2])
         kthLargest = KthLargest(3, [4, 5, 8, 2])
         assert kthLargestAsArr.add(3) == kthLargest.add(3)
