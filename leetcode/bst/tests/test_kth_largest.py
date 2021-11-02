@@ -5,6 +5,7 @@ from bst.kth_largest import KthLargest
 import random
 import bisect
 
+# Array based kth largest for comparison
 class KthLargestAsArray:
     def __init__(self, k, nums) -> None:
         self.k = k
@@ -30,9 +31,9 @@ class KthLargestAsArray:
             return self.find_kth()
 
 
+# Tests
 class TestKthLargest:
     def test_example1(self):
-        print()
         kthLargestAsArr = KthLargestAsArray(3, [4, 5, 8, 2])
         kthLargest = KthLargest(3, [4, 5, 8, 2])
         assert kthLargestAsArr.add(3) == kthLargest.add(3)
@@ -95,15 +96,13 @@ class TestKthLargest:
             assert arr_res == bst_res
     
 
-    # def test_large(self):
-    #     kthLargest = KthLargest(9999, [])
-    #     for i in range(20000):
-    #         n = random.randint(-5000, 5000)
-    #         add_res = kthLargest.add(n)
-    #         new_add_res = kthLargest.new_add(n)
-    #         # print(kthLargest.toList())
-    #         if add_res != new_add_res:
-    #             print(f"Failed for n = {n}, new_add_res = {new_add_res}, add_res = {add_res}")
-    #             print(kthLargest._nums())
-    #             print(kthLargest.toList())
-    #             break
+    def test_large(self):
+        k = 9999
+        kthLargestAsArr = KthLargestAsArray(k, [])
+        kthLargest = KthLargest(k, [])
+        for i in range(20000):
+            n = random.randint(-5000, 5000)
+            bst_res = kthLargest.add(n)
+            arr_res = kthLargestAsArr.add(n)
+            assert arr_res == bst_res
+    

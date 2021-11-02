@@ -54,7 +54,6 @@ class TreeNode:
 class KthLargest:
 
     def __init__(self, k, nums):
-        # pdb.set_trace()
         self.k = k
         self.root = None
         self.kth = None
@@ -67,33 +66,13 @@ class KthLargest:
         if val <= node.val:
             if node.left is None:
                 node.left = TreeNode(val)
-                # node.left.count = node.count + 1
             else:
                 self._insert(node.left, val)
         else:
             if node.right is None:
                 node.right = TreeNode(val)
-                # node.right.count = node.count
             else:
                 self._insert(node.right, val)
-    
-    
-    # def _increment_count(self, node, val):
-    #     # Have to also increment the nodes that are equal in value
-    #     # Equal nodes are still not handled
-    #     nodes = [node]
-    #     while nodes:
-    #         currNode = nodes.pop(0)
-    #         # if currNode.val <= val:
-    #         if currNode.val < val:
-    #             currNode.count += 1
-    #             if currNode.left:
-    #                 nodes.append(currNode.left)
-    #             if currNode.right:
-    #                 nodes.append(currNode.right)
-    #         else:
-    #             if currNode.left:
-    #                 nodes.append(currNode.left)
     
 
     def find_kth(self, node, k):
@@ -106,12 +85,10 @@ class KthLargest:
         right_res = self.find_kth(node.right, k)
         if right_res:
             return right_res
-        elif not right_res:
-            if node.right:
-                if k == (node.right.count + 1):
-                    return node
+        right_count = 0 if not node.right else node.right.count
+        if k == (right_count + 1):
+            return node
         else:
-            right_count = 0 if not node.right else node.right.count
             new_k = k - right_count - 1
             return self.find_kth(node.left, new_k) 
         
@@ -130,16 +107,14 @@ class KthLargest:
     
     
     def add(self, val):
-        # if self.kth and self.kth.val > val:
-        #         return self.kth.val
+        if self.kth and self.kth.val > val:
+                return self.kth.val
         
         if self.root is None:
                 self.root = TreeNode(val)
-                # self.root.count = 1
         else:
             self._insert(self.root, val)
-            # self._increment_count(self.root, val)
-        print(self.toList())
+        
         if self.root.count < self.k:
             return None
         
