@@ -39,15 +39,38 @@ p != q
 p and q will exist in the BST.
 """
 
-# class TreeNode:
-#     def __init__(self, val):
-#         self.val = val
-#         self.left = None
-#         self.right = None
-    
-#     def toStr(self):
-#         return f"[val = {self.val}]"
+from leetcode.bst.node import Node
+
+
+def fill_path(root, target, path):
+    currNode = root
+    isFound = False
+    while currNode:
+        path.append(currNode)
+        if currNode.val == target.val:
+            isFound = True
+            break
+        if target.val < currNode.val:
+            currNode = currNode.left
+        if target.val > currNode.val:
+            currNode = currNode.right
+    return isFound
 
 
 def lowestCommonAncestor(root, p, q):
-    pass
+    path_to_p = []
+    p_is_found = fill_path(root, p, path_to_p)
+    if not p_is_found:
+        return None
+    path_to_q = []
+    q_is_found = fill_path(root, q, path_to_q)
+    if not q_is_found:
+        return None
+    
+    lcaNode = None
+    for it_p, it_q in zip(path_to_p, path_to_q):
+        if it_p.val == it_q.val:
+            lcaNode = it_p
+        else:
+            break
+    return lcaNode
