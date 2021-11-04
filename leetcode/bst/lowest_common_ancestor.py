@@ -52,7 +52,7 @@ def fill_path(root, target, path):
             break
         if target.val < currNode.val:
             currNode = currNode.left
-        if target.val > currNode.val:
+        else:
             currNode = currNode.right
     return isFound
 
@@ -66,7 +66,6 @@ def lowestCommonAncestor(root, p, q):
     q_is_found = fill_path(root, q, path_to_q)
     if not q_is_found:
         return None
-    
     lcaNode = None
     for it_p, it_q in zip(path_to_p, path_to_q):
         if it_p.val == it_q.val:
