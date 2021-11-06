@@ -31,30 +31,53 @@ Constraints:
 0 <= k <= 104
 0 <= t <= 231 - 1
 """
-def check_nearby_duplicate(nums, start, mid, end, t):
-    ref_val = nums[mid]
-    for i in range(start, mid):
-        if abs(nums[i] - ref_val) <= t:
-            return True
-    for i in range(mid + 1, end):
-        if abs(nums[i] - ref_val) <= t:
+import pdb
+
+def check_in_chunk(chunk, t):
+    for i in range(1, len(chunk)):
+        diff = abs(chunk[i] - chunk[i - 1])
+        if diff <= t:
             return True
     return False
+
+
+def check_crossover(current, next, t):
+    for i in range(1, len(current)):
+        for j in range(0, min(i, len(next))):
+            diff = abs(current[i] - next[j])
+            if diff <= t:
+                return True
+    return False
+        
+
+
+def get_next_chunk(start, chunk_size, l):
+    next_start = start + chunk_size
+    next_end = next_start + chunk_size
+    if next_end > l:
+        next_end = l
+    return (next_start, next_end)
 
 
 def containsNearbyAlmostDuplicate(nums, k, t):
     l = len(nums)
-    chunk_size = 2*k + 1
+    chunk_size = k + 1
     start = 0
-    end = chunk_size
-    end = l if end > l else end
-    print()
-    while start < l:
-        mid = (start + end)//2
-        print(f"start = {start}, mid = {mid}, end = {end}")
-        if check_nearby_duplicate(nums, start, mid, end, t):
+    end = chunk_size if chunk_size < l else l
+    curr_chunk = nums[start:end]
+    curr_chunk.sort()
+    if check_in_chunk(curr_chunk, t):
+        return True
+    next_start, next_end = get_next_chunk(start, end, l)
+    while next_start < l:
+        next_chunk = nums[next_start:next_end]
+        next_chunk.sort()
+        if check_in_chunk(next_chunk, t):
             return True
-        start += chunk_size
-        end += chunk_size
-        end = l if end > l else end
+        if check_crossover(curr_chunk, next_chunk, t):
+            return True
+        curr_chunk = next_chunk
+        next_start, next_end = get_next_chunk(next_start, next_end, l)
+    
     return False
+
