@@ -60,6 +60,7 @@ def get_next_chunk(start, chunk_size, l):
 
 
 def containsNearbyAlmostDuplicate(nums, k, t):
+    # pdb.set_trace()
     l = len(nums)
     chunk_size = k + 1
     start = 0
@@ -74,7 +75,7 @@ def containsNearbyAlmostDuplicate(nums, k, t):
         next_chunk.sort()
         if check_in_chunk(next_chunk, t):
             return True
-        if check_crossover(curr_chunk, next_chunk, t):
+        if check_crossover(nums[start:end], nums[next_start:next_end], t):
             return True
         curr_chunk = next_chunk
         next_start, next_end = get_next_chunk(next_start, next_end, l)
