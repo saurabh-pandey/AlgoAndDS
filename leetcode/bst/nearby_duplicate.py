@@ -49,6 +49,18 @@ def check_crossover(current, next, t):
             if diff <= t:
                 return True
     return False
+
+
+def new_check_crossover(nums, current, next, t):
+    # This is what is slowing the code.
+    curr_start, curr_end = current
+    next_start, next_end = next
+    for i in range(curr_start + 1, curr_end):
+        for j in range(next_start, min(i, next_end)):
+            diff = abs(nums[i] - nums[j])
+            if diff <= t:
+                return True
+    return False
         
 
 
@@ -76,9 +88,11 @@ def containsNearbyAlmostDuplicate(nums, k, t):
         next_chunk.sort()
         if check_in_chunk(next_chunk, t):
             return True
-        if check_crossover(nums[start:end], nums[next_start:next_end], t):
+        # if check_crossover(nums[start:end], nums[next_start:next_end], t):
+        if new_check_crossover(nums, (start,end), (next_start,next_end), t):
             return True
         curr_chunk = next_chunk
+        start, end = next_start, next_end
         next_start, next_end = get_next_chunk(next_start, next_end, l)
     
     return False
