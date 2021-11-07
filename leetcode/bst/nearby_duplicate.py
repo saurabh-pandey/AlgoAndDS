@@ -42,6 +42,7 @@ def check_in_chunk(chunk, t):
 
 
 def check_crossover(current, next, t):
+    # This is what is slowing the code.
     for i in range(1, len(current)):
         for j in range(0, min(i, len(next))):
             diff = abs(current[i] - next[j])
