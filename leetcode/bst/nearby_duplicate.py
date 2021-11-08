@@ -41,18 +41,7 @@ def check_in_chunk(chunk, t):
     return False
 
 
-def check_crossover(current, next, t):
-    # This is what is slowing the code.
-    for i in range(1, len(current)):
-        for j in range(0, min(i, len(next))):
-            diff = abs(current[i] - next[j])
-            if diff <= t:
-                return True
-    return False
-
-
-def new_check_crossover(nums, current, next, t):
-    # This is what is slowing the code.
+def check_crossover(nums, current, next, t):
     curr_start, curr_end = current
     next_start, next_end = next
     for i in range(curr_start + 1, curr_end):
@@ -72,8 +61,7 @@ def get_next_chunk(start, chunk_size, l):
     return (next_start, next_end)
 
 
-def containsNearbyAlmostDuplicate(nums, k, t):
-    # pdb.set_trace()
+def containsNearbyAlmostDuplicate_slow(nums, k, t):
     l = len(nums)
     chunk_size = k + 1
     start = 0
@@ -89,7 +77,7 @@ def containsNearbyAlmostDuplicate(nums, k, t):
         if check_in_chunk(next_chunk, t):
             return True
         # if check_crossover(nums[start:end], nums[next_start:next_end], t):
-        if new_check_crossover(nums, (start,end), (next_start,next_end), t):
+        if check_crossover(nums, (start,end), (next_start,next_end), t):
             return True
         curr_chunk = next_chunk
         start, end = next_start, next_end
@@ -97,3 +85,17 @@ def containsNearbyAlmostDuplicate(nums, k, t):
     
     return False
 
+
+def containsNearbyAlmostDuplicate_fast(nums, k, t):
+    # pdb.set_trace()
+    l = len(nums)
+    chunk_size = k + 1
+    start = 0
+    end = chunk_size if chunk_size < l else l
+    curr_chunk = nums[start:end]
+    curr_chunk.sort()
+    
+
+def containsNearbyAlmostDuplicate(nums, k, t):
+    # return containsNearbyAlmostDuplicate_slow(nums, k, t)
+    return containsNearbyAlmostDuplicate_fast(nums, k, t)
