@@ -35,3 +35,10 @@ class TestNearbyDuplicate:
         t = 2147483647
         res = False
         assert prob.containsNearbyAlmostDuplicate(nums, k, t) == res
+    
+    def test_lc2(self):
+        nums = [1,2,1,1]
+        k = 1
+        t = 0
+        res = True
+        assert prob.containsNearbyAlmostDuplicate(nums, k, t) == res

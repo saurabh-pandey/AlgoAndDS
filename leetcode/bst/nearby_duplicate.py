@@ -31,6 +31,8 @@ Constraints:
 0 <= k <= 104
 0 <= t <= 231 - 1
 """
+import bisect
+
 import pdb
 
 def check_in_chunk(chunk, t):
@@ -94,6 +96,25 @@ def containsNearbyAlmostDuplicate_fast(nums, k, t):
     end = chunk_size if chunk_size < l else l
     curr_chunk = nums[start:end]
     curr_chunk.sort()
+    if check_in_chunk(curr_chunk, t):
+        return True
+    end += 1
+    while end <= l:
+        num_to_be_removed = nums[start]
+        index = bisect.bisect_left(curr_chunk, num_to_be_removed)
+        curr_chunk.pop(index)
+        start += 1
+        num_to_be_added = nums[end - 1]
+        index = bisect.bisect_left(curr_chunk, num_to_be_added)
+        curr_chunk.insert(index, num_to_be_added)
+        if index < k:
+            if abs(curr_chunk[index] - curr_chunk[index + 1]) <= t:
+                return True
+        if index > 0:
+            if abs(curr_chunk[index - 1] - curr_chunk[index]) <= t:
+                return True
+        end += 1
+    return False
     
 
 def containsNearbyAlmostDuplicate(nums, k, t):
