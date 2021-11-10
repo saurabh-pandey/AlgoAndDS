@@ -37,17 +37,63 @@ Constraints:
 word and prefix consist only of lowercase English letters.
 At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 """
+class TreeNode:
+    def __init__(self) -> None:
+        self.isAdded = False
+        self.children = {}
+    
+    # def added(self):
+    #     self.isAdded = True
+    
+    # def is_added(self):
+    #     return self.isAdded
+
 
 class Trie:
 
     def __init__(self):
-        pass
+        self.root = TreeNode()
 
     def insert(self, word: str) -> None:
-        pass
+        curr_node = self.root
+        for w in word:
+            matching_child = None
+            for char, node in curr_node.children.items():
+                if char == w:
+                    matching_child = node
+                    break
+            if not matching_child:
+                new_node = TreeNode()
+                curr_node.children[w] = new_node
+                matching_child = new_node
+            curr_node = matching_child
+        curr_node.isAdded = True
+            
+
 
     def search(self, word: str) -> bool:
-        pass
+        curr_node = self.root
+        for w in word:
+            matching_child = None
+            for char, node in curr_node.children.items():
+                if char == w:
+                    matching_child = node
+                    break
+            if not matching_child:
+                return False
+            curr_node = matching_child
+        return curr_node.isAdded
 
     def startsWith(self, prefix: str) -> bool:
-        pass
+        curr_node = self.root
+        for w in prefix:
+            matching_child = None
+            for char, node in curr_node.children.items():
+                if char == w:
+                    matching_child = node
+                    break
+            if not matching_child:
+                return False
+            curr_node = matching_child
+        return True
+    
