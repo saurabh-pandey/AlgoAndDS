@@ -42,11 +42,20 @@ class TreeNode:
         self.isAdded = False
         self.children = {}
     
-    # def added(self):
-    #     self.isAdded = True
+
+    def find(self, c):
+        if c in self.children:
+            return self.children[c]
+        return None
     
-    # def is_added(self):
-    #     return self.isAdded
+
+    def insert(self, c):
+        if c in self.children:
+            return self.children[c]
+        new_node = TreeNode()
+        self.children[c] = new_node
+        return new_node
+
 
 
 class Trie:
@@ -54,19 +63,11 @@ class Trie:
     def __init__(self):
         self.root = TreeNode()
 
+    
     def insert(self, word: str) -> None:
         curr_node = self.root
         for w in word:
-            matching_child = None
-            for char, node in curr_node.children.items():
-                if char == w:
-                    matching_child = node
-                    break
-            if not matching_child:
-                new_node = TreeNode()
-                curr_node.children[w] = new_node
-                matching_child = new_node
-            curr_node = matching_child
+            curr_node = curr_node.insert(w)
         curr_node.isAdded = True
             
 
@@ -74,24 +75,17 @@ class Trie:
     def search(self, word: str) -> bool:
         curr_node = self.root
         for w in word:
-            matching_child = None
-            for char, node in curr_node.children.items():
-                if char == w:
-                    matching_child = node
-                    break
+            matching_child = curr_node.find(w)
             if not matching_child:
                 return False
             curr_node = matching_child
         return curr_node.isAdded
 
+    
     def startsWith(self, prefix: str) -> bool:
         curr_node = self.root
         for w in prefix:
-            matching_child = None
-            for char, node in curr_node.children.items():
-                if char == w:
-                    matching_child = node
-                    break
+            matching_child = curr_node.find(w)
             if not matching_child:
                 return False
             curr_node = matching_child
