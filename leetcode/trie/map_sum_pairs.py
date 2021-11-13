@@ -45,7 +45,7 @@ class MapSum:
     def insert(self, key: str, val: int) -> None:
         currNode = self
         for k in key:
-            if k in self.children:
+            if k in currNode.children:
                 currNode = currNode.children[k]
             else:
                 new_node = MapSum()
@@ -63,10 +63,10 @@ class MapSum:
                 curr_node = curr_node.children[p]
         calc_sum = 0
         nodes = [curr_node]
-        while not nodes:
+        while nodes:
             node = nodes.pop(0)
             calc_sum += node.val
-            nodes.extend(node.children)
+            nodes.extend(node.children.values())
         return calc_sum
 
 
