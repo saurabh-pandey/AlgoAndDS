@@ -57,9 +57,32 @@ sentence does not have leading or trailing spaces.
 """
 from trie.trie import Trie
 
+def toString(trNode, wrd, wrds):
+    for c in trNode.children:
+        child_node = trNode.children[c]
+        if child_node.isAdded:
+            wrds.append(wrd + c)
+        toString(child_node, wrd + c, wrds)
+    
+
 def replaceWords(dictionary, sentence):
     # Make input dict prefix free
     # For a Trie of sentence
     # Search for each dict word in sentence Trie
     # If found, relace every word underneath the tree with prefix
-    pass
+    len_sorted_dict = sorted(dictionary, key=len)
+    print(len_sorted_dict)
+    input_trie = Trie()
+    for w in len_sorted_dict:
+        curr_node = input_trie.root
+        for c in w:
+            curr_node = curr_node.insert(c)
+            if curr_node.isAdded:
+                break
+        curr_node.isAdded = True
+        wrds = []
+        toString(input_trie.root, "", wrds)
+        print(wrds)
+    # wrds = []
+    # toString(input_trie.root, "", wrds)
+    # print(wrds)
