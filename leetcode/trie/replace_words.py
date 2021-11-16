@@ -55,34 +55,61 @@ The length of each word in sentence is in the range [1, 1000]
 Each two consecutive words in sentence will be separated by exactly one space.
 sentence does not have leading or trailing spaces.
 """
-from trie.trie import Trie
 
-def toString(trNode, wrd, wrds):
+class TrieNode:
+    def __init__(self) -> None:
+        self.isAdded = False
+        self.children = {}
+    
+
+    def find(self, c):
+        if c in self.children:
+            return self.children[c]
+        return None
+    
+
+    def insert(self, c):
+        if c in self.children:
+            return self.children[c]
+        new_node = TrieNode()
+        self.children[c] = new_node
+        return new_node
+
+
+def all_words(trNode, wrd, wrds):
     for c in trNode.children:
         child_node = trNode.children[c]
         if child_node.isAdded:
             wrds.append(wrd + c)
-        toString(child_node, wrd + c, wrds)
-    
+        all_words(child_node, wrd + c, wrds)
 
-def replaceWords(dictionary, sentence):
-    # Make input dict prefix free
-    # For a Trie of sentence
-    # Search for each dict word in sentence Trie
-    # If found, relace every word underneath the tree with prefix
+
+def get_prefix_free_trie(dictionary):
     len_sorted_dict = sorted(dictionary, key=len)
-    print(len_sorted_dict)
-    input_trie = Trie()
+    trie_root = TrieNode()
     for w in len_sorted_dict:
-        curr_node = input_trie.root
+        curr_node = trie_root
         for c in w:
             curr_node = curr_node.insert(c)
             if curr_node.isAdded:
                 break
         curr_node.isAdded = True
-        wrds = []
-        toString(input_trie.root, "", wrds)
-        print(wrds)
-    # wrds = []
-    # toString(input_trie.root, "", wrds)
-    # print(wrds)
+    return trie_root
+
+def replaceWords(dictionary, sentence):
+    input_trie = get_prefix_free_trie(dictionary)
+    tokens = sentence.split()
+    for i in range(len(tokens)):
+        word = tokens[i]
+        curr_node = input_trie
+        replace_with = ""
+        for c in word:
+            replace_with += c
+            if c not in curr_node.children:
+                break
+            else:
+                curr_node = curr_node.children[c]
+                if curr_node.isAdded:
+                    tokens[i] = replace_with
+                    break
+    return ' '.join(tokens)
