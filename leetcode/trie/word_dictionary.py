@@ -36,18 +36,59 @@ word in addWord consists lower-case English letters.
 word in search consist of  '.' or lower-case English letters.
 At most 50000 calls will be made to addWord and search.
 """
+class TrieNode:
+    def __init__(self) -> None:
+        self.children = {}
+        self.isAdded = False
+    
+    
+    def insert(self, key):
+        if key in self.children:
+            return self.children[key]
+        newNode = TrieNode()
+        self.children[key] = newNode
+        return newNode
+    
+    
+    def find(self, key):
+        if key in self.children:
+            return self.children[key]
+        return None
+
+
+
 class WordDictionary:
 
     def __init__(self):
-        pass
+        self.root = TrieNode()
         
 
     def addWord(self, word: str) -> None:
-        pass
+        c_node = self.root
+        for w in word:
+            c_node = c_node.insert(w)
+        c_node.isAdded = True
         
 
     def search(self, word: str) -> bool:
-        pass
+        nodes = [self.root]
+        for w in word:
+            if w != ".":
+                prev_nodes = nodes[:]
+                for node in prev_nodes:
+                    if w in node.children:
+                        nodes.append(node.children[w])
+            else:
+                prev_nodes = nodes[:]
+                for node in prev_nodes:
+                    nodes.extend(node.children.values())
+            if not nodes:
+                return False
+        for node in nodes:
+            if node.isAdded:
+                return True
+        return False
+
         
 
 
