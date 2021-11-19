@@ -49,11 +49,6 @@ class TrieNode:
         self.children[key] = newNode
         return newNode
     
-    
-    def find(self, key):
-        if key in self.children:
-            return self.children[key]
-        return None
 
 
 
@@ -73,13 +68,13 @@ class WordDictionary:
     def search(self, word: str) -> bool:
         nodes = [self.root]
         for w in word:
+            prev_nodes = nodes[:]
+            nodes.clear()
             if w != ".":
-                prev_nodes = nodes[:]
                 for node in prev_nodes:
                     if w in node.children:
                         nodes.append(node.children[w])
             else:
-                prev_nodes = nodes[:]
                 for node in prev_nodes:
                     nodes.extend(node.children.values())
             if not nodes:
