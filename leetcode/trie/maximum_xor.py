@@ -42,6 +42,20 @@ Constraints:
 0 <= nums[i] <= 231 - 1
 """
 def findMaximumXOR(nums):
+    """
+    IDEA
+    Seems like we need a Trie of bits for the numbers
+    Generate the Trie
+    Now maximum XOR with a number is possible if all it bits are reversed
+    Given a number we start searching for a number with bits-reversed in the Trie
+    We might want to start from the least-significant bit
+    Keep looking for negated bits till we can find
+    Max XOR possible with that number would be known
+    Also, using Trie we are not comparing with all the remaining numbers
+    Should we remove the number from Trie once we have seen with it?
+    How do shrink search space as we march along the nums?
+    Is it even needed?
+    """
     l = len(nums)
     max_xor = 0
     for i in range(l):
