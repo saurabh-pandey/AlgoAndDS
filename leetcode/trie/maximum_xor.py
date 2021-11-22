@@ -41,21 +41,22 @@ Constraints:
 1 <= nums.length <= 2 * 105
 0 <= nums[i] <= 231 - 1
 """
-def findMaximumXOR(nums):
-    """
-    IDEA
-    Seems like we need a Trie of bits for the numbers
-    Generate the Trie
-    Now maximum XOR with a number is possible if all it bits are reversed
-    Given a number we start searching for a number with bits-reversed in the Trie
-    We might want to start from the least-significant bit
-    Keep looking for negated bits till we can find
-    Max XOR possible with that number would be known
-    Also, using Trie we are not comparing with all the remaining numbers
-    Should we remove the number from Trie once we have seen with it?
-    How do shrink search space as we march along the nums?
-    Is it even needed?
-    """
+class TrieNode:
+    def __init__(self) -> None:
+        self.children = [None, None]
+        self.isAdded = False
+    
+    def insert(self, state):
+        # index = int(state)
+        index = state
+        if self.children[index]:
+            return self.children[index]
+        new_node = TrieNode()
+        self.children[index] = new_node
+        return new_node
+
+
+def findMaximumXOR_bf(nums):
     l = len(nums)
     max_xor = 0
     for i in range(l):
@@ -64,3 +65,25 @@ def findMaximumXOR(nums):
             if xor > max_xor:
                 max_xor = xor
     return max_xor
+
+
+
+
+def findMaximumXOR(nums):
+    trie_root = TrieNode()
+    for n in nums:
+        bits = [int(b) for b in bin(n)[2:]]
+        curr_node = trie_root
+        for bit in bits:
+            curr_node = curr_node.insert(bit)
+        curr_node.isAdded = True
+    
+    for n in nums:
+        bits = [int(b) for b in bin(n)[2:]]
+        inverted_bits = [int(not b) for b in bits]
+        i = 0
+        while i < len(bits):
+            if trie_root.children[inverted_bits[i]]:
+                pass
+            elif trie_root.children[bits[i]]:
+                pass
