@@ -67,6 +67,12 @@ def findMaximumXOR_bf(nums):
     return max_xor
 
 
+def bit_eval(bits):
+    result = 0
+    l = len(bits)
+    for i in range(l):
+        result += bits[i] * 2**(l - i - 1)
+    return result
 
 
 def findMaximumXOR(nums):
@@ -78,12 +84,26 @@ def findMaximumXOR(nums):
             curr_node = curr_node.insert(bit)
         curr_node.isAdded = True
     
+    max_xor = 0
     for n in nums:
         bits = [int(b) for b in bin(n)[2:]]
-        inverted_bits = [int(not b) for b in bits]
+        # inverted_bits = [int(not b) for b in bits]
+        xor_bits = []
         i = 0
+        local_xor = 0
+        curr_node = trie_root
         while i < len(bits):
-            if trie_root.children[inverted_bits[i]]:
-                pass
-            elif trie_root.children[bits[i]]:
-                pass
+            bit = bits[i]
+            inverse = int(not bit)
+            next_node = curr_node.children[inverse]
+            if next_node:
+                xor_bits.append(1)
+            elif curr_node.children[bit]:
+                next_node = curr_node.children[bit]
+                xor_bits.append(0)
+            curr_node = next_node
+            if curr_node.isAdded:
+                local_xor = bit_eval(xor_bits)
+                if local_xor > max_xor:
+                    max_xor = local_xor
+    return max_xor
