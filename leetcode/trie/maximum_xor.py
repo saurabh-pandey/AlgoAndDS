@@ -41,6 +41,9 @@ Constraints:
 1 <= nums.length <= 2 * 105
 0 <= nums[i] <= 231 - 1
 """
+import math
+
+
 class TrieNode:
     def __init__(self) -> None:
         self.children = [None, None]
@@ -67,7 +70,7 @@ def findMaximumXOR_bf(nums):
     return max_xor
 
 
-def bit_eval(bits):
+def convertToNumber(bits):
     result = 0
     l = len(bits)
     for i in range(l):
@@ -76,14 +79,26 @@ def bit_eval(bits):
 
 
 def findMaximumXOR(nums):
+    max_bits = 0
+    for n in nums:
+        num_bits = int(math.log2(n)) + 1
+        if num_bits > max_bits:
+            max_bits = num_bits
+    # print(f"max_bits = {max_bits}")
     trie_root = TrieNode()
     for n in nums:
-        bits = [int(b) for b in bin(n)[2:]]
+        bits = [0 for _ in range(max_bits)]
+        bin_bits = [int(b) for b in bin(n)[2:]]
+        # print(f"For {n} bin_bits = {bin_bits}")
+        for i in range(1, len(bin_bits) + 1):
+            bits[-i] = bin_bits[-i]
+        print(f"For {n} bits = {bits}")
+        # continue
         curr_node = trie_root
         for bit in bits:
             curr_node = curr_node.insert(bit)
         curr_node.isAdded = True
-    
+    # return
     max_xor = 0
     for n in nums:
         bits = [int(b) for b in bin(n)[2:]]
@@ -103,7 +118,7 @@ def findMaximumXOR(nums):
                 xor_bits.append(0)
             curr_node = next_node
             if curr_node.isAdded:
-                local_xor = bit_eval(xor_bits)
+                local_xor = convertToNumber(xor_bits)
                 if local_xor > max_xor:
                     max_xor = local_xor
     return max_xor
