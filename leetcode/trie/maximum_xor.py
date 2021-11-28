@@ -50,7 +50,6 @@ class TrieNode:
         self.isAdded = False
     
     def insert(self, state):
-        # index = int(state)
         index = state
         if self.children[index]:
             return self.children[index]
@@ -86,7 +85,7 @@ def findMaximumXOR(nums):
             max_bits = num_bits
     # print(f"max_bits = {max_bits}")
     trie_root = TrieNode()
-    max_bit_nums = {}
+    max_bit_nums = []
     for n in nums:
         bits = [0 for _ in range(max_bits)]
         bin_bits = [int(b) for b in bin(n)[2:]]
@@ -96,14 +95,14 @@ def findMaximumXOR(nums):
         # print(f"For {n} bits = {bits}")
         # continue
         if bits[0] == 1:
-            max_bit_nums[n] = bits
+            max_bit_nums.append(bits)
         curr_node = trie_root
         for bit in bits:
             curr_node = curr_node.insert(bit)
         curr_node.isAdded = True
     # return
     max_xor = 0
-    for n, bits in max_bit_nums.items():
+    for bits in max_bit_nums:
         xor_bits = []
         i = 0
         local_xor = 0
