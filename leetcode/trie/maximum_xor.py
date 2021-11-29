@@ -102,23 +102,30 @@ def findMaximumXOR(nums):
         curr_node.isAdded = True
     # return
     max_xor = 0
+    xor_bits = [0 for _ in range(max_bits)]
     for bits in max_bit_nums:
-        xor_bits = []
         i = 0
         local_xor = 0
+        isUsefulPath = True
         curr_node = trie_root
         while i < len(bits):
             bit = bits[i]
             inverse = int(not bit)
             next_node = curr_node.children[inverse]
             if next_node:
-                xor_bits.append(1)
+                xor_bits[i] = 1
             elif curr_node.children[bit]:
                 next_node = curr_node.children[bit]
-                xor_bits.append(0)
+                if xor_bits[i] == 1:
+                    # print(f"switching off xor_bits i = {i}")
+                    isUsefulPath = False
+                xor_bits[i] = 0
             curr_node = next_node
             i += 1
         local_xor = convertToNumber(xor_bits)
+        if not isUsefulPath:
+            if local_xor > max_xor:
+                print(f"This should not be printed")
         if local_xor > max_xor:
             max_xor = local_xor
     return max_xor

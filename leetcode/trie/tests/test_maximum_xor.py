@@ -33,11 +33,14 @@ class TestMaximumXor:
         assert prob.findMaximumXOR(nums) == res
     
     def test_random(self):
-        sz = 10000
-        nums = [random.randint(0, sz) for _ in range(sz)]
-        print("\nTesting random")
-        res_bf = prob.findMaximumXOR_bf(nums)
-        print("Brute-force = ", res_bf)
-        res_trie = prob.findMaximumXOR(nums)
-        print("Trie = ", res_trie)
-        assert res_bf == res_trie
+        sizes = [10, 50, 100, 500, 1000, 5000, 10000]
+        for sz in sizes:
+            print("\nTest size = ", sz)
+            nums = [random.randint(0, sz) for _ in range(sz)]
+            print("Testing Brute-force")
+            res_bf = prob.findMaximumXOR_bf(nums)
+            print("Brute-force = ", res_bf)
+            print("Testing Trie")
+            res_trie = prob.findMaximumXOR(nums)
+            print("Trie = ", res_trie)
+            assert res_bf == res_trie
