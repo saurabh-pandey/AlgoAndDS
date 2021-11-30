@@ -9,7 +9,6 @@ class TestMaximumXor:
     def test_example1(self):
         nums = [3,10,5,25,2,8]
         res = 28
-        # prob.findMaximumXOR(nums)
         assert prob.findMaximumXOR(nums) == res
     
     def test_example2(self):
@@ -44,3 +43,8 @@ class TestMaximumXor:
             res_trie = prob.findMaximumXOR(nums)
             print("Trie = ", res_trie)
             assert res_bf == res_trie
+    
+    def test_lc1(self):
+        nums = [10,23,20,18,28]
+        res = 30
+        assert prob.findMaximumXOR(nums) == res

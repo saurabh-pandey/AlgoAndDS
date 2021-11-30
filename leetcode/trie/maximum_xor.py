@@ -77,30 +77,36 @@ def convertToNumber(bits):
     return result
 
 
-def findMaximumXOR(nums):
+def getMaxBits(nums):
     max_bits = 0
     for n in nums:
         num_bits = int(math.log2(n)) + 1 if n > 0 else 1
         if num_bits > max_bits:
             max_bits = num_bits
-    # print(f"max_bits = {max_bits}")
-    trie_root = TrieNode()
-    max_bit_nums = []
+    return max_bits
+
+
+def fillTrieWithBits(nums, max_bits, max_bit_nums, trie_root):
     for n in nums:
         bits = [0 for _ in range(max_bits)]
         bin_bits = [int(b) for b in bin(n)[2:]]
-        # print(f"For {n} bin_bits = {bin_bits}")
         for i in range(1, len(bin_bits) + 1):
             bits[-i] = bin_bits[-i]
-        # print(f"For {n} bits = {bits}")
-        # continue
         if bits[0] == 1:
             max_bit_nums.append(bits)
         curr_node = trie_root
         for bit in bits:
             curr_node = curr_node.insert(bit)
         curr_node.isAdded = True
-    # return
+
+
+def findMaximumXOR(nums):
+    max_bits = getMaxBits(nums)
+    
+    trie_root = TrieNode()
+    max_bit_nums = []
+    fillTrieWithBits(nums, max_bits, max_bit_nums, trie_root)
+
     max_xor = 0
     xor_bits = [0 for _ in range(max_bits)]
     for bits in max_bit_nums:
@@ -114,18 +120,17 @@ def findMaximumXOR(nums):
             next_node = curr_node.children[inverse]
             if next_node:
                 xor_bits[i] = 1
-            elif curr_node.children[bit]:
+            else:
                 next_node = curr_node.children[bit]
-                if xor_bits[i] == 1:
-                    # print(f"switching off xor_bits i = {i}")
+                if next_node:
+                    xor_bits[i] = 0
+                else:
                     isUsefulPath = False
-                xor_bits[i] = 0
+                    break
             curr_node = next_node
             i += 1
-        local_xor = convertToNumber(xor_bits)
-        if not isUsefulPath:
+        if isUsefulPath:
+            local_xor = convertToNumber(xor_bits)
             if local_xor > max_xor:
-                print(f"This should not be printed")
-        if local_xor > max_xor:
-            max_xor = local_xor
+                max_xor = local_xor
     return max_xor
