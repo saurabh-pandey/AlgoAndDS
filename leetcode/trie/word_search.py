@@ -31,5 +31,29 @@ board[i][j] is a lowercase English letter.
 words[i] consists of lowercase English letters.
 All the strings of words are unique.
 """
+class TrieNode():
+    def __init__(self) -> None:
+        self.children = {}
+        self.isAdded = False
+    
+    def insert(self, char):
+        if char in self.children:
+            return self.children[char]
+        new_node = TrieNode()
+        self.children[char] = new_node
+        return new_node
+    
+
 def findWords(board, words):
-    pass
+    # Fill Trie
+    trie_root = TrieNode()
+    for word in words:
+        curr_node = trie_root
+        for char in word:
+            curr_node = curr_node.insert(char)
+        curr_node.isAdded = True
+    
+    # Now BFS on board
+    # Use each cell as the starting point
+    # Go only as deep as the longest word
+    # Retract early if prefix not found in Trie
