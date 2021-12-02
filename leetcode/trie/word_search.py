@@ -44,10 +44,52 @@ class TrieNode():
         return new_node
     
 
+def get_neighbours(cell, bounds):
+    m, n = bounds
+    neighbours = []
+    i, j = cell
+    nextI = i + 1
+    prevI = i - 1
+    nextJ = j + 1
+    prevJ = j - 1
+    if nextI < m:
+        neighbours.append((nextI, j))
+    if prevI >= 0:
+        neighbours.append((prevI, j))
+    if nextJ < n:
+        neighbours.append((i, nextJ))
+    if prevJ >= 0:
+        neighbours.append((i, prevJ))
+    return neighbours
+
+
+def dfs(board, bounds, max_word_len, cell, trie_node, word, found_words):
+    c = board[cell[0]][cell[1]]
+    word += c
+    if len(word) > max_word_len:
+        return
+    if c in trie_node.children:
+        next_node = trie_node.children[c]
+        if next_node.isAdded:
+            found_words.append(word)
+        for child in get_neighbours(cell, bounds):
+            dfs(board, bounds, max_word_len, child, next_node, word, found_words)
+
+
+
 def findWords(board, words):
+    m = len(board)
+    if m == 0:
+        return []
+    n = len(board[0])
+    if n == 0:
+        return []
     # Fill Trie
+    max_word_len = 0
     trie_root = TrieNode()
     for word in words:
+        if len(word) > max_word_len:
+            max_word_len = len(word)
         curr_node = trie_root
         for char in word:
             curr_node = curr_node.insert(char)
@@ -57,3 +99,10 @@ def findWords(board, words):
     # Use each cell as the starting point
     # Go only as deep as the longest word
     # Retract early if prefix not found in Trie
+    found_words = []
+    for i in range(m):
+        for j in range(n):
+            dfs(board, (m, n), max_word_len, (i, j), trie_root, "", found_words)
+    return found_words
+
+        
