@@ -63,17 +63,21 @@ def get_neighbours(cell, bounds):
     return neighbours
 
 
-def dfs(board, bounds, max_word_len, cell, trie_node, word, found_words):
+def dfs(board, visited, bounds, max_word_len, cell, trie_node, word, found_words):
     c = board[cell[0]][cell[1]]
+    visited[cell[0]][cell[1]] = True
     word += c
     if len(word) > max_word_len:
+        visited[cell[0]][cell[1]] = False
         return
     if c in trie_node.children:
         next_node = trie_node.children[c]
-        if next_node.isAdded:
+        if next_node.isAdded and word not in found_words:
             found_words.append(word)
         for child in get_neighbours(cell, bounds):
-            dfs(board, bounds, max_word_len, child, next_node, word, found_words)
+            if not visited[child[0]][child[1]]:
+                dfs(board, visited, bounds, max_word_len, child, next_node, word, found_words)
+    visited[cell[0]][cell[1]] = False
 
 
 
@@ -95,14 +99,11 @@ def findWords(board, words):
             curr_node = curr_node.insert(char)
         curr_node.isAdded = True
     
-    # Now BFS on board
-    # Use each cell as the starting point
-    # Go only as deep as the longest word
-    # Retract early if prefix not found in Trie
     found_words = []
     for i in range(m):
         for j in range(n):
-            dfs(board, (m, n), max_word_len, (i, j), trie_root, "", found_words)
+            visited = [[False for _ in range(n)] for _ in range(m)]
+            dfs(board, visited, (m, n), max_word_len, (i, j), trie_root, "", found_words)
     return found_words
 
         
