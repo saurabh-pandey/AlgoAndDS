@@ -26,7 +26,7 @@ m == board.length
 n == board[i].length
 1 <= m, n <= 12
 board[i][j] is a lowercase English letter.
-1 <= words.length <= 3 * 104
+1 <= words.length <= 3 * 10^4
 1 <= words[i].length <= 10
 words[i] consists of lowercase English letters.
 All the strings of words are unique.
@@ -72,8 +72,8 @@ def dfs(board, visited, bounds, max_word_len, cell, trie_node, word, found_words
         return
     if c in trie_node.children:
         next_node = trie_node.children[c]
-        if next_node.isAdded and word not in found_words:
-            found_words.append(word)
+        if next_node.isAdded:
+            found_words.add(word)
         for child in get_neighbours(cell, bounds):
             if not visited[child[0]][child[1]]:
                 dfs(board, visited, bounds, max_word_len, child, next_node, word, found_words)
@@ -99,11 +99,11 @@ def findWords(board, words):
             curr_node = curr_node.insert(char)
         curr_node.isAdded = True
     
-    found_words = []
+    found_words = set()
     for i in range(m):
         for j in range(n):
             visited = [[False for _ in range(n)] for _ in range(m)]
             dfs(board, visited, (m, n), max_word_len, (i, j), trie_root, "", found_words)
-    return found_words
+    return list(found_words)
 
         
