@@ -91,7 +91,8 @@ def findWords(board, words):
     # Fill Trie
     max_word_len = 0
     trie_root = TrieNode()
-    for word in words:
+    unq_words = set(words)
+    for word in unq_words:
         if len(word) > max_word_len:
             max_word_len = len(word)
         curr_node = trie_root
