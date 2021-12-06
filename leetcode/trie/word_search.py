@@ -35,6 +35,7 @@ class TrieNode():
     def __init__(self) -> None:
         self.children = {}
         self.isAdded = False
+        self.isVisited = False
     
     def insert(self, char):
         if char in self.children:
@@ -42,6 +43,14 @@ class TrieNode():
         new_node = TrieNode()
         self.children[char] = new_node
         return new_node
+    
+    def updateVisit(self):
+        for child in self.children.values():
+            if not child.isVisited:
+                self.isVisited = False
+                return
+        self.isVisited = True
+
     
 
 def get_neighbours(cell, bounds):
@@ -67,27 +76,28 @@ def dfs(board, visited, bounds, max_word_len, cell, trie_node, word, found_words
     c = board[cell[0]][cell[1]]
     visited[cell[0]][cell[1]] = True
     word += c
-    if len(word) > max_word_len:
-        visited[cell[0]][cell[1]] = False
-        return
-    if c in trie_node.children:
-        next_node = trie_node.children[c]
-        if next_node.isAdded:
-            found_words.add(word)
-        for child in get_neighbours(cell, bounds):
-            if not visited[child[0]][child[1]]:
-                dfs(board, visited, bounds, max_word_len, child, next_node, word, found_words)
+    if (not trie_node.isVisited) and (len(word) <= max_word_len):
+        if c in trie_node.children:
+            next_node = trie_node.children[c]
+            if next_node.isAdded:
+                found_words.add(word)
+            for child in get_neighbours(cell, bounds):
+                if not visited[child[0]][child[1]]:
+                    dfs(board, visited, bounds, max_word_len, child, next_node, word, found_words)
+    trie_node.updateVisit()
     visited[cell[0]][cell[1]] = False
 
 
 
 def findWords(board, words):
+    # Some sanity check
     m = len(board)
     if m == 0:
         return []
     n = len(board[0])
     if n == 0:
         return []
+
     # Fill Trie
     max_word_len = 0
     trie_root = TrieNode()
@@ -100,10 +110,11 @@ def findWords(board, words):
             curr_node = curr_node.insert(char)
         curr_node.isAdded = True
     
+    # DFS board search
+    visited = [[False for _ in range(n)] for _ in range(m)]
     found_words = set()
     for i in range(m):
         for j in range(n):
-            visited = [[False for _ in range(n)] for _ in range(m)]
             dfs(board, visited, (m, n), max_word_len, (i, j), trie_root, "", found_words)
     return list(found_words)
 
