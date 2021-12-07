@@ -31,5 +31,32 @@ Constraints:
 0 <= words[i].length <= 300
 words[i] consists of lower-case English letters.
 """
-def palindromePairs(self, words):
-    pass
+def checkPalindrome(word):
+    l = len(word)
+    if l < 2:
+        return True
+    i = 0
+    j = l - 1
+    while i < j:
+        if word[i] != word[j]:
+            return False
+        i += 1
+        j -= 1
+    return True
+
+
+def palindromePairs(words):
+    pairs = []
+    l = len(words)
+    if l < 2:
+        return pairs
+    for i in range(l):
+        w1 = words[i]
+        for j in range(i + 1, l):
+            w2 = words[j]
+            if checkPalindrome(w1 + w2):
+                pairs.append([i, j])
+            if checkPalindrome(w2 + w1):
+                pairs.append([j, i])
+    return pairs
+
