@@ -4,9 +4,15 @@ import trie.palindrome_pairs as prob
 
 class TestPalidromePairs:
     def test_example1(self):
-        words = ["abcd","dcba","lls","s","sssll"]
-        res = [[0,1],[1,0],[3,2],[2,4]]
-        assert prob.palindromePairs(words) == res
+        # words = ["abcd","dcba","lls","s","sssll"]
+        # res = [[0,1],[1,0],[3,2],[2,4]]
+        # assert prob.palindromePairs(words) == res
+
+        words = ["a",""]
+        # words = ["ab","ba"]
+        # words = ["abcd","dcba","lls","s","sssll"]
+        print()
+        prob.palindromePairs(words)
     
     def test_example2(self):
         words = ["bat","tab","cat"]

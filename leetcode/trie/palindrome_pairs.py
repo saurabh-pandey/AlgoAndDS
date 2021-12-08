@@ -31,6 +31,9 @@ Constraints:
 0 <= words[i].length <= 300
 words[i] consists of lower-case English letters.
 """
+import pdb
+
+
 def checkPalindrome(word):
     l = len(word)
     if l < 2:
@@ -45,7 +48,7 @@ def checkPalindrome(word):
     return True
 
 
-def palindromePairs(words):
+def palindromePairs_bf(words):
     pairs = []
     l = len(words)
     if l < 2:
@@ -60,3 +63,47 @@ def palindromePairs(words):
                 pairs.append([j, i])
     return pairs
 
+
+class TrieNode:
+    def __init__(self) -> None:
+        self.children = {}
+        self.isAdded = False
+    
+    def insert(self, char):
+        if char in self.children:
+            return self.children[char]
+        else:
+            new_node = TrieNode()
+            self.children[char] = new_node
+            return new_node
+
+
+def palindromePairs(words):
+    pairs = []
+    l = len(words)
+    if l < 2:
+        return pairs
+    
+    root = TrieNode()
+    for w in words:
+        curr_node = root
+        for letter in w:
+            curr_node = curr_node.insert(letter)
+        curr_node.isAdded = True
+    
+    # pdb.set_trace()
+    for w in words:
+        curr_node = root
+        inverse = ""
+        for i in range(len(w) - 1, -1, -1):
+            if curr_node.isAdded:
+                if checkPalindrome(w + inverse):
+                    print(f"\"{w}\" and \"{inverse}\" are palindrome")
+            inverse += w[i]
+            if w[i] in curr_node.children:
+                curr_node = curr_node.children[w[i]]
+            else:
+                break
+        if curr_node.isAdded:
+            if checkPalindrome(w + inverse):
+                print(f"\"{w}\" and \"{inverse}\" are palindrome")
