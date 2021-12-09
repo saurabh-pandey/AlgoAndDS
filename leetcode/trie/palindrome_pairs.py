@@ -67,7 +67,7 @@ def palindromePairs_bf(words):
 class TrieNode:
     def __init__(self) -> None:
         self.children = {}
-        self.isAdded = False
+        self.index = -1
     
     def insert(self, char):
         if char in self.children:
@@ -78,6 +78,7 @@ class TrieNode:
             return new_node
 
 
+
 def palindromePairs(words):
     pairs = []
     l = len(words)
@@ -85,25 +86,29 @@ def palindromePairs(words):
         return pairs
     
     root = TrieNode()
-    for w in words:
+    for i in range(l):
+        word = words[i]
         curr_node = root
-        for letter in w:
+        for letter in word:
             curr_node = curr_node.insert(letter)
-        curr_node.isAdded = True
+        curr_node.index = i
     
     # pdb.set_trace()
-    for w in words:
+    for i in range(l):
+        word = words[i]
+        len_w = len(word)
         curr_node = root
         inverse = ""
-        for i in range(len(w) - 1, -1, -1):
-            if curr_node.isAdded:
-                if checkPalindrome(w + inverse):
-                    print(f"\"{w}\" and \"{inverse}\" are palindrome")
-            inverse += w[i]
-            if w[i] in curr_node.children:
-                curr_node = curr_node.children[w[i]]
+        for j in range(len_w - 1, -1, -1):
+            if (curr_node.index != -1) and (curr_node.index != i):
+                if checkPalindrome(word + inverse):
+                    print(f"\"{word}\" and \"{inverse}\" are palindrome")
+            inverse += word[j]
+            if word[j] in curr_node.children:
+                curr_node = curr_node.children[word[j]]
             else:
                 break
-        if curr_node.isAdded:
-            if checkPalindrome(w + inverse):
-                print(f"\"{w}\" and \"{inverse}\" are palindrome")
+        if (curr_node.index != -1) and (curr_node.index != i):
+            if checkPalindrome(word + inverse):
+                print(f"\"{word}\" and \"{inverse}\" are palindrome")
+

@@ -8,8 +8,10 @@ class TestPalidromePairs:
         # res = [[0,1],[1,0],[3,2],[2,4]]
         # assert prob.palindromePairs(words) == res
 
-        words = ["a",""]
+        # words = ["a",""]
         # words = ["ab","ba"]
+        words = ["ba","abc"]
+        # words = ["ab","cba"]
         # words = ["abcd","dcba","lls","s","sssll"]
         print()
         prob.palindromePairs(words)
