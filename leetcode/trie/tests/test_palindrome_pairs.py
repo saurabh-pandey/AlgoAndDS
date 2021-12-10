@@ -10,11 +10,13 @@ class TestPalidromePairs:
 
         # words = ["a",""]
         # words = ["ab","ba"]
-        words = ["ba","abc"]
+        # words = ["ab","ba", "a", "b"]
+        # words = ["ba","abc"]
         # words = ["ab","cba"]
-        # words = ["abcd","dcba","lls","s","sssll"]
+        words = ["abcd","dcba","lls","s","sssll"]
         print()
-        prob.palindromePairs(words)
+        pairs = prob.palindromePairs(words)
+        print(pairs)
     
     def test_example2(self):
         words = ["bat","tab","cat"]

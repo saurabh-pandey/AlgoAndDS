@@ -78,9 +78,36 @@ class TrieNode:
             return new_node
 
 
+def find_words(node, word, found_words):
+    if (node.index != -1):
+        found_words.append(node.index)
+    for letter, child in node.children.items():
+        find_words(child, word + letter, found_words)
+
+
+def isValidNode(node, index):
+    if node.index == -1:
+        return False
+    if node.index == index:
+        return False
+    return True
+
+
+def addPalindromePairs(words, i, j, pairs):
+    pair1 = (i, j)
+    if pair1 not in pairs:
+        if checkPalindrome(words[i] + words[j]):
+            print(f"\"{words[i]}\" and \"{words[j]}\" are palindrome")
+            pairs.add(pair1)
+    pair2 = (j, i)
+    if pair2 not in pairs:
+        if checkPalindrome(words[j] + words[i]):
+            print(f"\"{words[j]}\" and \"{words[i]}\" are palindrome")
+            pairs.add(pair2)
+
 
 def palindromePairs(words):
-    pairs = []
+    pairs = set()
     l = len(words)
     if l < 2:
         return pairs
@@ -99,16 +126,23 @@ def palindromePairs(words):
         len_w = len(word)
         curr_node = root
         inverse = ""
+        found = True
         for j in range(len_w - 1, -1, -1):
-            if (curr_node.index != -1) and (curr_node.index != i):
-                if checkPalindrome(word + inverse):
-                    print(f"\"{word}\" and \"{inverse}\" are palindrome")
+            if isValidNode(curr_node, i):
+                addPalindromePairs(words, i, curr_node.index, pairs)
             inverse += word[j]
             if word[j] in curr_node.children:
                 curr_node = curr_node.children[word[j]]
             else:
+                found = False
                 break
-        if (curr_node.index != -1) and (curr_node.index != i):
-            if checkPalindrome(word + inverse):
-                print(f"\"{word}\" and \"{inverse}\" are palindrome")
+        found_words = []
+        if found:
+            find_words(curr_node, inverse, found_words)
+        # print(f"For {word} found_words = {found_words}")
+        for index in found_words:
+            if index != i:
+                addPalindromePairs(words, i, index, pairs)
+    return pairs
+            
 
