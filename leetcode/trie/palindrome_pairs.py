@@ -97,21 +97,15 @@ def addPalindromePairs(words, i, j, pairs):
     pair1 = (i, j)
     if pair1 not in pairs:
         if checkPalindrome(words[i] + words[j]):
-            print(f"\"{words[i]}\" and \"{words[j]}\" are palindrome")
             pairs.add(pair1)
     pair2 = (j, i)
     if pair2 not in pairs:
         if checkPalindrome(words[j] + words[i]):
-            print(f"\"{words[j]}\" and \"{words[i]}\" are palindrome")
             pairs.add(pair2)
 
 
-def palindromePairs(words):
-    pairs = set()
+def fill_trie(words):
     l = len(words)
-    if l < 2:
-        return pairs
-    
     root = TrieNode()
     for i in range(l):
         word = words[i]
@@ -119,8 +113,18 @@ def palindromePairs(words):
         for letter in word:
             curr_node = curr_node.insert(letter)
         curr_node.index = i
+    return root
+
+def palindromePairs(words):
+    pairs = set()
+    l = len(words)
+    if l < 2:
+        return pairs
     
-    # pdb.set_trace()
+    # Fill Trie for retrieval
+    root = fill_trie(words)
+    
+    # Search for palindrome pairs
     for i in range(l):
         word = words[i]
         len_w = len(word)
@@ -139,10 +143,10 @@ def palindromePairs(words):
         found_words = []
         if found:
             find_words(curr_node, inverse, found_words)
-        # print(f"For {word} found_words = {found_words}")
         for index in found_words:
             if index != i:
                 addPalindromePairs(words, i, index, pairs)
-    return pairs
+    pairs_list = [[a, b] for (a, b) in pairs]
+    return pairs_list
             
 
