@@ -40,7 +40,9 @@ from pdb import set_trace
 
 class MyHashSet:
     def __init__(self) -> None:
-        self.base_prime = 999983
+        # self.base_prime = 999983
+        # self.base_prime = 99877
+        self.base_prime = 31
         self.buckets = [[]]
     
     def hash(self, key) -> int:
@@ -50,7 +52,8 @@ class MyHashSet:
         bucket_index = self.hash(key)
         sz = len(self.buckets)
         if bucket_index >= sz:
-            self.buckets += [[]] * (bucket_index - sz + 1)
+            extended_buckets = [[] for _ in range(bucket_index - sz + 1)]
+            self.buckets.extend(extended_buckets)
         bucket_sz = len(self.buckets[bucket_index])
         index = 0
         while index < bucket_sz:
