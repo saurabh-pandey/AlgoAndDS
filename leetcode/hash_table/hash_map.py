@@ -37,16 +37,44 @@ Constraints:
 0 <= key, value <= 106
 At most 104 calls will be made to put, get, and remove.
 """
+import bisect
+
 class MyHashMap:
 
     def __init__(self):
-        pass        
+        self.base_prime = 31
+        self.buckets = [[]]
 
+    def hash(self, key) -> int:
+        return key % self.base_prime
+    
     def put(self, key: int, value: int) -> None:
-        pass
+        bucket_index = self.hash(key)
+        buckets_sz = len(self.buckets)
+        if bucket_index >= buckets_sz:
+            extended_buckets = [[] for _ in range(bucket_index - buckets_sz + 1)]
+            self.buckets.extend(extended_buckets)
+        bucket = self.buckets[bucket_index]
+        index = bisect.bisect_left(bucket, [key, ])
+        if index < len(bucket) and bucket[index][0] == key:
+            bucket[index][1] = value
+            return
+        else:
+            self.buckets[bucket_index].insert(index, [key, value])
 
     def get(self, key: int) -> int:
-        pass
+        bucket_index = self.hash(key)
+        if bucket_index < len(self.buckets):
+            bucket = self.buckets[bucket_index]
+            index = bisect.bisect_left(bucket, [key, ])
+            if index < len(bucket) and bucket[index][0] == key:
+                return bucket[index][1]
+        return -1
 
     def remove(self, key: int) -> None:
-        pass
+        bucket_index = self.hash(key)
+        if bucket_index < len(self.buckets):
+            bucket = self.buckets[bucket_index]
+            index = bisect.bisect_left(bucket, [key, ])
+            if index < len(bucket) and bucket[index][0] == key:
+                self.buckets[bucket_index].pop(index)
