@@ -19,7 +19,7 @@ class TestHashSet:
     def test_my1(self):
         myHashSet = MyHashSet()
         mock_set = set()
-        max_num = 100
+        max_num = 100000
         calls_sz = 10
         for i in range(max_num + 1):
             call_id = random.randint(0, calls_sz - 1)
@@ -37,12 +37,11 @@ class TestHashSet:
                 myHashSet.remove(num)
         bucket_set = set()
         for bucket in myHashSet.buckets:
-            for num in bucket:
-                if num in bucket_set:
-                    print("WARNING: {num} seems to be duplicated")
+            for i in range(len(bucket)):
+                num = bucket[i]
+                if i > 0:
+                    assert num >= bucket[i - 1], f"Inversion found at {i - 1} and {i}"
+                assert num not in bucket_set, f"{num} seems to be duplicated"
                 bucket_set.add(num)
-        
-        print()
-        print(mock_set)
-        print(myHashSet.buckets)
-        print(bucket_set)
+        assert mock_set == bucket_set
+

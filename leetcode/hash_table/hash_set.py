@@ -36,13 +36,12 @@ At most 104 calls will be made to add, remove, and contains.
 """
 
 from pdb import set_trace
+import bisect
 
 
 class MyHashSet:
     def __init__(self) -> None:
-        # self.base_prime = 999983
-        # self.base_prime = 99877
-        self.base_prime = 31
+        self.base_prime = 99877
         self.buckets = [[]]
     
     def hash(self, key) -> int:
@@ -54,34 +53,28 @@ class MyHashSet:
         if bucket_index >= sz:
             extended_buckets = [[] for _ in range(bucket_index - sz + 1)]
             self.buckets.extend(extended_buckets)
-        bucket_sz = len(self.buckets[bucket_index])
-        index = 0
-        while index < bucket_sz:
-            if self.buckets[bucket_index][index] == key:
-                return
-            index += 1
-        self.buckets[bucket_index].append(key)
+        bucket = self.buckets[bucket_index]
+        index = bisect.bisect_left(bucket, key)
+        if index != len(bucket) and bucket[index] == key:
+            return
+        else:
+            self.buckets[bucket_index].insert(index, key)
 
     def remove(self, key) -> None:
         bucket_index = self.hash(key)
         sz = len(self.buckets)
         if bucket_index < sz:
-            bucket_sz = len(self.buckets[bucket_index])
-            index = 0
-            while index < bucket_sz:
-                if self.buckets[bucket_index][index] == key:
-                    self.buckets[bucket_index].pop(index)
-                    break
-                index += 1
+            bucket = self.buckets[bucket_index]
+            index = bisect.bisect_left(bucket, key)
+            if index != len(bucket) and bucket[index] == key:
+                self.buckets[bucket_index].pop(index)
 
     def contains(self, key) -> bool:
         bucket_index = self.hash(key)
         sz = len(self.buckets)
         if bucket_index < sz:
-            bucket_sz = len(self.buckets[bucket_index])
-            index = 0
-            while index < bucket_sz:
-                if self.buckets[bucket_index][index] == key:
-                    return True
-                index += 1
+            bucket = self.buckets[bucket_index]
+            index = bisect.bisect_left(bucket, key)
+            if index != len(bucket) and bucket[index] == key:
+                return True
         return False
