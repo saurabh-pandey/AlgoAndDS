@@ -49,7 +49,6 @@ def findDuplicateSubtrees(root):
         return []
     subtree_dict = {}
     fill_subtree(root, subtree_dict)
-    # print(subtree_dict)
     dup_subtrees = []
     for key, nodes in subtree_dict.items():
         if len(nodes) > 1:
