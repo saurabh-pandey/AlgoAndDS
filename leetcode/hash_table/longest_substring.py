@@ -31,7 +31,7 @@ Constraints:
 0 <= s.length <= 5 * 104
 s consists of English letters, digits, symbols and spaces.
 """
-def lengthOfLongestSubstring(s):
+def lengthOfLongestSubstring_bf(s):
     sz = len(s)
     max_substr_len = 0
     for i in range(sz):
@@ -42,4 +42,24 @@ def lengthOfLongestSubstring(s):
             if len(unq_substr) == substr_sz:
                 if substr_sz > max_substr_len:
                     max_substr_len = substr_sz
+    return max_substr_len
+
+
+def lengthOfLongestSubstring(s):
+    sz = len(s)
+    i = 0
+    j = 0
+    unq_substr = set()
+    max_substr_len = 0
+    while j < sz:
+        if s[j] in unq_substr:
+            unq_substr.discard(s[i])
+            i += 1
+        else:
+            unq_substr.add(s[j])
+            j += 1
+            str_len = len(unq_substr)
+            if str_len > max_substr_len:
+                max_substr_len = str_len
+    
     return max_substr_len
