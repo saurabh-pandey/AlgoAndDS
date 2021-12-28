@@ -34,8 +34,6 @@ Constraints:
 0 <= nums[i] <= 106
 1 <= m <= min(50, nums.length)
 """
-import pdb
-
 def cummulative_sum(nums):
   sums = [0 for _ in nums]
   sums[0] = nums[0]

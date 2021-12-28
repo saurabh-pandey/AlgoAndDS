@@ -25,7 +25,6 @@ Constraints:
 
 1 <= n <= 104
 """
-# import pdb
 import math
 
 def numSquaresGreedy(n):

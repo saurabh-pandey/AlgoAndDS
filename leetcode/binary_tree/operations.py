@@ -1,7 +1,5 @@
 from binary_tree.node import Node
 
-import pdb
-
 def createUsingCompleteList(in_list):
   """
   Create a Binary Tree from input list and return root.
@@ -9,7 +7,6 @@ def createUsingCompleteList(in_list):
   None values, as follows:
   tree_as_list = [r, r.l, r.r, r.l.l, r.l.r, r.r.l, r.r.r, ...]
   """
-  # pdb.set_trace()
   if len(in_list) == 0:
     return None
   

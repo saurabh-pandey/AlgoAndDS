@@ -24,7 +24,6 @@ n == mat[i].length
 1 <= m * n <= 104
 -105 <= mat[i][j] <= 105
 """
-import pdb
 
 def hit_min_wall(index):
   return index < 0

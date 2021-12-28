@@ -23,7 +23,6 @@ n == matrix[i].length
 1 <= m, n <= 10
 -100 <= matrix[i][j] <= 100
 """
-import pdb
 
 def hit_min_wall(index, minLimit):
   return index < minLimit
@@ -34,7 +33,6 @@ def hit_max_wall(index, maxLimit):
 
 
 def findSpiralOrder_iterative(mat):
-  # pdb.set_trace()
   m = len(mat)
   if m == 0:
     return []
@@ -213,7 +211,6 @@ def findSpiralOrder_recursive_impl(mat, minBnds, maxBnds, startIds):
 
 
 def findSpiralOrder_recursive(mat):
-  # pdb.set_trace()
   m = len(mat)
   if m == 0:
     return []

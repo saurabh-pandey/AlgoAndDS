@@ -53,10 +53,8 @@ There is at least one word in s.
 
 Follow up: Could you solve it in-place with O(1) extra space?
 """
-import pdb
 
 def reverseWords(s):
-  # pdb.set_trace()
   l = len(s)
   if l == 0:
     return s

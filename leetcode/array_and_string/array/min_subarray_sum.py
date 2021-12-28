@@ -35,11 +35,9 @@ Constraints:
 Follow up: If you have figured out the O(n) solution, try coding another solution of which the time 
 complexity is O(n log(n)).
 """
-import pdb
 
 
 def minSubArrayLen_On(target, nums):
-  # pdb.set_trace()
   l = len(nums)
   if l == 0:
     return 0

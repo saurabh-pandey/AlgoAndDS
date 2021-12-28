@@ -28,7 +28,6 @@ Each value of postorder also appears in inorder.
 inorder is guaranteed to be the inorder traversal of the tree.
 postorder is guaranteed to be the postorder traversal of the tree.
 """
-import pdb
 
 from binary_tree.node import Node
 
@@ -65,5 +64,4 @@ def buildTree(inorder, postorder):
     return None
   
   root = buildTreeRecursive(inorder, 0, sz - 1, postorder, 0, sz - 1)
-  # pdb.set_trace()
   return root

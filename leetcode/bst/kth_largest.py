@@ -38,8 +38,6 @@ It is guaranteed that there will be at least k elements in the array when you se
 element.
 """
 
-import pdb
-
 class TreeNode:
     def __init__(self, val):
         self.val = val

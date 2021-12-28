@@ -62,5 +62,4 @@ def buildTree(inorder, preorder):
     return None
   
   root = buildTreeRecursive(inorder, 0, sz - 1, preorder, 0, sz - 1)
-  # pdb.set_trace()
   return root

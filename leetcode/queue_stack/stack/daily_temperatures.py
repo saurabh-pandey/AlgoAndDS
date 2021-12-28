@@ -32,8 +32,6 @@ Constraints:
 from collections import defaultdict
 import bisect
 
-import pdb
-
 def dailyTemperatures_on2(temperatures):
   answers = [0 for i in temperatures]
   tSz = len(temperatures)
@@ -46,7 +44,6 @@ def dailyTemperatures_on2(temperatures):
   return answers
 
 def dailyTemperatures_using_map(temperatures):
-  # pdb.set_trace()
   answers = [0 for i in temperatures]
   tSz = len(temperatures)
   
@@ -75,7 +72,6 @@ def dailyTemperatures_using_map(temperatures):
 
 
 def dailyTemperatures_using_stack(temperatures):
-  # pdb.set_trace()
   answers = [0 for i in temperatures]
   tSz = len(temperatures)
   

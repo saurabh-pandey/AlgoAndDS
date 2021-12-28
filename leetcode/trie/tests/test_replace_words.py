@@ -2,7 +2,6 @@ import pytest
 
 import trie.replace_words as prob
 
-import pdb
 
 class TestReplaceWords:
     def test_example1(self):

@@ -45,11 +45,8 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 """
 from binary_tree.node import Node
 
-import pdb
-
 
 def preorderRecursiveImpl(node, preOrderList):
-  # pdb.set_trace()
   if node is None:
     return
   

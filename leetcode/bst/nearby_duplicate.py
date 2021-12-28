@@ -33,8 +33,6 @@ Constraints:
 """
 import bisect
 
-import pdb
-
 def check_in_chunk(chunk, t):
     for i in range(1, len(chunk)):
         diff = abs(chunk[i] - chunk[i - 1])
@@ -89,7 +87,6 @@ def containsNearbyAlmostDuplicate_slow(nums, k, t):
 
 
 def containsNearbyAlmostDuplicate_fast(nums, k, t):
-    # pdb.set_trace()
     l = len(nums)
     chunk_size = k + 1
     start = 0

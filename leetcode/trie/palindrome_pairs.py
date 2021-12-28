@@ -31,8 +31,6 @@ Constraints:
 0 <= words[i].length <= 300
 words[i] consists of lower-case English letters.
 """
-import pdb
-
 
 def checkPalindrome(word):
     l = len(word)

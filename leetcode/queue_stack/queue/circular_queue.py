@@ -50,7 +50,6 @@ Constraints:
 0 <= value <= 1000
 At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and isFull.
 """
-import pdb
 
 class CircularQueue:
   def __init__(self, k):
@@ -89,7 +88,6 @@ class CircularQueue:
   
 
   def enQueue(self, value):
-    # pdb.set_trace()
     if self.isFull():
       return False
     if self.isEmpty():

@@ -1,7 +1,5 @@
 from bst.node import Node
 
-import pdb
-
 def create(in_list):
     """
     Create a Binary Tree from input list and return root.
@@ -38,7 +36,6 @@ def toList(root):
     Here the list is of the form [Node, Node.Left, Node.Right] and all null branches are ignored. Thus
     the array is not a complete tree representation
     """
-    # pdb.set_trace()
     if root is None:
         return []
     

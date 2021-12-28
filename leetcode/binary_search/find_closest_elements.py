@@ -27,7 +27,6 @@ Constraints:
 arr is sorted in ascending order.
 -104 <= arr[i], x <= 104
 """
-import pdb
 
 def nearestToTarget(arr, x):
   start = 0

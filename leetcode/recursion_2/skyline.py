@@ -44,7 +44,6 @@ Constraints:
 1 <= heighti <= 231 - 1
 buildings is sorted by lefti in non-decreasing order.
 """
-import pdb
 from operator import itemgetter
 
 

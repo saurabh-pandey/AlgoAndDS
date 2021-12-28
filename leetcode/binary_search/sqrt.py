@@ -26,7 +26,6 @@ Constraints:
 
 0 <= x <= 231 - 1
 """
-import pdb
 
 def mySqrtImpl(x, start, end):
   if end - start <= 1:
@@ -51,5 +50,4 @@ def mySqrt(x):
     return 0
   if x == 1:
     return 1
-  # pdb.set_trace()
   return mySqrtImpl(x, 1, x)

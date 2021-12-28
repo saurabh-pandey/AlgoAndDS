@@ -22,10 +22,8 @@ Constraints:
 a and b consist only of '0' or '1' characters.
 Each string does not contain leading zeros except for the zero itself.
 """
-# import pdb
 
 def addBinary(a, b):
-  # pdb.set_trace()
   aLen = len(a)
   bLen = len(b)
   if aLen == 0 and bLen == 0:

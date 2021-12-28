@@ -36,7 +36,6 @@ n == grid[i].length
 1 <= m, n <= 300
 grid[i][j] is '0' or '1'.
 """
-import pdb
 
 from collections import namedtuple
 
@@ -141,7 +140,6 @@ def exploreGrid(node, bounds, grid, visited):
 
 
 def numIslands(grid):
-  # pdb.set_trace()
   bounds = getBounds(grid)
   if bounds[0] == 0:
     return 0

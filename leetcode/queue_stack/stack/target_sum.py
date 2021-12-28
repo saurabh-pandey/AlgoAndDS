@@ -34,7 +34,6 @@ Constraints:
 0 <= sum(nums[i]) <= 1000
 -1000 <= target <= 1000
 """
-import pdb
 
 add = lambda x, y: x + y
 sub = lambda x, y: x - y
@@ -72,7 +71,6 @@ def findTargetSumRec(sz, nums, target, runningSum, stackSum, i, action):
   
 
 def findTargetSumWays(nums, target):
-  # pdb.set_trace()
   if len(nums) == 0:
     return 0
   

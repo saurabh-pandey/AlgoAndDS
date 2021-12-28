@@ -48,7 +48,6 @@ nums2.length == n
 -106 <= nums1[i], nums2[i] <= 106
 """
 import sys
-import pdb
 
 
 def merge_sorted(nums1, nums2):
