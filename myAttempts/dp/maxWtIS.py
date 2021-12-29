@@ -32,7 +32,10 @@ def maxWtIS(nums):
     S = []
     i = len(A) - 1
     while i >= 1:
-        if A[i - 1] >= A[i - 2] + nums[i - 1]:
+        if i == 1:
+            S.append(nums[i - 1])
+            i -= 2
+        elif A[i - 1] >= A[i - 2] + nums[i - 1]:
             i -= 1
         else:
             S.append(nums[i - 1])
