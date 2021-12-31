@@ -14,7 +14,7 @@ Optimal value = 8 and items = [Item 3 and Item 4]
 NOTE: This was the second problem discussed in the DP part of Tim's algo-2 course
 """
 def solveKnapsack(W, items):
-    print()
+    # print()
     N = len(items)
     A = [[0 for _ in range(W + 1)] for _ in range(N + 1)]
     # print(A)
@@ -27,5 +27,21 @@ def solveKnapsack(W, items):
                 A[i][w] = A[i - 1][w]
             else:
                 A[i][w] = max(A[i - 1][w], A[i - 1][rem_cap] + v_i)
-    for i in range(len(A) - 1, -1, -1):
-        print(A[i])
+    # for i in range(len(A) - 1, -1, -1):
+    #     print(A[i])
+    i = len(A) - 1
+    j = len(A[i]) - 1
+    selected_items = []
+    while i >= 1 and j >= 0:
+        (v_i, w_i) = items[i - 1]
+        rem_cap = j - w_i
+        if A[i][j] == 0:
+            break
+        elif A[i][j] == A[i - 1][j]:
+            i -= 1
+        elif A[i][j] == A[i - 1][rem_cap] + items[i - 1][0]:
+            selected_items.append(items[i - 1])
+            i -= 1
+            j = rem_cap
+    # print(selected_items)
+    return selected_items
