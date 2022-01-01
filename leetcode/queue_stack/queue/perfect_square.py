@@ -53,7 +53,7 @@ def isPerfectSquare(n):
   return n == intSq
 
 
-def numSquares(n):
+def numSquares_try(n):
   # Another idea is to use backtracking for this
   assert n >= 0
   sol = [1,2,3,1]
@@ -70,3 +70,32 @@ def numSquares(n):
         part += 1
       sol.append(minNumSqs)
   return sol[n - 1]
+
+def numSquares(n):
+    # Using DP
+    assert n >= 0
+    sol = [0 for _ in range(n + 1)]
+    sqrs = []
+    i = 1
+    sq = i * i
+    while sq <= n:
+        sqrs.append(sq)
+        i += 1
+        sq = i * i
+    if sqrs[-1] == n:
+        return 1
+    
+    for i in range(1, n + 1):
+        min_count = i
+        for sq in reversed(sqrs):
+            if sq > i:
+                continue
+            elif sq == i:
+                min_count = 1
+                break
+            else:
+                new_sol = 1 + sol[i - sq]
+                if new_sol < min_count:
+                    min_count = new_sol
+        sol[i] = min_count
+    return sol[-1]

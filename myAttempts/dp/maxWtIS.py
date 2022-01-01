@@ -14,7 +14,7 @@ All independent sets = {}, {v0}, {v1}, {v2}, {v3}, {v0, v2}, {v0, v3}, {v1, v3}
 Thus a total of 8 IS
 Now the IS that maximizes the weight is {v1, v3} = {4, 4} = 8
 
-NOTE: This was the first problem discussed in Tim's algo-2 course
+NOTE: This was the first problem discussed in the DP part of Tim's algo-2 course
 """
 
 def maxWtIS(nums):
