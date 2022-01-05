@@ -34,9 +34,9 @@ def getMinPenaltyAlignment(X, Y, p_gap, p_xy):
                 A[i][j] = A[i - 1][j - 1]
             else:
                 A[i][j] = min(A[i- 1][j] + p_gap, A[i][j - 1] + p_gap, A[i- 1][j - 1] + p_xy)
-    print()
-    for row in A:
-        print(row)
+    # print()
+    # for row in A:
+        # print(row)
     
     # Reconstruct
     matchedX = []
@@ -68,7 +68,14 @@ def getMinPenaltyAlignment(X, Y, p_gap, p_xy):
     while j >= 1:
         matchedY.append(Y[j - 1])
         j -= 1
+    lenX = len(matchedX)
+    lenY = len(matchedY)
+    if lenX < lenY:
+        matchedX.extend((lenY - lenX) *["_"])
+    elif lenX > lenY:
+        matchedY.extend((lenX - lenY) *["_"])
     matchedX.reverse()
     matchedY.reverse()
-    print(matchedX)
-    print(matchedY)
+    # print(matchedX)
+    # print(matchedY)
+    return (A[m][n], ''.join(matchedX), ''.join(matchedY))
