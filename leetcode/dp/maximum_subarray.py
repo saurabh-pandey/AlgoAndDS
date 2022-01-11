@@ -34,15 +34,13 @@ Constraints:
 Follow up: If you have figured out the O(n) solution, try coding another solution using the divide 
 and conquer approach, which is more subtle.
 """
-def maxSubArray(nums):
-    sz = len(nums)
-    max_sum = nums[0]
-    running_sum = nums[0]
-    for i in range(1, sz):
-        running_sum += nums[i]
-        if running_sum > max_sum:
-            max_sum = running_sum
-        if nums[i] > max_sum:
-            max_sum = nums[i]
-            running_sum = nums[i]
-    return max_sum
+def maxSubArray(arr):
+    maxSum = -100000
+    sumSoFar = 0
+    for i in arr:
+        sumSoFar += i
+        if maxSum < sumSoFar:
+            maxSum = sumSoFar
+        if sumSoFar <= 0:
+            sumSoFar = 0
+    return maxSum

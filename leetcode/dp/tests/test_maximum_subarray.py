@@ -47,3 +47,8 @@ class TestMaximumSubarray:
         nums = [8,-19,5,-4,20]
         res = 21
         assert prob.maxSubArray(nums) == res
+    
+    def test_lc2(self):
+        nums = [-2,1]
+        res = 1
+        assert prob.maxSubArray(nums) == res
