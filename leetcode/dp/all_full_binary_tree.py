@@ -35,6 +35,16 @@ def isLeaf(node):
     return not node.left and not node.right 
 
 
+def clone(root):
+    if not root:
+        return None
+    newRoot = TreeNode()
+    newRoot.left = clone(root.left)
+    newRoot.right = clone(root.right)
+    return newRoot
+
+
+
 def fetchAllLeaves(node):
     leaves = []
     if isLeaf(node):
@@ -45,22 +55,40 @@ def fetchAllLeaves(node):
     return leaves
 
 
+def attachToLeaf(origNode, newNodes, index):
+    newIndex = index
+    if isLeaf(origNode):
+        newNode = newNodes[index]
+        newNode.left = TreeNode()
+        newNode.right = TreeNode()
+        newIndex += 1
+    else:
+        leftNodes = [n.left for n in newNodes]
+        leftIndex = attachToLeaf(origNode.left, leftNodes, newIndex)
+        rightNodes = [n.right for n in newNodes]
+        rightIndex = attachToLeaf(origNode.right, rightNodes, leftIndex)
+        newIndex = rightIndex
+    return newIndex
+
 
 def allPossibleFBT(n):
     # A rolling buffer of two trees
-    fullFBTs = [None, None]
-    fullFBTs[0] = TreeNode()
-    if n > 1:
-        fullFBTs[1] = [[]]
-    for i in range(2, n):
+    if n % 2 == 0:
+        return []
+    fullFBTs = [TreeNode()]
+    for i in range(2, n, 2):
         newFBTs = []
-        for root in fullFBTs[i%2]:
-            leaves =fetchAllLeaves(root)
+        for root in fullFBTs:
+            leaves = fetchAllLeaves(root)
+            print(f"For {i} num leaves = {len(leaves)}")
+            for i in range(len(leaves)):
+                newFBTs.append(clone(root))
+            attachToLeaf(root, newFBTs, 0)
             # For all leaves clone the tree and add the leaves
             # Possibly loop over the original tree
             # Once we reach a leaf we may add a pair to the newRoot
             # Maybe recurse on all the trees at the same time but use an index to track the
             # cloned tree being updated
-        fullFBTs[i] = newFBTs
-
-    return fullFBTs[-1]
+        fullFBTs = newFBTs
+    # print(fullFBTs)
+    return fullFBTs
