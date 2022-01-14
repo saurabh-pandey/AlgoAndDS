@@ -24,6 +24,8 @@ Constraints:
 
 1 <= n <= 20
 """
+import bst.operations as bst
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -32,7 +34,7 @@ class TreeNode:
 
 
 def isLeaf(node):
-    return not node.left and not node.right 
+    return not node.left and not node.right
 
 
 def clone(root):
@@ -42,17 +44,6 @@ def clone(root):
     newRoot.left = clone(root.left)
     newRoot.right = clone(root.right)
     return newRoot
-
-
-
-def fetchAllLeaves(node):
-    leaves = []
-    if isLeaf(node):
-        leaves.append(node)
-    else:
-        leaves.extend(fetchAllLeaves(node.left))
-        leaves.extend(fetchAllLeaves(node.right))
-    return leaves
 
 
 def attachToLeaf(origNode, newNodes, index):
@@ -72,23 +63,21 @@ def attachToLeaf(origNode, newNodes, index):
 
 
 def allPossibleFBT(n):
-    # A rolling buffer of two trees
     if n % 2 == 0:
         return []
     fullFBTs = [TreeNode()]
     for i in range(2, n, 2):
         newFBTs = []
+        numLeaves = i//2
         for root in fullFBTs:
-            leaves = fetchAllLeaves(root)
-            print(f"For {i} num leaves = {len(leaves)}")
-            for i in range(len(leaves)):
-                newFBTs.append(clone(root))
-            attachToLeaf(root, newFBTs, 0)
-            # For all leaves clone the tree and add the leaves
-            # Possibly loop over the original tree
-            # Once we reach a leaf we may add a pair to the newRoot
-            # Maybe recurse on all the trees at the same time but use an index to track the
-            # cloned tree being updated
-        fullFBTs = newFBTs
-    # print(fullFBTs)
+            currentFBTs = [clone(root) for _ in range(numLeaves)]
+            attachToLeaf(root, currentFBTs, 0)
+            newFBTs.extend(currentFBTs)
+        uniqueFBTs = {}
+        for root in newFBTs:
+            treeList = bst.toList(root)
+            key = "".join(str(n) for n in treeList)
+            if key not in uniqueFBTs:
+                uniqueFBTs[key] = root
+        fullFBTs = uniqueFBTs.values()
     return fullFBTs

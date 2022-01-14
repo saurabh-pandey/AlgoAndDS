@@ -3,20 +3,12 @@ import pytest
 import dp.all_full_binary_tree as prob
 
 import bst.operations as bst
-# import binary_tree.operations as bst
 
 class TestAllPossibleFBT:
-    def checkTrees(expected, output):
+    def checkTrees(self, expected, output):
         for tree in output:
-            assert tree in expected
-
-    def test_try(self):
-        n = 7
-        print()
-        allFBTs = prob.allPossibleFBT(n)
-        print(len(allFBTs))
-        for root in allFBTs:
-            print(bst.toList(root))
+            treeList = bst.toList(tree)
+            assert treeList in expected
     
     def test_example1(self):
         n = 7
