@@ -40,7 +40,6 @@ def oddEvenList(head):
       break
     lastOddNode = lastOddNode._next._next
   
-  # depth = 1
   prevNode = head
   evenNode = head._next
   shiftingPoint = lastOddNode

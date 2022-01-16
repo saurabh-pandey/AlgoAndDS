@@ -52,11 +52,7 @@ def cycleBeginNode(head):
         break
       traceNode = traceNode._next
       distance += 1
-    # if currNode is not None:
-      # print(f'Distance from head to {currNode.val} is {distance} and depth = {depth}')
     if distance != depth:
-      # print(f'WARNING: Cycle detected at distance = {distance} and depth = {depth}')
-      # print(f'WARNING: Cycle starting at node = {traceNode.val}')
       return traceNode
     traceNode = head
     distance = 0

@@ -38,7 +38,6 @@ def replaceElements(arr):
         arr[0] = -1
         return arr
     else:
-        # newArr = [-1 for i in range(length)]
         max = arr[0]
         maxIndex = 0
         for i in range(length - 1):

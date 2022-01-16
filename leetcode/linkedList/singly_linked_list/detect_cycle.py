@@ -54,8 +54,6 @@ def detectCycle_O_n2(head):
         break
       traceNode = traceNode._next
       distance += 1
-    # if currNode is not None:
-      # print(f'Distance from head to {currNode._val} is {distance} and depth = {depth}')
     if distance != depth:
       print(f'WARNING: Cycle detected at distance = {distance} and depth = {depth}')
       return True

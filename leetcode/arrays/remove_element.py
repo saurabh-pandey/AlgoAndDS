@@ -45,10 +45,8 @@ def removeElement(nums, val):
     length = len(nums)
     newLen = length
     partitionId = length-1
-    # print(f'newLen = {newLen}, partitionId = {partitionId}')
     i = 0
     while i < newLen:
-        # print(f'\nStart : i = {i}, nums = {nums}, newLen = {newLen}, partitionId = {partitionId}')
         # Scan in reverse and set partitionId to skip all contiguous "val" from end
         for revId in range(partitionId, -1, -1):
             if nums[revId] == val:
@@ -58,12 +56,10 @@ def removeElement(nums, val):
                 break
         if (partitionId < i):
             break
-        # print(f'Mid : i = {i}, nums = {nums}, newLen = {newLen}, partitionId = {partitionId}')
         if nums[i] == val:
             nums[i] = nums[partitionId]
             nums[partitionId] = val
             newLen -= 1
             partitionId -= 1
-        # print(f'End: i = {i}, nums = {nums}, newLen = {newLen}, partitionId = {partitionId}')
         i += 1
     return newLen

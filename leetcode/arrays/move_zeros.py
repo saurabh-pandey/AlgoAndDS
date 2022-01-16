@@ -42,7 +42,6 @@ def moveZeroes(nums):
   i = 0
   end = length
   while i < end:
-    # print(f'START: i = {i}, end = {end}, nums = {nums}, consecutiveZeros = {consecutiveZeros}')
     if nums[i] == 0:
       consecutiveZeros += 1
     else:
@@ -51,4 +50,3 @@ def moveZeroes(nums):
       i -= consecutiveZeros
       consecutiveZeros = 0
     i += 1
-    # print(f'END: i = {i}, end = {end}, nums = {nums}, consecutiveZeros = {consecutiveZeros}')

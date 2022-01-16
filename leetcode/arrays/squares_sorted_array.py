@@ -35,7 +35,6 @@ def sortedSquares(nums):
         partition = i
         if nums[i] >= 0:
             break
-    # print(f'Partition = {partition}')        
     
     if partition == 0:
         for i in range(len(nums)):
@@ -45,9 +44,7 @@ def sortedSquares(nums):
     posId = partition
     negId = partition - 1
     sqId = 0
-    # print(f'posId = {posId}, negId = {negId}')
     while posId < len(nums) and negId >= 0:
-        # print(f'posId = {posId}, negId = {negId}, sqId = {sqId}, sortedSquares = {sortedSquares}')
         if nums[posId] <= abs(nums[negId]):
             sortedSquares[sqId] = nums[posId] * nums[posId]
             posId += 1
@@ -55,12 +52,10 @@ def sortedSquares(nums):
             sortedSquares[sqId] = nums[negId] * nums[negId]
             negId -= 1
         sqId += 1
-    # if posId < len(nums):
     while posId < len(nums):
         sortedSquares[sqId] = nums[posId] * nums[posId]
         posId += 1
         sqId += 1
-    # if negId >= 0:
     while negId >= 0:
         sortedSquares[sqId] = nums[negId] * nums[negId]
         negId -= 1
