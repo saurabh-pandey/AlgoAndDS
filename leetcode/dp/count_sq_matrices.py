@@ -42,4 +42,7 @@ Constraints:
 0 <= arr[i][j] <= 1
 """
 def countSquareSubmatrices(matrix):
+    # Should we count all 1's. Store it in some dict. Next use neighbours to find bigger squares.
+    # Every pass adds 1 row and 1 col for every grid point. We can check if all is 1. We might
+    # shift by one. Do we just the previous iteration solutions for next?
     pass
