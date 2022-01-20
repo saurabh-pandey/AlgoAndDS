@@ -57,18 +57,15 @@ def isValidSquare(board, location, size):
     return True
 
 
-def findSquares(size, seed, board):
+def findSquares(size, seedSquares, board):
     squares = []
-    for i,j in seed:
+    for i,j in seedSquares:
         if isValidSquare(board, (i, j), size):
             squares.append((i, j))
     return squares
 
 
 def countSquareSubmatrices(matrix):
-    # Should we count all 1's. Store it in some dict. Next use neighbours to find bigger squares.
-    # Every pass adds 1 row and 1 col for every grid point. We can check if all is 1. We might
-    # shift by one. Do we just the previous iteration solutions for next?
     m = len(matrix)
     if m == 0:
         return 0
