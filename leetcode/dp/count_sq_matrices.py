@@ -43,15 +43,15 @@ Constraints:
 """
 
 def isValidSquare(board, location, size):
-    i, j = location
-    if i + size > len(board):
+    x, y = location
+    bound_x = x + size
+    bound_y = y + size
+    if bound_x > len(board):
         return False
-    if j + size > len(board[0]):
+    if bound_y > len(board[0]):
         return False
-    size_i = i + size
-    size_j = j + size
-    for i in range(i, size_i):
-        for j in range(j, size_j):
+    for i in range(x, bound_x):
+        for j in range(y, bound_y):
             if board[i][j] != 1:
                 return False
     return True
@@ -78,7 +78,7 @@ def countSquareSubmatrices(matrix):
             if matrix[i][j] == 1:
                 squares.append((i, j))
     num_squares = len(squares)
-    for size in range(2, min(m, n)):
+    for size in range(2, min(m, n) + 1):
         squares = findSquares(size, squares, matrix)
         if not squares:
             break

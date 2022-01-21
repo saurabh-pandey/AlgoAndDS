@@ -36,3 +36,33 @@ class TestCountSqSubmatrices:
         matrix = [[0]]
         res = 0
         assert prob.countSquareSubmatrices(matrix) == res
+    
+    def test_single_row(self):
+        matrix = [[1,1,1,0,1]]
+        res = 4
+        assert prob.countSquareSubmatrices(matrix) == res
+    
+    def test_single_col(self):
+        matrix = [[1],
+                  [1],
+                  [0],
+                  [1]]
+        res = 3
+        assert prob.countSquareSubmatrices(matrix) == res
+    
+    def test_diag(self):
+        matrix = [[1,0,0,0],
+                  [0,1,0,0],
+                  [0,0,1,0],
+                  [0,0,0,1]]
+        res = 4
+        assert prob.countSquareSubmatrices(matrix) == res
+    
+    def test_lc1(self):
+        matrix = [[0,1,1,1],
+                  [1,1,0,1],
+                  [1,1,1,1],
+                  [1,0,1,0]]
+        res = 13
+        assert prob.countSquareSubmatrices(matrix) == res
+       
