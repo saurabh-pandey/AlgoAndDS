@@ -41,5 +41,28 @@ Constraints:
 1 <= s.length, t.length <= 100
 s and t consist of lowercase English letters only.
 """
+def distance(s, t):
+    if len(s) != len(t):
+        return -1
+    else:
+        dist = 0
+        for i in range(len(s)):
+            if s[i] != t[i]:
+                dist += 1
+        return dist
+
 def countSubstring(s, t):
-    pass
+    print()
+    count = 0
+    for i in range(len(s)):
+        for j in range(i + 1, len(s) + 1):
+            sub_s = s[i:j]
+            print(f"sub_s = {sub_s}")
+            for k in range(len(t)):
+                for l in range(k + 1, len(t) + 1):
+                    sub_t = t[k:l]
+                    print(f"sub_t = {sub_t}")
+                    if distance(sub_s, sub_t) == 1:
+                        print(f"Found {sub_s} <=> {sub_t}")
+                        count += 1
+    return count
