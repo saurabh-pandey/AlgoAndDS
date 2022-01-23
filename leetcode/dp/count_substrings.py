@@ -51,18 +51,45 @@ def distance(s, t):
                 dist += 1
         return dist
 
-def countSubstring(s, t):
-    print()
+# Brute-force
+def countSubstring_bf(s, t):
+    # print()
     count = 0
     for i in range(len(s)):
         for j in range(i + 1, len(s) + 1):
             sub_s = s[i:j]
-            print(f"sub_s = {sub_s}")
+            # print(f"sub_s = {sub_s}")
             for k in range(len(t)):
                 for l in range(k + 1, len(t) + 1):
                     sub_t = t[k:l]
-                    print(f"sub_t = {sub_t}")
+                    # print(f"sub_t = {sub_t}")
                     if distance(sub_s, sub_t) == 1:
-                        print(f"Found {sub_s} <=> {sub_t}")
+                        # print(f"Found {sub_s} <=> {sub_t}")
                         count += 1
+    return count
+
+
+def countSubstring_o3(s, t):
+    # print()
+    count = 0
+    sSz = len(s)
+    tSz = len(t)
+    maxSz = min(sSz, tSz)
+    size = 1
+    while size <= maxSz:
+        sStart = 0
+        sEnd = sStart + size
+        while sEnd <= sSz:
+            sub_s = s[sStart:sEnd]
+            tStart = 0
+            tEnd = tStart + size
+            while tEnd <= tSz:
+                sub_t = t[tStart:tEnd]
+                if distance(sub_s, sub_t) == 1:
+                    count += 1
+                tStart += 1
+                tEnd += 1
+            sStart += 1
+            sEnd += 1
+        size += 1            
     return count
