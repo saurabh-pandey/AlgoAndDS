@@ -89,3 +89,10 @@ def countSubstring_o3(s, t):
             sEnd += 1
         size += 1            
     return count
+
+
+def countSubstring(s, t):
+    # Can we use solution of size 1 to solve size 2
+    # We might just look in the neighbourhood for a new solution
+    # But how to memoize solutions in level 2
+    pass
