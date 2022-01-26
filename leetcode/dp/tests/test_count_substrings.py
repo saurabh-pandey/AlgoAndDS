@@ -65,3 +65,17 @@ class TestCountSubstrings:
         res = 4
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+    
+    def test_my1(self):
+        s = "baa"
+        t = "aaa"
+        res = 6
+        assert prob.countSubstring_bf(s, t) == res
+        assert prob.countSubstring_o3(s, t) == res
+    
+    def test_my2(self):
+        s = "aabaa"
+        t = "aaaaa"
+        res = 27
+        assert prob.countSubstring_bf(s, t) == res
+        assert prob.countSubstring_o3(s, t) == res
