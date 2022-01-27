@@ -69,7 +69,7 @@ def countSubstring_bf(s, t):
 
 
 def countSubstring_o3(s, t):
-    print()
+    # print()
     count = 0
     sSz = len(s)
     tSz = len(t)
@@ -85,7 +85,7 @@ def countSubstring_o3(s, t):
             while tEnd <= tSz:
                 sub_t = t[tStart:tEnd]
                 if distance(sub_s, sub_t) == 1:
-                    print(sub_s, sub_t)
+                    # print(sub_s, sub_t)
                     count += 1
                 tStart += 1
                 tEnd += 1
@@ -96,7 +96,27 @@ def countSubstring_o3(s, t):
 
 
 def countSubstring(s, t):
-    # Can we use solution of size 1 to solve size 2
-    # We might just look in the neighbourhood for a new solution
-    # But how to memoize solutions in level 2
-    pass
+    count = 0
+    sSz = len(s)
+    tSz = len(t)
+    for i in range(sSz):
+        for j in range(tSz):
+            if t[j] != s[i]:
+                count += 1
+                k = 1
+                z = -1
+                q = 1
+                while ( j + z >= 0 <= i + z and
+                        s[i + z] == t[j + z]
+                      ):
+                    z -= 1
+                    count += 1
+                    q += 1
+                while ( i + k < sSz and
+                        j + k < tSz and
+                        s[i + k] == t[j + k]
+                      ):
+                    k += 1
+                    count += q
+                    # z = -1
+    return count

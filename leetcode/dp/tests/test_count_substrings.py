@@ -9,6 +9,7 @@ class TestCountSubstrings:
         res = 6
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_example2(self):
         s = "ab"
@@ -16,6 +17,7 @@ class TestCountSubstrings:
         res = 3
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_empty(self):
         s = ""
@@ -23,6 +25,7 @@ class TestCountSubstrings:
         res = 0
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_s_empty(self):
         s = "a"
@@ -30,6 +33,7 @@ class TestCountSubstrings:
         res = 0
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_t_empty(self):
         s = ""
@@ -37,6 +41,7 @@ class TestCountSubstrings:
         res = 0
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_one_match(self):
         s = "a"
@@ -44,6 +49,7 @@ class TestCountSubstrings:
         res = 0
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_all_match(self):
         s = "aaaaaa"
@@ -51,6 +57,7 @@ class TestCountSubstrings:
         res = 0
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_one_mismatch(self):
         s = "a"
@@ -58,6 +65,7 @@ class TestCountSubstrings:
         res = 1
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_two_mismatch(self):
         s = "aa"
@@ -72,6 +80,7 @@ class TestCountSubstrings:
         res = 6
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
     
     def test_my2(self):
         s = "aabaa"
@@ -79,3 +88,4 @@ class TestCountSubstrings:
         res = 27
         assert prob.countSubstring_bf(s, t) == res
         assert prob.countSubstring_o3(s, t) == res
+        assert prob.countSubstring(s, t) == res
