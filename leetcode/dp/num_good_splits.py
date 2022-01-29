@@ -35,4 +35,10 @@ Constraints:
 s consists of only lowercase English letters.
 """
 def numSplits(s):
-    pass
+    good_count = 0
+    for i in range(1, len(s)):
+        sl = s[:i]
+        sr = s[i:]
+        if len(set(sl)) == len(set(sr)):
+            good_count += 1
+    return good_count
