@@ -34,11 +34,30 @@ Constraints:
 1 <= s.length <= 105
 s consists of only lowercase English letters.
 """
-def numSplits(s):
+def numSplits_bf(s):
     good_count = 0
     for i in range(1, len(s)):
         sl = s[:i]
         sr = s[i:]
         if len(set(sl)) == len(set(sr)):
+            good_count += 1
+    return good_count
+
+
+def numSplits(s):
+    good_count = 0
+    sl = set()
+    sr = {}
+    for ch in s:
+        if ch in sr:
+            sr[ch] += 1
+        else:
+            sr[ch] = 1
+    for i in range(len(s)):
+        sl.add(s[i])
+        sr[s[i]] -= 1
+        if sr[s[i]] == 0:
+            del sr[s[i]]
+        if len(sl) == len(sr):
             good_count += 1
     return good_count
