@@ -26,3 +26,9 @@ class TestNumGoodSplits:
         res = 1
         assert prob.numSplits_bf(s) == res
         assert prob.numSplits(s) == res
+    
+    def test_my1(self):
+        s = "abbbba"
+        res = 3
+        assert prob.numSplits_bf(s) == res
+        assert prob.numSplits(s) == res
