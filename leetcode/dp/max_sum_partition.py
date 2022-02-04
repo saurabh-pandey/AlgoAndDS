@@ -33,25 +33,25 @@ Constraints:
 0 <= arr[i] <= 109
 1 <= k <= arr.length
 """
-def done_partitioning(partitions, sz):
+def done_partitioning(partitions, count, sz):
     if not partitions:
-        return True
-    if sz - partitions[-1] > 1:
+        return count > 0
+    if sz - partitions[-1] >= 1:
         return False
     for i in range(len(partitions) - 1, 0, -1):
-        if partitions[i] - partitions[i - 1] > 1:
+        if partitions[i] - partitions[i - 1] >= 1:
             return False
     return True
 
 def increment_partition(partitions, sz):
     if not partitions:
         return
-    if sz - partitions[-1] > 1:
+    if (sz - partitions[-1]) >= 1:
         partitions[-1] += 1
         return
     else:
         for i in range(len(partitions) - 1, 0, -1):
-            if partitions[i] - partitions[i - 1] > 1:
+            if (partitions[i] - partitions[i - 1]) >= 1:
                 partitions[i - 1] += 1
                 partitions[i] = partitions[i - 1] + 1
                 return
@@ -62,9 +62,10 @@ def max_sum_partition_bf(arr, k):
     # print(partitions)
     max_sum = 0
     arr_sz = len(arr)
+    count = 0
     # print(done_partitioning(partitions, arr_sz))
-    while(not done_partitioning(partitions, arr_sz)):
-        print(partitions)
+    while(not done_partitioning(partitions, count, arr_sz)):
+        print("Start partition", partitions)
         start = 0
         arr_sum = 0
         for p in partitions:
@@ -72,11 +73,14 @@ def max_sum_partition_bf(arr, k):
             arr_sum += max_subarray_val * (p - start)
             # print(arr_sum)
             start = p
-        max_subarray_val = max(arr[start:])
-        arr_sum += max_subarray_val * (arr_sz - start)
-        # print(arr_sum)
+        if start < arr_sz:
+            max_subarray_val = max(arr[start:])
+            arr_sum += max_subarray_val * (arr_sz - start)
+        print("Sum = ", arr_sum)
         if arr_sum > max_sum:
             max_sum = arr_sum
         increment_partition(partitions, arr_sz)
+        print("Increment partition", partitions)
+        count += 1
     return max_sum
         
