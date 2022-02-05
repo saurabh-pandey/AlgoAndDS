@@ -33,35 +33,38 @@ Constraints:
 0 <= arr[i] <= 109
 1 <= k <= arr.length
 """
+import pdb
+
 def done_partitioning(partitions, count, sz):
     if not partitions:
         return count > 0
-    if sz - partitions[-1] >= 1:
+    if partitions[-1] < sz - 1:
         return False
     for i in range(len(partitions) - 1, 0, -1):
-        if partitions[i] - partitions[i - 1] >= 1:
+        if partitions[i - 1] < partitions[i] - 1:
             return False
     return True
 
 def increment_partition(partitions, sz):
     if not partitions:
         return
-    if (sz - partitions[-1]) >= 1:
+    if partitions[-1] < sz - 1:
         partitions[-1] += 1
         return
     else:
         for i in range(len(partitions) - 1, 0, -1):
-            if (partitions[i] - partitions[i - 1]) >= 1:
+            if partitions[i - 1] < partitions[i] - 1:
                 partitions[i - 1] += 1
                 partitions[i] = partitions[i - 1] + 1
                 return
 
 def max_sum_partition_bf(arr, k):
     print()
+    # pdb.set_trace()
+    arr_sz = len(arr)
     partitions = [i for i in range(1, k)]
     # print(partitions)
     max_sum = 0
-    arr_sz = len(arr)
     count = 0
     # print(done_partitioning(partitions, arr_sz))
     while(not done_partitioning(partitions, count, arr_sz)):
@@ -79,6 +82,8 @@ def max_sum_partition_bf(arr, k):
         print("Sum = ", arr_sum)
         if arr_sum > max_sum:
             max_sum = arr_sum
+            if max_sum == 86:
+                print("86 partition = ", partitions)
         increment_partition(partitions, arr_sz)
         print("Increment partition", partitions)
         count += 1
