@@ -35,57 +35,16 @@ Constraints:
 """
 import pdb
 
-def done_partitioning(partitions, count, sz):
-    if not partitions:
-        return count > 0
-    if partitions[-1] < sz - 1:
-        return False
-    for i in range(len(partitions) - 1, 0, -1):
-        if partitions[i - 1] < partitions[i] - 1:
-            return False
-    return True
-
-def increment_partition(partitions, sz):
-    if not partitions:
-        return
-    if partitions[-1] < sz - 1:
-        partitions[-1] += 1
-        return
-    else:
-        for i in range(len(partitions) - 1, 0, -1):
-            if partitions[i - 1] < partitions[i] - 1:
-                partitions[i - 1] += 1
-                partitions[i] = partitions[i - 1] + 1
-                return
-
-def max_sum_partition_bf(arr, k):
-    print()
-    # pdb.set_trace()
+def max_sum_partition(arr, k):
     arr_sz = len(arr)
-    partitions = [i for i in range(1, k)]
-    # print(partitions)
-    max_sum = 0
-    count = 0
-    # print(done_partitioning(partitions, arr_sz))
-    while(not done_partitioning(partitions, count, arr_sz)):
-        print("Start partition", partitions)
-        start = 0
-        arr_sum = 0
-        for p in partitions:
-            max_subarray_val = max(arr[start : p])
-            arr_sum += max_subarray_val * (p - start)
-            # print(arr_sum)
-            start = p
-        if start < arr_sz:
-            max_subarray_val = max(arr[start:])
-            arr_sum += max_subarray_val * (arr_sz - start)
-        print("Sum = ", arr_sum)
-        if arr_sum > max_sum:
-            max_sum = arr_sum
-            if max_sum == 86:
-                print("86 partition = ", partitions)
-        increment_partition(partitions, arr_sz)
-        print("Increment partition", partitions)
-        count += 1
-    return max_sum
-        
+    max_sum = [0 for _ in range(arr_sz + 1)]
+    for i in range(1, arr_sz + 1):
+        max_subarr_sum = 0
+        for j in range(k):
+            new_sum = max_sum[i - j - 1] + (j + 1) * arr[i - 1]
+            if new_sum > max_subarr_sum:
+                max_subarr_sum = new_sum
+        max_sum[i] = max_subarr_sum
+    return max_sum[-1]
+
+
