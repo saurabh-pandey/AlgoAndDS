@@ -33,10 +33,7 @@ Constraints:
 0 <= arr[i] <= 109
 1 <= k <= arr.length
 """
-import pdb
-
 def max_sum_partition(arr, k):
-    # pdb.set_trace()
     arr_sz = len(arr)
     max_sum = [0 for _ in range(arr_sz + 1)]
     for i in range(1, arr_sz + 1):
@@ -51,5 +48,4 @@ def max_sum_partition(arr, k):
             if new_sum > max_subarr_sum:
                 max_subarr_sum = new_sum
         max_sum[i] = max_subarr_sum
-    # print(max_sum)
     return max_sum[-1]
