@@ -38,13 +38,13 @@ def max_sum_partition(arr, k):
     max_sum = [0 for _ in range(arr_sz + 1)]
     for i in range(1, arr_sz + 1):
         max_subarr_sum = 0
+        max_val = 0
         for j in range(1, k + 1):
             if i < j:
                 break
-            # This max computation needs to be optimised
-            # IDEA: Every iteration we shift the window of size k by 1
-            # Thus ideally max should be O(1) each step here
-            new_sum = max_sum[i - j] + (j * max(arr[i - j : i]))
+            if arr[i - j] > max_val:
+                max_val = arr[i - j]
+            new_sum = max_sum[i - j] + (j * max_val)
             if new_sum > max_subarr_sum:
                 max_subarr_sum = new_sum
         max_sum[i] = max_subarr_sum
