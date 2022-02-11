@@ -1,4 +1,4 @@
-#URL: 
+#URL: https://leetcode.com/problems/partition-array-for-maximum-sum/
 #Description
 """
 Given an integer array arr, partition the array into (contiguous) subarrays of length at most k. 
