@@ -42,4 +42,11 @@ Constraints:
 1 <= n <= 1000
 """
 def two_eggs_drop(n):
+    # NOTE: We have only 2 eggs so if 1 breaks we have to go linearly up from the previous known 
+    # safe state. Now the max number of moves will then be the gap between the states. Each state, 
+    # if safe, will also cost 1 move. Thus for optimality the gap between state might have to 
+    # decrease by 1 for every new state.
+    # Ideally, when we reach the top floor it should be after a safe drop from the previous floor. 
+    # This would mean we reached the top floor and now if the drop is safe then f = N otherwise f = 
+    # N - 1. Also #moves is moves to reach prev. state + 1.
     pass
