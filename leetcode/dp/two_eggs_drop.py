@@ -41,12 +41,15 @@ Constraints:
 
 1 <= n <= 1000
 """
+import math
+
 def two_eggs_drop(n):
-    # NOTE: We have only 2 eggs so if 1 breaks we have to go linearly up from the previous known 
-    # safe state. Now the max number of moves will then be the gap between the states. Each state, 
-    # if safe, will also cost 1 move. Thus for optimality the gap between state might have to 
-    # decrease by 1 for every new state.
-    # Ideally, when we reach the top floor it should be after a safe drop from the previous floor. 
-    # This would mean we reached the top floor and now if the drop is safe then f = N otherwise f = 
-    # N - 1. Also #moves is moves to reach prev. state + 1.
-    pass
+    # Idea is that if x is that optimal number of moves then at floor x if the egg breaks we need
+    # max. x - 1 moves to find f. If the egg doesn't break at x the we have already used 1 move so 
+    # now we move only x + (x - 1) floors to drop the egg again. If it breaks f is between x and
+    # x - 1 and can be found incremently using max (x - 2) moves. Thus the equation is:
+    # x + (x - 1) + (x - 2) + ... + 1 = n
+    # x * (x + 1) = 2*n
+    # Solving the above quadratic equation gives:
+    # x = (sqrt(8*n + 1) - 1)/2
+    return math.ceil((math.sqrt(8*n + 1) - 1)/2)
