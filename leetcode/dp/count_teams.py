@@ -37,5 +37,19 @@ n == rating.length
 1 <= rating[i] <= 105
 All the integers in rating are unique.
 """
-def numTeams(rating):
-    pass
+def isValidTeam(i, j, k, rating):
+    if (rating[i] < rating[j]) and (rating[j] < rating[k]):
+        return True
+    elif (rating[i] > rating[j]) and (rating[j] > rating[k]):
+        return True
+    return False
+
+def numTeams_bf(rating):
+    count = 0
+    sz = len(rating)
+    for i in range(sz):
+        for j in range(i + 1, sz):
+            for k in range(j + 1, sz):
+                if isValidTeam(i, j, k, rating):
+                    count += 1
+    return count
