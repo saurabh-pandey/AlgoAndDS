@@ -53,3 +53,9 @@ def numTeams_bf(rating):
                 if isValidTeam(i, j, k, rating):
                     count += 1
     return count
+
+#IDEAS
+# Can we shrink the search space?
+# One idea is to skip if the first pair itself doesn't meet the criterion.
+# Also given first pair's ordering only check for that ordering in subsequent pairs
+# Can we use a diff array or some kind of memoization?
