@@ -38,6 +38,7 @@ sum(piles[i]) is odd.
 """
 
 def stoneGame(piles):
+    print("\nPiles = ", piles)
     sz = len(piles)
     coll_sz = (sz//2) + 1
     alice_collection = [0 for _ in range(coll_sz)]
@@ -47,10 +48,10 @@ def stoneGame(piles):
     alice_count = 1
     alice_chance = True
     bob_count = 1
-    while s < e:
+    while s <= e:
         if alice_chance:
-            sum1 = piles[s] + alice_collection[alice_count]
-            sum2 = piles[e] + alice_collection[alice_count]
+            sum1 = piles[s] + alice_collection[alice_count - 1]
+            sum2 = piles[e] + alice_collection[alice_count - 1]
             if sum1 < sum2:
                 alice_collection[alice_count] = sum2
                 e -= 1
@@ -60,8 +61,8 @@ def stoneGame(piles):
             alice_count += 1
             alice_chance = False
         else:
-            sum1 = piles[s] + bob_collection[bob_count]
-            sum2 = piles[e] + bob_collection[bob_count]
+            sum1 = piles[s] + bob_collection[bob_count - 1]
+            sum2 = piles[e] + bob_collection[bob_count - 1]
             if sum1 < sum2:
                 bob_collection[bob_count] = sum2
                 e -= 1
@@ -70,4 +71,6 @@ def stoneGame(piles):
                 s += 1
             bob_count += 1
             alice_chance = True
+    print("Alice = ", alice_collection)
+    print("Bob   = ", bob_collection)
     return alice_collection[-1] > bob_collection[-1]
