@@ -36,81 +36,40 @@ piles.length is even.
 1 <= piles[i] <= 500
 sum(piles[i]) is odd.
 """
+
 def stoneGameRecursive(piles, s, e, alice_count, bob_count):
     if s > e:
-        return (alice_count, bob_count)
-    results = []
+        # print("Base Case => Alice and Bob stones = ", alice_count, bob_count)
+        return alice_count > bob_count
     for i in [0, 1]:
         for j in [0, 1]:
             if i == 0 and j == 0:
-                alice_count += piles[s]
-                s += 1
-                bob_count += piles[s]
-                s += 1
-                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
-                results.append[(alice_res, bob_res)]
+                new_alice_count = alice_count + piles[s]
+                new_bob_count = bob_count + piles[s + 1]
+                # print("ss")
+                if stoneGameRecursive(piles, s + 2, e, new_alice_count, new_bob_count):
+                    return True
             if i == 0 and j == 1:
-                alice_count += piles[s]
-                s += 1
-                bob_count += piles[e]
-                e -= 1
-                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
-                results.append[(alice_res, bob_res)]
+                new_alice_count = alice_count + piles[s]
+                new_bob_count = bob_count + piles[e]
+                # print("se")
+                if stoneGameRecursive(piles, s + 1, e - 1, new_alice_count, new_bob_count):
+                    return True
             if i == 1 and j == 0:
-                alice_count += piles[e]
-                e -= 1
-                bob_count += piles[s]
-                s += 1
-                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
-                results.append[(alice_res, bob_res)]
+                new_alice_count = alice_count + piles[e]
+                new_bob_count = bob_count + piles[s]
+                # print("es")
+                if stoneGameRecursive(piles, s + 1, e - 1, new_alice_count, new_bob_count):
+                    return True
             if i == 1 and j == 1:
-                alice_count += piles[e]
-                e -= 1
-                bob_count += piles[e]
-                e -= 1
-                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
-                results.append[(alice_res, bob_res)]
-    for alice_res, bob_res in results:
-        if alice_res > bob_res:
-            return True
+                new_alice_count = alice_count + piles[e]
+                new_bob_count = bob_count + piles[e - 1]
+                # print("ee")
+                if stoneGameRecursive(piles, s, e - 2, new_alice_count, new_bob_count):
+                    return True
+    
     return False
 
-
-
 def stoneGame(piles):
-    print("\nPiles = ", piles)
-    sz = len(piles)
-    coll_sz = (sz//2) + 1
-    alice_collection = [0 for _ in range(coll_sz)]
-    bob_collection = [0 for _ in range(coll_sz)]
-    s = 0
-    e = sz - 1
-    alice_count = 1
-    alice_chance = True
-    bob_count = 1
-    while s <= e:
-        if alice_chance:
-            sum1 = piles[s] + alice_collection[alice_count - 1]
-            sum2 = piles[e] + alice_collection[alice_count - 1]
-            if sum1 < sum2:
-                alice_collection[alice_count] = sum2
-                e -= 1
-            else:
-                alice_collection[alice_count] = sum1
-                s += 1
-            alice_count += 1
-            alice_chance = False
-        else:
-            sum1 = piles[s] + bob_collection[bob_count - 1]
-            sum2 = piles[e] + bob_collection[bob_count - 1]
-            if sum1 < sum2:
-                bob_collection[bob_count] = sum2
-                e -= 1
-            else:
-                bob_collection[bob_count] = sum1
-                s += 1
-            bob_count += 1
-            alice_chance = True
-    print("Alice = ", alice_collection)
-    print("Bob   = ", bob_collection)
-    return alice_collection[-1] > bob_collection[-1]
+    # print("\nPiles = ", piles)
+    return stoneGameRecursive(piles, 0, len(piles) - 1, 0, 0)
