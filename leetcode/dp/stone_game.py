@@ -36,6 +36,46 @@ piles.length is even.
 1 <= piles[i] <= 500
 sum(piles[i]) is odd.
 """
+def stoneGameRecursive(piles, s, e, alice_count, bob_count):
+    if s > e:
+        return (alice_count, bob_count)
+    results = []
+    for i in [0, 1]:
+        for j in [0, 1]:
+            if i == 0 and j == 0:
+                alice_count += piles[s]
+                s += 1
+                bob_count += piles[s]
+                s += 1
+                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
+                results.append[(alice_res, bob_res)]
+            if i == 0 and j == 1:
+                alice_count += piles[s]
+                s += 1
+                bob_count += piles[e]
+                e -= 1
+                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
+                results.append[(alice_res, bob_res)]
+            if i == 1 and j == 0:
+                alice_count += piles[e]
+                e -= 1
+                bob_count += piles[s]
+                s += 1
+                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
+                results.append[(alice_res, bob_res)]
+            if i == 1 and j == 1:
+                alice_count += piles[e]
+                e -= 1
+                bob_count += piles[e]
+                e -= 1
+                alice_res, bob_res = stoneGameRecursive(piles, s, e, alice_count, bob_count)
+                results.append[(alice_res, bob_res)]
+    for alice_res, bob_res in results:
+        if alice_res > bob_res:
+            return True
+    return False
+
+
 
 def stoneGame(piles):
     print("\nPiles = ", piles)
