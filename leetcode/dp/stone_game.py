@@ -73,3 +73,8 @@ def stoneGameRecursive(piles, s, e, alice_count, bob_count):
 def stoneGame(piles):
     # print("\nPiles = ", piles)
     return stoneGameRecursive(piles, 0, len(piles) - 1, 0, 0)
+
+# IDEAS:
+# A DP solution needs to use the strategy that Alice will always choose the pile that also leaves 
+# Bob with worse option. For eg. with [4,7,2,3] Alice should choose 3 instead of 4 such that it 
+# leaves Bob with choice 4,2 instead of 7,3. DP recursion should encode this idea.
