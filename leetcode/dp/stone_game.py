@@ -70,6 +70,32 @@ def stoneGameRecursive(piles, s, e, alice_count, bob_count):
     
     return False
 
+def stoneGame_dp(piles):
+    print("\nPiles = ", piles)
+    sz = len(piles)
+    count_table = [[0 for _ in range(sz)] for _ in range(sz)]
+    # for i in range(sz):
+    #     for j in range(sz):
+    #         if i == j:
+    #             count_table[i][j] = piles[i]
+    #         elif j == i + 1:
+    #             count_table[i][j] = max(piles[i], piles[j])
+    for gap in range(sz):
+        for j in range(gap, sz):
+            i = j - gap
+            x = 0
+            if((i + 2) <= j):
+                x = count_table[i + 2][j]
+            y = 0
+            if((i + 1) <= (j - 1)):
+                y = count_table[i + 1][j - 1]
+            z = 0
+            if(i <= (j - 2)):
+                z = count_table[i][j - 2]
+            count_table[i][j] = max(piles[i] + min(x, y),
+                                    piles[j] + min(y, z))
+    print(count_table)
+
 def stoneGame(piles):
     # print("\nPiles = ", piles)
     return stoneGameRecursive(piles, 0, len(piles) - 1, 0, 0)

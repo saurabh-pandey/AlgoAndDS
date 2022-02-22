@@ -6,6 +6,8 @@ class TestStoneGame:
     def test_example1(self):
         piles = [5,3,4,5]
         res = True
+        # prob.stoneGame_dp(piles)
+        prob.stoneGame_dp([3,7,2,3])
         assert prob.stoneGame(piles) == res
     
     def test_example2(self):
