@@ -36,50 +36,9 @@ piles.length is even.
 1 <= piles[i] <= 500
 sum(piles[i]) is odd.
 """
-
-def stoneGameRecursive(piles, s, e, alice_count, bob_count):
-    if s > e:
-        # print("Base Case => Alice and Bob stones = ", alice_count, bob_count)
-        return alice_count > bob_count
-    for i in [0, 1]:
-        for j in [0, 1]:
-            if i == 0 and j == 0:
-                new_alice_count = alice_count + piles[s]
-                new_bob_count = bob_count + piles[s + 1]
-                # print("ss")
-                if stoneGameRecursive(piles, s + 2, e, new_alice_count, new_bob_count):
-                    return True
-            if i == 0 and j == 1:
-                new_alice_count = alice_count + piles[s]
-                new_bob_count = bob_count + piles[e]
-                # print("se")
-                if stoneGameRecursive(piles, s + 1, e - 1, new_alice_count, new_bob_count):
-                    return True
-            if i == 1 and j == 0:
-                new_alice_count = alice_count + piles[e]
-                new_bob_count = bob_count + piles[s]
-                # print("es")
-                if stoneGameRecursive(piles, s + 1, e - 1, new_alice_count, new_bob_count):
-                    return True
-            if i == 1 and j == 1:
-                new_alice_count = alice_count + piles[e]
-                new_bob_count = bob_count + piles[e - 1]
-                # print("ee")
-                if stoneGameRecursive(piles, s, e - 2, new_alice_count, new_bob_count):
-                    return True
-    
-    return False
-
-def stoneGame_dp(piles):
-    print("\nPiles = ", piles)
+def stoneGame(piles):
     sz = len(piles)
     count_table = [[0 for _ in range(sz)] for _ in range(sz)]
-    # for i in range(sz):
-    #     for j in range(sz):
-    #         if i == j:
-    #             count_table[i][j] = piles[i]
-    #         elif j == i + 1:
-    #             count_table[i][j] = max(piles[i], piles[j])
     for gap in range(sz):
         for j in range(gap, sz):
             i = j - gap
@@ -94,13 +53,8 @@ def stoneGame_dp(piles):
                 z = count_table[i][j - 2]
             count_table[i][j] = max(piles[i] + min(x, y),
                                     piles[j] + min(y, z))
-    print(count_table)
-
-def stoneGame(piles):
-    # print("\nPiles = ", piles)
-    return stoneGameRecursive(piles, 0, len(piles) - 1, 0, 0)
-
-# IDEAS:
-# A DP solution needs to use the strategy that Alice will always choose the pile that also leaves 
-# Bob with worse option. For eg. with [4,7,2,3] Alice should choose 3 instead of 4 such that it 
-# leaves Bob with choice 4,2 instead of 7,3. DP recursion should encode this idea.
+    
+    alice_coll = count_table[0][sz - 1]
+    total_stones = sum(piles)
+    bob_coll = total_stones - alice_coll
+    return alice_coll > bob_coll
