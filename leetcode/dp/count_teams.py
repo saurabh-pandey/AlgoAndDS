@@ -59,3 +59,6 @@ def numTeams_bf(rating):
 # One idea is to skip if the first pair itself doesn't meet the criterion.
 # Also given first pair's ordering only check for that ordering in subsequent pairs
 # Can we use a diff array or some kind of memoization?
+# Can we solve this if num team members is 2?
+# Can we use the above to come up with a DP solution for 3?
+# Ideally all solutions of 3 are implicitly solution of 2 as well?
