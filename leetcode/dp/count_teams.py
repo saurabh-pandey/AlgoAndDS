@@ -37,6 +37,9 @@ n == rating.length
 1 <= rating[i] <= 105
 All the integers in rating are unique.
 """
+from turtle import left
+
+
 def isValidTeam(i, j, k, rating):
     if (rating[i] < rating[j]) and (rating[j] < rating[k]):
         return True
@@ -54,11 +57,24 @@ def numTeams_bf(rating):
                     count += 1
     return count
 
-#IDEAS
-# Can we shrink the search space?
-# One idea is to skip if the first pair itself doesn't meet the criterion.
-# Also given first pair's ordering only check for that ordering in subsequent pairs
-# Can we use a diff array or some kind of memoization?
-# Can we solve this if num team members is 2?
-# Can we use the above to come up with a DP solution for 3?
-# Ideally all solutions of 3 are implicitly solution of 2 as well?
+def numTeams(rating):
+    count = 0
+    sz = len(rating)
+    for i in range(1, sz - 1):
+        r = rating[i]
+        leftLesser = 0
+        leftGreater = 0
+        for j in range(i - 1, -1, -1):
+            if rating[j] < r:
+                leftLesser += 1
+            else:
+                leftGreater += 1
+        rightLesser = 0
+        rightGreater = 0
+        for j in range(i + 1, sz):
+            if rating[j] > r:
+                rightGreater += 1
+            else:
+                rightLesser += 1
+        count += (leftLesser * rightGreater) + (leftGreater * rightLesser)
+    return count
