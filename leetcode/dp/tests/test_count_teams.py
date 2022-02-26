@@ -21,3 +21,15 @@ class TestCountTeams:
         assert prob.numTeams_bf(rating) == res
         assert prob.numTeams(rating) == res
     
+    def test_my1(self):
+        rating = [2,3,1]
+        res = 0
+        assert prob.numTeams_bf(rating) == res
+        assert prob.numTeams(rating) == res
+    
+    def test_my2(self):
+        rating = [1,3,2]
+        res = 0
+        assert prob.numTeams_bf(rating) == res
+        assert prob.numTeams(rating) == res
+    
