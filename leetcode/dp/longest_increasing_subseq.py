@@ -36,3 +36,10 @@ Follow up: Can you come up with an algorithm that runs in O(n log(n)) time compl
 """
 def longest_inc_subseq(nums):
     pass
+
+#IDEAS
+# A sorted array is trivial
+# Reverse sorted is again trivial
+# Brute-force seems to be exponential here
+# Given a smaller sub-array can we get the solution to the one bigger array?
+# How will the solution change?
