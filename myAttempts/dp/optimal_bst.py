@@ -7,7 +7,7 @@ in the tree is minimized.
 Assume that the query node is always in the tree. So no failed queries.
 
 Example 1
-For nodes 1,2,3,4 with probabilities = [2, 23, 73, 1]. The optimal BST is has root is 3 left child 
+For nodes 1,2,3,4 with probabilities = [3, 23, 73, 1]. The optimal BST is has root is 3 left child 
 is 2 and right is 4. Left child to 2 is 1
 
 
@@ -26,3 +26,5 @@ the right child of 10.
 
 NOTE: This was the third problem discussed in the DP part of Tim's algo-2 course
 """
+def optimal_bst_cost(keys, freq):
+    pass
