@@ -26,5 +26,24 @@ the right child of 10.
 
 NOTE: This was the third problem discussed in the DP part of Tim's algo-2 course
 """
+import sys
+
 def optimal_bst_cost(keys, freq):
-    pass
+    sz = len(keys)
+    assert sz == len(freq)
+    A = [[0 for _ in range(sz)] for _ in range(sz)]
+    for s in range(0, sz):
+        curr_sz = s + 1
+        for i in range(0, sz):
+            min_cost = sys.maxsize
+            sum_freq = sum(freq[i:i + s])
+            for r in range(i, i + curr_sz):
+                cost = sum_freq
+                if r - 1 >= i:
+                    cost += A[i][r - 1]
+                if r + 1 <= i + s:
+                    cost += A[r + 1][i + s]
+                if cost < min_cost:
+                    min_cost = cost
+            A[i, i + s] = min_cost
+    return A[0][sz - 1]
