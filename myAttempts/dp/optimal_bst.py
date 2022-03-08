@@ -35,15 +35,18 @@ def optimal_bst_cost(keys, freq):
     for s in range(0, sz):
         curr_sz = s + 1
         for i in range(0, sz):
+            if i > (i + s):
+                continue
             min_cost = sys.maxsize
-            sum_freq = sum(freq[i:i + s])
+            sum_freq = sum(freq[i:i + curr_sz])
             for r in range(i, i + curr_sz):
                 cost = sum_freq
-                if r - 1 >= i:
+                if (r - 1) < sz and r - 1 >= i:
                     cost += A[i][r - 1]
-                if r + 1 <= i + s:
+                if ((i + s) < sz) and (r + 1 <= i + s):
                     cost += A[r + 1][i + s]
                 if cost < min_cost:
                     min_cost = cost
-            A[i, i + s] = min_cost
+            if ((i + s) < sz) and (i <= (i + s)):
+                A[i][i + s] = min_cost
     return A[0][sz - 1]

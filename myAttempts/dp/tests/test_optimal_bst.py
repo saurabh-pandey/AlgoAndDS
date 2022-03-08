@@ -7,7 +7,7 @@ class TestOptimalBST:
     def test_example1(self):
         keys = [1,2,3,4]
         freq = [3,23,73,1]
-        res = 136
+        res = 130
         assert prob.optimal_bst_cost(keys, freq) == res
     
     def test_example2(self):
