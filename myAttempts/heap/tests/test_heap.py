@@ -1,4 +1,3 @@
-import imp
 import pytest
 
 from heap.heap import Heap
