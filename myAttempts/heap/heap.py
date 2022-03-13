@@ -10,6 +10,8 @@ NOTE: This is using Tim's algo-1 course
 """
 import sys
 
+import pdb
+
 class Heap:
     def __init__(self) -> None:
         self.vals = []
@@ -23,8 +25,8 @@ class Heap:
             return None
         return self.vals[0]
     
-    def delete(self, elem):
-        pass
+    # def delete(self, elem):
+    #     pass
 
     def extract_min(self):
         if not self.vals:
@@ -36,7 +38,11 @@ class Heap:
         return min_val
 
     def heapify(self, arr):
-        pass
+        self.vals = arr[:]
+        sz = len(self.vals)
+        last_non_leaf = (sz - 1)//2
+        for i in range(last_non_leaf, -1, -1):
+            self.min_heapify(i)
 
     def bubble_up(self):
         indx = len(self.vals) - 1
@@ -51,22 +57,36 @@ class Heap:
     def bubble_down(self):
         sz = len(self.vals)
         indx = 0
-        left_child_indx = 2 * indx + 1
-        right_child_indx = 2 * indx + 2
-        while left_child_indx < sz:
-            left_child_val = self.vals[left_child_indx]
+        left = 2 * indx + 1
+        right = 2 * indx + 2
+        while left < sz:
+            left_child_val = self.vals[left]
             right_child_val = sys.maxsize
-            if right_child_indx < sz:
-                right_child_val = self.vals[right_child_indx]
+            if right < sz:
+                right_child_val = self.vals[right]
             parent_val = self.vals[indx]
-            if left_child_val <= right_child_val:
+            if (left_child_val <= right_child_val) and (left_child_val < parent_val):
                 self.vals[indx] = left_child_val
-                self.vals[left_child_indx] = parent_val
-                indx = left_child_indx
+                self.vals[left] = parent_val
+                indx = left
             else:
-                self.vals[indx] = right_child_val
-                self.vals[right_child_indx] = parent_val
-                indx = right_child_indx
-            left_child_indx = 2 * indx + 1
-            right_child_indx = 2 * indx + 2
-        
+                if right_child_val < parent_val:
+                    self.vals[indx] = right_child_val
+                    self.vals[right] = parent_val
+                indx = right
+                left = 2 * indx + 1
+                right = 2 * indx + 2
+
+    def min_heapify(self, index):
+        if index >= len(self.vals):
+            return
+        smallest = index
+        left = 2 * index + 1
+        right = 2 * index + 2
+        if (left < len(self.vals)) and (self.vals[left] < self.vals[smallest]):
+            smallest = left
+        if ((right < len(self.vals)) and (self.vals[right] < self.vals[smallest])):
+            smallest = right
+        if smallest != index:
+            self.vals[index], self.vals[smallest] = self.vals[smallest], self.vals[index]
+            self.min_heapify(smallest)
