@@ -8,6 +8,7 @@ heapify(arr) => O(N)
 
 NOTE: This is using Tim's algo-1 course
 """
+import sys
 
 class Heap:
     def __init__(self) -> None:
@@ -16,7 +17,6 @@ class Heap:
     def insert(self, elem):
         self.vals.append(elem)
         self.bubble_up()
-        print(self.vals)
     
     def get_min(self):
         if not self.vals:
@@ -27,7 +27,13 @@ class Heap:
         pass
 
     def extract_min(self):
-        pass
+        if not self.vals:
+            return None
+        min_val = self.vals[0]
+        self.vals[0] = self.vals[-1]
+        self.vals.pop()
+        self.bubble_down()
+        return min_val
 
     def heapify(self, arr):
         pass
@@ -41,4 +47,26 @@ class Heap:
             self.vals[parentIdx] = temp
             indx = parentIdx
             parentIdx = (indx - 1)//2
-
+    
+    def bubble_down(self):
+        sz = len(self.vals)
+        indx = 0
+        left_child_indx = 2 * indx + 1
+        right_child_indx = 2 * indx + 2
+        while left_child_indx < sz:
+            left_child_val = self.vals[left_child_indx]
+            right_child_val = sys.maxsize
+            if right_child_indx < sz:
+                right_child_val = self.vals[right_child_indx]
+            parent_val = self.vals[indx]
+            if left_child_val <= right_child_val:
+                self.vals[indx] = left_child_val
+                self.vals[left_child_indx] = parent_val
+                indx = left_child_indx
+            else:
+                self.vals[indx] = right_child_val
+                self.vals[right_child_indx] = parent_val
+                indx = right_child_indx
+            left_child_indx = 2 * indx + 1
+            right_child_indx = 2 * indx + 2
+        

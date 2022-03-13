@@ -14,6 +14,21 @@ class TestHeap:
         h.insert(4)
         assert h.get_min() == 3
     
+    def test_extract_min(self):
+        h = Heap()
+        h.insert(5)
+        h.insert(3)
+        h.insert(6)
+        h.insert(4)
+        assert h.extract_min() == 3
+        assert h.extract_min() == 4
+        assert h.extract_min() == 5
+        h.insert(2)
+        h.insert(8)
+        assert h.extract_min() == 2
+        assert h.extract_min() == 6
+        assert h.extract_min() == 8
+    
     def test_delete(self):
         h = Heap()
         h.insert(5)
