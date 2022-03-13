@@ -19,17 +19,15 @@ class Heap:
         print(self.vals)
     
     def get_min(self):
-        # self.vals.append(elem)
-        # self.bubble_up()
-        pass
+        if not self.vals:
+            return None
+        return self.vals[0]
     
     def delete(self, elem):
         pass
 
     def extract_min(self):
-        if not self.vals:
-            return None
-        return self.vals[0]
+        pass
 
     def heapify(self, arr):
         pass

@@ -6,13 +6,13 @@ class TestHeap:
     def test_insert(self):
         h = Heap()
         h.insert(5)
-        assert h.extract_min() == 5
+        assert h.get_min() == 5
         h.insert(3)
-        assert h.extract_min() == 3
+        assert h.get_min() == 3
         h.insert(6)
-        assert h.extract_min() == 3
+        assert h.get_min() == 3
         h.insert(4)
-        assert h.extract_min() == 3
+        assert h.get_min() == 3
     
     def test_delete(self):
         h = Heap()
