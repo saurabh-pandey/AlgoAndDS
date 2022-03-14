@@ -25,8 +25,13 @@ class Heap:
             return None
         return self.vals[0]
     
-    # def delete(self, elem):
-    #     pass
+    def delete(self, index):
+        assert index < len(self.vals)
+        del_val = self.vals[index]
+        self.vals[index] = self.vals[-1]
+        self.vals.pop()
+        self.bubble_down()
+        return del_val
 
     def extract_min(self):
         if not self.vals:
