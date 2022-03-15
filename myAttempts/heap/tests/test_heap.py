@@ -44,19 +44,25 @@ class TestHeap:
         assert h.extract_min() == 4
         assert h.extract_min() == 5
     
-    def test_delete(self):
+    def test_delete_index(self):
         h = Heap()
         h.insert(5)
         h.insert(3)
         h.insert(7)
         assert h.get_min() == 3
-        assert h.delete(0) == 3
-        assert h.delete(1) == 7
-        assert h.delete(0) == 5
+        assert h.delete_index(0) == 3
+        assert h.delete_index(1) == 7
+        assert h.delete_index(0) == 5
         h.insert(4)
         assert h.get_min() == 4
         h.insert(2)
         h.insert(1)
         h.insert(0)
-        assert h.delete(2) == 2
+        assert h.delete_index(2) == 2
         assert h.extract_min() == 0
+    
+    def test_delete_element(self):
+        h = Heap()
+        h.heapify([5,8,7,2,4,3])
+        assert h.get_min() == 2
+        
