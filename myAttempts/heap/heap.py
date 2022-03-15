@@ -33,8 +33,23 @@ class Heap:
         self.bubble_down()
         return del_val
     
-    def delete_element(self, val):
-        pass
+    def delete_element(self, val, index = 0):
+        if index >= len(self.vals):
+            return False
+        curr_val = self.vals[index]
+        if val == curr_val:
+            self.delete_index(index)
+            return True
+        elif val < curr_val:
+            return False
+        else:
+            left = 2 * index + 1
+            right = 2 * index + 2
+            if self.delete_element(val, left):
+                return True
+            if self.delete_element(val, right):
+                return True
+            return False
 
     def extract_min(self):
         if not self.vals:

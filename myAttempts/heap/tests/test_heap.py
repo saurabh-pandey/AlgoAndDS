@@ -65,4 +65,10 @@ class TestHeap:
         h = Heap()
         h.heapify([5,8,7,2,4,3])
         assert h.get_min() == 2
-        
+        assert h.delete_element(3) == True
+        assert h.delete_element(9) == False
+        assert h.delete_element(0) == False
+        assert h.delete_element(2) == True
+        assert h.get_min() == 4
+        assert h.delete_element(2) == False
+        assert h.delete_element(6) == False
