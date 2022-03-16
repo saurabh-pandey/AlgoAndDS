@@ -70,6 +70,7 @@ class Heap:
     def bubble_up(self):
         indx = len(self.vals) - 1
         parentIdx = (indx - 1)//2
+        # This less comparison makes it min-heap
         while (indx > 0) and (self.vals[indx] < self.vals[parentIdx]):
             temp = self.vals[indx]
             self.vals[indx] = self.vals[parentIdx]
@@ -88,11 +89,13 @@ class Heap:
             if right < sz:
                 right_child_val = self.vals[right]
             parent_val = self.vals[indx]
+            # This less comparison makes it min-heap
             if (left_child_val <= right_child_val) and (left_child_val < parent_val):
                 self.vals[indx] = left_child_val
                 self.vals[left] = parent_val
                 indx = left
             else:
+                # This less comparison makes it min-heap
                 if right_child_val < parent_val:
                     self.vals[indx] = right_child_val
                     self.vals[right] = parent_val
@@ -103,11 +106,14 @@ class Heap:
     def min_heapify(self, index):
         if index >= len(self.vals):
             return
+        # Rename this as it wold point to largest in max-heap
         smallest = index
         left = 2 * index + 1
         right = 2 * index + 2
+        # This less comparison makes it min-heap
         if (left < len(self.vals)) and (self.vals[left] < self.vals[smallest]):
             smallest = left
+        # This less comparison makes it min-heap
         if ((right < len(self.vals)) and (self.vals[right] < self.vals[smallest])):
             smallest = right
         if smallest != index:
