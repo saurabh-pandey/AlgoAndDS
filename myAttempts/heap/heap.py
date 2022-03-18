@@ -20,7 +20,7 @@ class Heap:
         self.vals.append(elem)
         self.bubble_up()
     
-    def get_min(self):
+    def top(self):
         if not self.vals:
             return None
         return self.vals[0]
@@ -51,7 +51,7 @@ class Heap:
                 return True
             return False
 
-    def extract_min(self):
+    def pop(self):
         if not self.vals:
             return None
         min_val = self.vals[0]
@@ -65,7 +65,7 @@ class Heap:
         sz = len(self.vals)
         last_non_leaf = (sz - 1)//2
         for i in range(last_non_leaf, -1, -1):
-            self.min_heapify(i)
+            self.heapify_impl(i)
 
     def bubble_up(self):
         indx = len(self.vals) - 1
@@ -103,7 +103,7 @@ class Heap:
                 left = 2 * indx + 1
                 right = 2 * indx + 2
 
-    def min_heapify(self, index):
+    def heapify_impl(self, index):
         if index >= len(self.vals):
             return
         # Rename this as it wold point to largest in max-heap
@@ -118,4 +118,4 @@ class Heap:
             smallest = right
         if smallest != index:
             self.vals[index], self.vals[smallest] = self.vals[smallest], self.vals[index]
-            self.min_heapify(smallest)
+            self.heapify_impl(smallest)
