@@ -47,7 +47,7 @@ class Heap:
         if val == curr_val:
             self.delete_index(index)
             return True
-        elif val < curr_val:
+        elif self.strictCompare(val, curr_val):
             return False
         else:
             left = 2 * index + 1
