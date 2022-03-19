@@ -76,30 +76,30 @@ class TestMinHeap:
 
 class TestMaxHeap:
     def test_insert(self):
-        h = Heap()
+        h = Heap(False)
         h.insert(5)
         assert h.top() == 5
         h.insert(3)
-        assert h.top() == 3
+        assert h.top() == 5
         h.insert(6)
-        assert h.top() == 3
+        assert h.top() == 6
         h.insert(4)
-        assert h.top() == 3
+        assert h.top() == 6
     
-    # def test_pop(self):
-    #     h = Heap()
-    #     h.insert(5)
-    #     h.insert(3)
-    #     h.insert(6)
-    #     h.insert(4)
-    #     assert h.pop() == 3
-    #     assert h.pop() == 4
-    #     assert h.pop() == 5
-    #     h.insert(2)
-    #     h.insert(8)
-    #     assert h.pop() == 2
-    #     assert h.pop() == 6
-    #     assert h.pop() == 8
+    def test_pop(self):
+        h = Heap(False)
+        h.insert(5)
+        h.insert(3)
+        h.insert(6)
+        h.insert(4)
+        assert h.pop() == 6
+        assert h.pop() == 5
+        assert h.pop() == 4
+        h.insert(2)
+        h.insert(8)
+        assert h.pop() == 8
+        assert h.pop() == 3
+        assert h.pop() == 2
     
     # def test_heapify(self):
     #     h = Heap()

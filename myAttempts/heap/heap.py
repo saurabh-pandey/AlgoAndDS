@@ -13,8 +13,15 @@ import sys
 import pdb
 
 class Heap:
-    def __init__(self) -> None:
+    def __init__(self, isMinHeap=True) -> None:
         self.vals = []
+        self.isMinHeap = isMinHeap
+        if isMinHeap:
+            self.strictCompare = lambda a, b : a < b
+            self.weakCompare = lambda a, b : a <= b
+        else:
+            self.strictCompare = lambda a, b : a > b
+            self.weakCompare = lambda a, b : a >= b
     
     def insert(self, elem):
         self.vals.append(elem)
@@ -71,7 +78,8 @@ class Heap:
         indx = len(self.vals) - 1
         parentIdx = (indx - 1)//2
         # This less comparison makes it min-heap
-        while (indx > 0) and (self.vals[indx] < self.vals[parentIdx]):
+        # while (indx > 0) and (self.vals[indx] < self.vals[parentIdx]):
+        while (indx > 0) and self.strictCompare(self.vals[indx], self.vals[parentIdx]):
             temp = self.vals[indx]
             self.vals[indx] = self.vals[parentIdx]
             self.vals[parentIdx] = temp
@@ -86,17 +94,22 @@ class Heap:
         while left < sz:
             left_child_val = self.vals[left]
             right_child_val = sys.maxsize
+            if not self.isMinHeap:
+                right_child_val = -sys.maxsize - 1
             if right < sz:
                 right_child_val = self.vals[right]
             parent_val = self.vals[indx]
             # This less comparison makes it min-heap
-            if (left_child_val <= right_child_val) and (left_child_val < parent_val):
+            # if (left_child_val <= right_child_val) and (left_child_val < parent_val):
+            if (self.weakCompare(left_child_val, right_child_val)
+                and self.strictCompare(left_child_val, parent_val)):
                 self.vals[indx] = left_child_val
                 self.vals[left] = parent_val
                 indx = left
             else:
                 # This less comparison makes it min-heap
-                if right_child_val < parent_val:
+                # if right_child_val < parent_val:
+                if self.strictCompare(right_child_val, parent_val):
                     self.vals[indx] = right_child_val
                     self.vals[right] = parent_val
                 indx = right
@@ -111,10 +124,12 @@ class Heap:
         left = 2 * index + 1
         right = 2 * index + 2
         # This less comparison makes it min-heap
-        if (left < len(self.vals)) and (self.vals[left] < self.vals[smallest]):
+        # if (left < len(self.vals)) and (self.vals[left] < self.vals[smallest]):
+        if (left < len(self.vals)) and self.strictCompare(self.vals[left], self.vals[smallest]):
             smallest = left
         # This less comparison makes it min-heap
-        if ((right < len(self.vals)) and (self.vals[right] < self.vals[smallest])):
+        # if ((right < len(self.vals)) and (self.vals[right] < self.vals[smallest])):
+        if ((right < len(self.vals)) and self.strictCompare(self.vals[right], self.vals[smallest])):
             smallest = right
         if smallest != index:
             self.vals[index], self.vals[smallest] = self.vals[smallest], self.vals[index]
