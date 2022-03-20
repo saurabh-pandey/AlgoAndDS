@@ -23,6 +23,9 @@ class Heap:
             self.strictCompare = lambda a, b : a > b
             self.weakCompare = lambda a, b : a >= b
     
+    def size(self):
+        return len(self.vals)
+    
     def insert(self, elem):
         self.vals.append(elem)
         self.bubble_up()
