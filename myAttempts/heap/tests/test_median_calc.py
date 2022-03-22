@@ -15,3 +15,16 @@ class TestMedianCalculator:
         assert median_calc.median() == 2.5
         median_calc.add(5)
         assert median_calc.median() == 3
+    
+    def test_example2(self):
+        median_calc = prob.MedianCalculator()
+        median_calc.add(5)
+        assert median_calc.median() == 5
+        median_calc.add(4)
+        assert median_calc.median() == 4.5
+        median_calc.add(3)
+        assert median_calc.median() == 4
+        median_calc.add(2)
+        assert median_calc.median() == 3.5
+        median_calc.add(1)
+        assert median_calc.median() == 3

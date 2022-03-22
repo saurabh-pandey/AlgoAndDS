@@ -29,7 +29,6 @@ class MedianCalculator:
         min_val = self.min_heap.top()
         if num <= max_val:
             # Add to max_heap
-
             pass
         elif num >= min_val:
             # Add to min_heap
@@ -37,6 +36,8 @@ class MedianCalculator:
         else:
             # Add to either but maintaining the invariant
             pass
+        # Another idea is to add to the "right" heap and then balance the 2 heaps to maintain the 
+        # invariant
 
 
     def median(self):
