@@ -13,7 +13,7 @@ class MedianCalculator:
         self.min_heap = Heap()
 
     def add(self, num):
-        print("\nAdding ", num)
+        # print("\nAdding ", num)
         # print("Max Heap = ", self.max_heap.vals)
         # print("Min Heap = ", self.min_heap.vals)
         max_heap_sz = self.max_heap.size()
@@ -37,7 +37,7 @@ class MedianCalculator:
                         self.max_heap.insert(num)
                     else:
                         old_max_val = self.max_heap.pop()
-                        print("  Popped Max Heap = ", self.max_heap.vals)
+                        # print("  Popped Max Heap = ", self.max_heap.vals)
                         self.max_heap.insert(num)
                         self.min_heap.insert(old_max_val)
                 elif num > min_val:
@@ -52,9 +52,9 @@ class MedianCalculator:
                         self.max_heap.insert(num)
                     else:
                         self.min_heap.insert(num)
-        print("After add")
-        print("Max Heap = ", self.max_heap.vals)
-        print("Min Heap = ", self.min_heap.vals)
+        # print("After add")
+        # print("Max Heap = ", self.max_heap.vals)
+        # print("Min Heap = ", self.min_heap.vals)
 
 
     def median(self):

@@ -116,8 +116,8 @@ class Heap:
                     self.vals[indx] = right_child_val
                     self.vals[right] = parent_val
                 indx = right
-                left = 2 * indx + 1
-                right = 2 * indx + 2
+            left = 2 * indx + 1
+            right = 2 * indx + 2
 
     def heapify_impl(self, index):
         if index >= len(self.vals):

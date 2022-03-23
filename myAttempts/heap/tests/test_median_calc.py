@@ -32,17 +32,17 @@ class TestMedianCalculator:
         assert median_calc.median() == 3
     
     def test_random(self):
-        print()
-        arr = [12, 1, 14, 8, 13, 12, 10, 11, 11, 12, 6, 8, 6, 8]
-        print(arr)
-        median_calc = prob.MedianCalculator()
-        for num in arr:
-            median_calc.add(num)
-        arr.sort()
-        print(arr)
-        print(median_calc.median())
-        for sz in range(1, 20):
-            break
+        # print()
+        # arr = [12, 1, 14, 8, 13, 12, 10, 11, 11, 12, 6, 8, 6, 8]
+        # print(arr)
+        # median_calc = prob.MedianCalculator()
+        # for num in arr:
+        #     median_calc.add(num)
+        # arr.sort()
+        # print(arr)
+        # print(median_calc.median())
+        for sz in range(1, 1000):
+            # break
             arr = [random.randint(0, sz) for _ in range(sz)]
             orig_arr = arr[:]
             median_calc = prob.MedianCalculator()
