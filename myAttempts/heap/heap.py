@@ -64,11 +64,11 @@ class Heap:
     def pop(self):
         if not self.vals:
             return None
-        min_val = self.vals[0]
+        top_val = self.vals[0]
         self.vals[0] = self.vals[-1]
         self.vals.pop()
         self.bubble_down()
-        return min_val
+        return top_val
 
     def heapify(self, arr):
         self.vals = arr[:]
