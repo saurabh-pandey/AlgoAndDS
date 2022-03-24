@@ -10,8 +10,6 @@ NOTE: This is using Tim's algo-1 course
 """
 import sys
 
-import pdb
-
 class Heap:
     def __init__(self, isMinHeap=True) -> None:
         self.vals = []
@@ -80,8 +78,6 @@ class Heap:
     def bubble_up(self):
         indx = len(self.vals) - 1
         parentIdx = (indx - 1)//2
-        # This less comparison makes it min-heap
-        # while (indx > 0) and (self.vals[indx] < self.vals[parentIdx]):
         while (indx > 0) and self.strictCompare(self.vals[indx], self.vals[parentIdx]):
             temp = self.vals[indx]
             self.vals[indx] = self.vals[parentIdx]
@@ -102,16 +98,12 @@ class Heap:
             if right < sz:
                 right_child_val = self.vals[right]
             parent_val = self.vals[indx]
-            # This less comparison makes it min-heap
-            # if (left_child_val <= right_child_val) and (left_child_val < parent_val):
             if (self.weakCompare(left_child_val, right_child_val)
                 and self.strictCompare(left_child_val, parent_val)):
                 self.vals[indx] = left_child_val
                 self.vals[left] = parent_val
                 indx = left
             else:
-                # This less comparison makes it min-heap
-                # if right_child_val < parent_val:
                 if self.strictCompare(right_child_val, parent_val):
                     self.vals[indx] = right_child_val
                     self.vals[right] = parent_val
@@ -122,18 +114,13 @@ class Heap:
     def heapify_impl(self, index):
         if index >= len(self.vals):
             return
-        # Rename this as it wold point to largest in max-heap
-        smallest = index
+        parent = index
         left = 2 * index + 1
         right = 2 * index + 2
-        # This less comparison makes it min-heap
-        # if (left < len(self.vals)) and (self.vals[left] < self.vals[smallest]):
-        if (left < len(self.vals)) and self.strictCompare(self.vals[left], self.vals[smallest]):
-            smallest = left
-        # This less comparison makes it min-heap
-        # if ((right < len(self.vals)) and (self.vals[right] < self.vals[smallest])):
-        if ((right < len(self.vals)) and self.strictCompare(self.vals[right], self.vals[smallest])):
-            smallest = right
-        if smallest != index:
-            self.vals[index], self.vals[smallest] = self.vals[smallest], self.vals[index]
-            self.heapify_impl(smallest)
+        if (left < len(self.vals)) and self.strictCompare(self.vals[left], self.vals[parent]):
+            parent = left
+        if ((right < len(self.vals)) and self.strictCompare(self.vals[right], self.vals[parent])):
+            parent = right
+        if parent != index:
+            self.vals[index], self.vals[parent] = self.vals[parent], self.vals[index]
+            self.heapify_impl(parent)
