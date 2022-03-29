@@ -10,6 +10,16 @@ import random
 
 class Graph:
     def __init__(self, fileName) -> None:
+        # IDEA
+        # Will go for all the features needed in Vertex, Edge and Graph DS.
+        # Need to randomly pick edges so getAllEdges()
+        # Given a random edge now collapse()
+        # Collapse also changes the vertices by fusing some
+        # Vertex has a unique id and some indexes it represents
+        # Initially id and index is the same but as we merge vertices indexes append and build-up
+        # Need the ability to clean self-loops in the graph after an edge collapse
+        # Self-loop is edge with same vertex on both ends
+        # Start with undirected version first
         pass
 
     def num_vertices(self):
