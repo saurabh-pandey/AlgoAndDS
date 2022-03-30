@@ -8,6 +8,18 @@ introducing graph data structures and algorithms.
 import math
 import random
 
+class Vertex:
+    def __init__(self, value) -> None:
+        assert value, "Value of vertex can't be empty"
+        self.val = value
+
+class Edge:
+    def __init__(self, vert1, vert2) -> None:
+        assert vert1, "Vertex 1 of edge is None"
+        assert vert2, "Vertex 2 of edge is None"
+        self.verts = (vert1, vert2)
+
+
 class Graph:
     def __init__(self, fileName) -> None:
         # IDEA
@@ -20,16 +32,44 @@ class Graph:
         # Need the ability to clean self-loops in the graph after an edge collapse
         # Self-loop is edge with same vertex on both ends
         # Start with undirected version first
-        pass
+        self.vertices = []
+        self.edges = []
+        with open(fileName) as graphFile:
+            for line in graphFile:
+                # print("  Line = ", line)
+                verts_row = line.split()
+                if verts_row:
+                    if len(verts_row) == 1:
+                        self.add_vertex(verts_row[0])
+                    else:
+                        root_vert = verts_row[0]
+                        for vert in verts_row[1:]:
+                            self.add_edge(root_vert, vert)
 
+    def add_vertex(self, value):
+        new_vert = Vertex(value)
+        self.vertices.append(new_vert)
+    
+    def add_edge(self, value1, value2):
+        new_vert1 = Vertex(value1)
+        new_vert2 = Vertex(value2)
+        self.vertices.append(new_vert1)
+        self.vertices.append(new_vert2)
+        new_edge = Edge(new_vert1, new_vert2)
+        self.edges.append(new_edge)
+    
     def num_vertices(self):
-        pass
+        return len(self.vertices)
 
     def num_edges(self):
-        pass
+        return len(self.edges)
 
     def get_degree(self, index):
         pass
+
+    def print(self):
+        for e in self.edges:
+            print(e.verts[0].val, " ", e.verts[1].val)
 
 
 def get_random_edge(g):
@@ -50,7 +90,10 @@ def clear_self_loops(edge):
     pass
 
 def find_min_cut(graphFile):
+    print("\nFile = ", graphFile)
     g = Graph(graphFile)
+    g.print()
+    return
     num_verts = g.num_vertices()
     if num_verts == 0:
         return 0
