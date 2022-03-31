@@ -12,12 +12,18 @@ class Vertex:
     def __init__(self, value) -> None:
         assert value, "Value of vertex can't be empty"
         self.val = value
+    
+    def get_value(self):
+        return self.val
 
 class Edge:
     def __init__(self, vert1, vert2) -> None:
         assert vert1, "Vertex 1 of edge is None"
         assert vert2, "Vertex 2 of edge is None"
         self.verts = (vert1, vert2)
+    
+    def get_vertices(self):
+        return self.verts
 
 
 class Graph:
@@ -49,6 +55,10 @@ class Graph:
     def add_vertex(self, value):
         new_vert = Vertex(value)
         self.vertices.append(new_vert)
+        return new_vert
+    
+    def remove_vertex(self, index):
+        del self.vertices[index]
     
     def add_edge(self, value1, value2):
         new_vert1 = Vertex(value1)
@@ -63,6 +73,10 @@ class Graph:
 
     def num_edges(self):
         return len(self.edges)
+    
+    def get_edge(self, index):
+        assert index < len(self.edges), "Edge index out of range"
+        return self.edges[index]
 
     def get_degree(self, index):
         pass
@@ -73,15 +87,24 @@ class Graph:
 
 
 def get_random_edge(g):
-    num_verts = g.num_vertices()
-    rand_vert = random.randrange(num_verts)
-    vert_degree = g.get_degree(rand_vert)
-    rand_edge = random.randrange(vert_degree)
-    return (rand_vert, rand_edge)
+    num_edges = g.num_edges()
+    rand_edge_index = random.randrange(num_edges)
+    return g.get_edge(rand_edge_index)
 
-def collapse_edge(edge):
+def collapse_edge(g, edge):
     # Pick the two vertices
+    vert1, vert2 = edge.get_vertices()
     # Merge
+    merged_vert = g.add_vertex([vert1.get_value(), vert2.get_value()])
+    
+    # Update all edges with v1 or v2 as end point to point to merged vertex
+    # all_edges_with_vert1 as end-point
+    # for each with vert1 as end-point replace vert1 with merged vert
+    # for each with vert2 as end-point replace vert2 with merged vert
+    # all_edges_with_vert2 as end-point
+    
+    # Delete vert1 and vert2
+    
     # Remove this edge
     pass
 
@@ -93,7 +116,7 @@ def find_min_cut(graphFile):
     print("\nFile = ", graphFile)
     g = Graph(graphFile)
     g.print()
-    return
+    # return
     num_verts = g.num_vertices()
     if num_verts == 0:
         return 0
@@ -103,7 +126,7 @@ def find_min_cut(graphFile):
     while iteration < num_iterations:
         while g.num_vertices() > 2:
             edge = get_random_edge(g)
-            collapse_edge(edge)
+            collapse_edge(g, edge)
             clear_self_loops(edge)
         num_edges = g.num_edges()
         if num_edges < min_cut_sz:
