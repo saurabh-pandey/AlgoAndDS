@@ -55,3 +55,15 @@ class TestMinimumCut:
         file_path = os.path.join(TestMinimumCut.graph_dir_path, file_name)
         res = 2
         assert prob.find_min_cut(file_path) == res
+    
+    def test_double(self):
+        file_name = "double.txt"
+        file_path = os.path.join(TestMinimumCut.graph_dir_path, file_name)
+        res = 2
+        assert prob.find_min_cut(file_path) == res
+    
+    def test_double_single(self):
+        file_name = "double_single.txt"
+        file_path = os.path.join(TestMinimumCut.graph_dir_path, file_name)
+        res = 1
+        assert prob.find_min_cut(file_path) == res
