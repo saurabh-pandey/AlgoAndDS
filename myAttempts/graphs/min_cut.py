@@ -10,15 +10,27 @@ import random
 
 class Vertex:
     def __init__(self, value) -> None:
-        assert value, "Value of vertex can't be empty"
+        assert value is not None, "Value of vertex can't be empty"
         self.val = value
         self.edges = []
+    
+    def __del__(self):
+        print("Destroying vertex ", self.get_value())
+    
+    def __eq__(self, other):
+        if isinstance(other, Vertex):
+            return self.get_value() == other.get_value()
+        else:
+            return False
     
     def get_value(self):
         return self.val
     
     def add_edge(self, edge):
         self.edges.append(edge)
+    
+    def remove_edge(self, edge):
+        self.edges.remove(edge)
     
     def get_edges(self):
         return self.edges
@@ -116,6 +128,9 @@ class Graph:
     def get_edge(self, index):
         assert index < len(self.edges), "Edge index out of range"
         return self.edges[index]
+    
+    def get_all_edges(self):
+        return self.edges
 
     def get_degree(self, index):
         pass
@@ -156,15 +171,40 @@ def collapse_edge(g, edge):
     g.remove_edge(edge)
     
 
-def clear_self_loops(edge):
+def clear_self_loops(g, edge):
     # Post edge collapse now remove any self-loops
-    pass
+    vert1, vert2 = edge.get_vertices()
+    edges_to_be_removed = []
+    for e in vert1.get_edges():
+        if e.get_vertex0().get_value() == e.get_vertex1().get_value():
+            edges_to_be_removed.append(e)
+    for e in vert2.get_edges():
+        if e.get_vertex0().get_value() == e.get_vertex1().get_value():
+            edges_to_be_removed.append(e)
+    for e in edges_to_be_removed:
+        g.remove_edge(e)
+
+    
 
 def find_min_cut(graphFile):
     print("\nFile = ", graphFile)
     g = Graph(graphFile)
     g.print()
-    # return
+    verts1 = []
+    verts2 = []
+    for i in range(10):
+        newV = Vertex(i)
+        verts1.append(newV)
+        verts2.append(newV)
+        # verts.append(i)
+    verts1.remove(Vertex(3))
+    # verts.remove(3)
+    for v in verts1:
+        print("1 Vertex = ", v.get_value())
+        # print("V = ", v)
+    for v in verts2:
+        print("2 Vertex = ", v.get_value())
+    return
     num_verts = g.num_vertices()
     if num_verts < 2:
         return 0
@@ -175,7 +215,7 @@ def find_min_cut(graphFile):
         while g.num_vertices() > 2:
             edge = get_random_edge(g)
             collapse_edge(g, edge)
-            clear_self_loops(edge)
+            clear_self_loops(g, edge)
         num_edges = g.num_edges()
         if num_edges < min_cut_sz:
             min_cut_sz = num_edges
