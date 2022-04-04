@@ -8,6 +8,8 @@ introducing graph data structures and algorithms.
 import math
 import random
 
+import pdb
+
 class Vertex:
     def __init__(self, value) -> None:
         assert value is not None, "Value of vertex can't be empty"
@@ -41,6 +43,16 @@ class Edge:
         assert v1, "Vertex 1 of edge is None"
         self.v0 = v0
         self.v1 = v1
+    
+    def __eq__(self, other):
+        if isinstance(other, Edge):
+            if ((other.get_vertex0() == self.get_vertex0())
+            and (other.get_vertex1() == self.get_vertex1())):
+                return True
+            if ((other.get_vertex0() == self.get_vertex1())
+            and (other.get_vertex1() == self.get_vertex0())):
+                return True
+        return False
     
     def get_vertices(self):
         return (self.v0, self.v1)
@@ -96,7 +108,6 @@ class Graph:
             if v.get_value() == value:
                 del self.vertices[i]
                 return
-        
     
     def add_edge(self, value1, value2):
         new_vert1 = Vertex(value1)
@@ -149,7 +160,11 @@ def collapse_edge(g, edge):
     # Pick the two vertices
     vert1, vert2 = edge.get_vertices()
     # Merge
-    merged_vert = g.add_vertex([vert1.get_value(), vert2.get_value()])
+    list_val1 = list(vert1.get_value())
+    list_val2 = list(vert2.get_value())
+    merged_list = list_val1.extend(list_val2)
+    merged_list.sort()
+    merged_vert = g.add_vertex(tuple(merged_list))
     
     # Update all edges with v1 or v2 as end point to point to merged vertex
     for e in vert1.get_edges():
@@ -183,6 +198,8 @@ def clear_self_loops(g, edge):
             edges_to_be_removed.append(e)
     for e in edges_to_be_removed:
         g.remove_edge(e)
+        vert1.remove_edge(e)
+        vert2.remove_edge(e)
 
     
 
@@ -190,21 +207,7 @@ def find_min_cut(graphFile):
     print("\nFile = ", graphFile)
     g = Graph(graphFile)
     g.print()
-    verts1 = []
-    verts2 = []
-    for i in range(10):
-        newV = Vertex(i)
-        verts1.append(newV)
-        verts2.append(newV)
-        # verts.append(i)
-    verts1.remove(Vertex(3))
-    # verts.remove(3)
-    for v in verts1:
-        print("1 Vertex = ", v.get_value())
-        # print("V = ", v)
-    for v in verts2:
-        print("2 Vertex = ", v.get_value())
-    return
+    pdb.set_trace()
     num_verts = g.num_vertices()
     if num_verts < 2:
         return 0
@@ -219,4 +222,5 @@ def find_min_cut(graphFile):
         num_edges = g.num_edges()
         if num_edges < min_cut_sz:
             min_cut_sz = num_edges
+        iteration += 1
     return min_cut_sz
