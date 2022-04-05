@@ -99,6 +99,7 @@ class Graph:
                             self.add_edge(root_vert, vert)
 
     def add_vertex(self, value):
+        # Check if vertex already exists, might need a hash table here
         new_vert = Vertex(value)
         self.vertices.append(new_vert)
         return new_vert
@@ -207,7 +208,7 @@ def find_min_cut(graphFile):
     print("\nFile = ", graphFile)
     g = Graph(graphFile)
     g.print()
-    pdb.set_trace()
+    # pdb.set_trace()
     num_verts = g.num_vertices()
     if num_verts < 2:
         return 0
