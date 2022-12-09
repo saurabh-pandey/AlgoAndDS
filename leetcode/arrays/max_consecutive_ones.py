@@ -20,12 +20,12 @@ The length of input array is a positive integer and will not exceed 10,000
 from typing import List
 
 def findMaxConsecutiveOnes(nums: List[int]) -> int:
-  maxCount = 0
+  max_count = 0
   count = 0
   for n in nums:
     if n == 1:
       count += 1
-      maxCount = count if count > maxCount else maxCount
+      max_count = count if count > max_count else max_count
     else:
       count = 0
-  return maxCount
+  return max_count
