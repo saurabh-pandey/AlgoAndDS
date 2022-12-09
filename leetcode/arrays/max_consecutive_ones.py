@@ -17,14 +17,15 @@ Note:
 The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 """
-def findMaxConsecutiveOnes(nums):
+from typing import List
+
+def findMaxConsecutiveOnes(nums: List[int]) -> int:
   maxCount = 0
   count = 0
   for n in nums:
-    if n != 1:
-      count = 0
-    else:
+    if n == 1:
       count += 1
-      if (count > maxCount):
-        maxCount = count
+      maxCount = count if count > maxCount else maxCount
+    else:
+      count = 0
   return maxCount
