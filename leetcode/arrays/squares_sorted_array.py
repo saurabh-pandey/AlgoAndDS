@@ -27,8 +27,44 @@ nums is sorted in non-decreasing order.
 
 Follow up: Squaring each element and sorting the new array is very trivial, could you find an O(n) solution using a different approach?
 """
+from typing import List
 
-def sortedSquares(nums):
+def sort_squares_v1(nums: List[int]) -> List[int]:
+    sorted_squares = [0 for i in range(len(nums))]
+    partition = 0
+    for i in range(len(nums)):
+        partition = i
+        if nums[i] >= 0:
+            break
+    
+    if partition == 0:
+        for i in range(len(nums)):
+            sorted_squares[i] = nums[i] * nums[i]
+        return sorted_squares
+    
+    pos_id = partition
+    neg_id = partition - 1
+    sq_id = 0
+    while pos_id < len(nums) and neg_id >= 0:
+        if nums[pos_id] <= abs(nums[neg_id]):
+            sorted_squares[sq_id] = nums[pos_id] * nums[pos_id]
+            pos_id += 1
+        else:
+            sorted_squares[sq_id] = nums[neg_id] * nums[neg_id]
+            neg_id -= 1
+        sq_id += 1
+    while pos_id < len(nums):
+        sorted_squares[sq_id] = nums[pos_id] * nums[pos_id]
+        pos_id += 1
+        sq_id += 1
+    while neg_id >= 0:
+        sorted_squares[sq_id] = nums[neg_id] * nums[neg_id]
+        neg_id -= 1
+        sq_id += 1
+    return sorted_squares
+
+
+def sort_squares_v2(nums):
     sortedSquares = [0 for i in range(len(nums))]
     partition = 0
     for i in range(len(nums)):
