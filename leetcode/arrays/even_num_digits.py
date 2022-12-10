@@ -33,10 +33,12 @@ Constraints:
 
 import math
 
-def findNumbers(nums):
-    evenDigitsCount = 0
+from typing import List
+
+def find_numbers(nums: List[int]) -> int:
+    even_digits_count = 0
     for n in nums:
-        numDigits = math.floor(math.log10(n)) + 1
-        if (numDigits % 2 == 0):
-            evenDigitsCount += 1
-    return evenDigitsCount
+        num_digits = int(math.log10(n)) + 1
+        if (num_digits % 2 == 0):
+            even_digits_count += 1
+    return even_digits_count

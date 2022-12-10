@@ -19,7 +19,7 @@ The length of input array is a positive integer and will not exceed 10,000
 """
 from typing import List
 
-def findMaxConsecutiveOnes(nums: List[int]) -> int:
+def find_max_consecutive_ones(nums: List[int]) -> int:
   max_count = 0
   count = 0
   for n in nums:
