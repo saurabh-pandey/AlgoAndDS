@@ -65,35 +65,27 @@ def sort_squares_v1(nums: List[int]) -> List[int]:
 
 
 def sort_squares_v2(nums):
-    sortedSquares = [0 for i in range(len(nums))]
-    partition = 0
-    for i in range(len(nums)):
-        partition = i
-        if nums[i] >= 0:
-            break
-    
-    if partition == 0:
-        for i in range(len(nums)):
-            sortedSquares[i] = nums[i] * nums[i]
-        return sortedSquares
-    
-    posId = partition
-    negId = partition - 1
-    sqId = 0
-    while posId < len(nums) and negId >= 0:
-        if nums[posId] <= abs(nums[negId]):
-            sortedSquares[sqId] = nums[posId] * nums[posId]
-            posId += 1
+    pos_sqs = []
+    neg_sqs = []
+    for n in nums:
+        if n < 0:
+            neg_sqs.append(n*n)
         else:
-            sortedSquares[sqId] = nums[negId] * nums[negId]
-            negId -= 1
-        sqId += 1
-    while posId < len(nums):
-        sortedSquares[sqId] = nums[posId] * nums[posId]
-        posId += 1
-        sqId += 1
-    while negId >= 0:
-        sortedSquares[sqId] = nums[negId] * nums[negId]
-        negId -= 1
-        sqId += 1
-    return sortedSquares
+            pos_sqs.append(n*n)
+    sorted_sqs = []
+    i = 0
+    j = len(neg_sqs) - 1
+    while (i < len(pos_sqs)) and (j > -1):
+        if pos_sqs[i] < neg_sqs[j]:
+            sorted_sqs.append(pos_sqs[i])
+            i += 1
+        else:
+            sorted_sqs.append(neg_sqs[j])
+            j -= 1
+    while i < len(pos_sqs):
+        sorted_sqs.append(pos_sqs[i])
+        i += 1
+    while j >= 0:
+        sorted_sqs.append(neg_sqs[j])
+        j -= 1
+    return sorted_sqs
