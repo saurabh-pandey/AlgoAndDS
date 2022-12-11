@@ -25,15 +25,17 @@ Note:
 1 <= arr.length <= 10000
 0 <= arr[i] <= 9
 """
-def shiftElements(arr, index):
+from typing import List
+
+def shift_elements(arr: List[int], index: int):
     for i in range(len(arr) - 1, index, -1):
         arr[i] = arr[i-1]
 
-def duplicateZeros(arr):
+def duplicate_zeros(arr: List[int]):
     i = 0
     while(i < len(arr)):
         if arr[i] == 0:
-            shiftElements(arr, i)
+            shift_elements(arr, i)
             i += 2
         else:
             i += 1
