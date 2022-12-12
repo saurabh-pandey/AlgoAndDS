@@ -36,13 +36,13 @@ def merge(nums1, m, nums2, n) -> None:
     
     i = 0
     j = 0
-    totalSz = m + n
-    while i < totalSz:
+    total_sz = m + n
+    while i < total_sz:
         if j < n and nums2[j] < nums1[i]:
-            shift_by_one(nums1, i, totalSz-1)
+            shift_by_one(nums1, i, total_sz - 1)
             nums1[i] = nums2[j]
             j += 1
-        if j < n and i - j >= m:
+        if (j < n) and (i - j >= m):
             nums1[i] = nums2[j]
             j += 1
         i += 1
