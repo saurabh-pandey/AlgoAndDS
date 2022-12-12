@@ -26,7 +26,7 @@ nums2.length == n
 -109 <= nums1[i], nums2[i] <= 109
 """
 
-def shiftByOne(arr, start, end):
+def shift_by_one(arr, start, end):
     for i in range(end, start, -1):
         arr[i] = arr[i - 1]
 
@@ -39,7 +39,7 @@ def merge(nums1, m, nums2, n) -> None:
     totalSz = m + n
     while i < totalSz:
         if j < n and nums2[j] < nums1[i]:
-            shiftByOne(nums1, i, totalSz-1)
+            shift_by_one(nums1, i, totalSz-1)
             nums1[i] = nums2[j]
             j += 1
         if j < n and i - j >= m:
