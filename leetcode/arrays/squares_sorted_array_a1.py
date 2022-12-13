@@ -29,7 +29,7 @@ Follow up: Squaring each element and sorting the new array is very trivial, coul
 """
 from typing import List
 
-def sort_squares_v1(nums: List[int]) -> List[int]:
+def sort_squares(nums: List[int]) -> List[int]:
     sorted_squares = [0 for i in range(len(nums))]
     partition = 0
     for i in range(len(nums)):
@@ -62,30 +62,3 @@ def sort_squares_v1(nums: List[int]) -> List[int]:
         neg_id -= 1
         sq_id += 1
     return sorted_squares
-
-
-def sort_squares_v2(nums):
-    pos_sqs = []
-    neg_sqs = []
-    for n in nums:
-        if n < 0:
-            neg_sqs.append(n*n)
-        else:
-            pos_sqs.append(n*n)
-    sorted_sqs = []
-    i = 0
-    j = len(neg_sqs) - 1
-    while (i < len(pos_sqs)) and (j > -1):
-        if pos_sqs[i] < neg_sqs[j]:
-            sorted_sqs.append(pos_sqs[i])
-            i += 1
-        else:
-            sorted_sqs.append(neg_sqs[j])
-            j -= 1
-    while i < len(pos_sqs):
-        sorted_sqs.append(pos_sqs[i])
-        i += 1
-    while j >= 0:
-        sorted_sqs.append(neg_sqs[j])
-        j -= 1
-    return sorted_sqs
