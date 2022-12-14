@@ -5,7 +5,7 @@ def shift_right(nums: List[int], index: int) -> None:
         nums[i] = nums[i - 1]
 
 def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-    i = 1
+    i = 0
     j = 0
     while i < m + n:
         if i - j == m and j < n:
