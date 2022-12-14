@@ -3,8 +3,7 @@ import pytest
 import arrays.remove_element_a1 as a1
 import arrays.remove_element_a2 as a2
 
-# solutions = {"attempt1": a1.removeElement, "attempt2": a2.remove_element}
-solutions = {"attempt1": a1.removeElement}
+solutions = {"attempt1": a1.removeElement, "attempt2": a2.remove_element}
 
 class TestRemoveElement:
   def test_example1(self):
