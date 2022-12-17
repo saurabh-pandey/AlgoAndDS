@@ -3,8 +3,8 @@ import pytest
 import arrays.valid_mountain_array_a1 as a1
 import arrays.valid_mountain_array_a2 as a2
 
-solutions = {"attempt1": a1.validMountainArray,}
-            #  "attempt2": a2.valid_mountain_array}
+solutions = {"attempt1": a1.validMountainArray,
+             "attempt2": a2.valid_mountain_array}
 
 class TestValidMountainArray:
   def test_example1(self):
