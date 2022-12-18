@@ -3,8 +3,8 @@ import pytest
 import arrays.replace_elem_greatest_right_a1 as a1
 import arrays.replace_elem_greatest_right_a2 as a2
 
-solutions = {"attempt1": a1.replaceElements,}
-            #  "attempt2": a2.replace_elements}
+solutions = {"attempt1": a1.replaceElements,
+             "attempt2": a2.replace_elements}
 
 class TestReplaceElemGreatestRight:
     def test_example1(self):
