@@ -4,7 +4,7 @@ def _shift_left(nums: List[int], index: int, shift_by: int) -> None:
     for i in range(index, len(nums) - shift_by):
         nums[i] = nums[i + shift_by]
 
-def remove_elements(nums: List[int]) -> int:
+def remove_elements_1(nums: List[int]) -> int:
     new_len = len(nums)
     end_marker = len(nums)
     dup_count = 0
@@ -21,3 +21,16 @@ def remove_elements(nums: List[int]) -> int:
                 dup_count = 0
         i += 1
     return new_len
+
+def remove_elements_2(arr: List[int]) -> int:
+    if not arr:
+        return 0
+    
+    write_index = 1
+    read_index = 1
+    while read_index < len(arr):
+        if arr[read_index - 1] != arr[read_index]:
+            arr[write_index] = arr[read_index]
+            write_index += 1
+        read_index += 1
+    return write_index

@@ -5,7 +5,8 @@ import arrays.remove_duplicate_sorted_a2 as a2
 
 solutions = {"attempt1_v1": a1.removeDuplicatesOverwrite,
              "attempt1_v2": a1.removeDuplicatesRetainAll,
-             "attempt2": a2.remove_elements}
+             "attempt2_v1": a2.remove_elements_1,
+             "attempt2_v2": a2.remove_elements_2}
 
 class TestRemoveDuplicateSorted:
     def test_example1(self):
