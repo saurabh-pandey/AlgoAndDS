@@ -1,34 +1,43 @@
 import pytest
 
-import arrays.move_zeros as prob
+import arrays.move_zeros_a1 as a1
+import arrays.move_zeros_a2 as a2
+
+solutions = {"attempt1": a1.moveZeroes,}
+            #  "attempt2": a2.move_zeros}
 
 class TestMoveZeros:
   def test_example1(self):
-    nums = [0,1,0,3,12]
-    prob.moveZeroes(nums)
-    expected = [1,3,12,0,0]
-    assert nums == expected
+    for attempt, solve in solutions.items():
+      nums = [0,1,0,3,12]
+      solve(nums)
+      expected = [1,3,12,0,0]
+      assert nums == expected, attempt
   
   def test_example2(self):
-    nums = [0]
-    prob.moveZeroes(nums)
-    expected = [0]
-    assert nums == expected
+    for attempt, solve in solutions.items():
+      nums = [0]
+      solve(nums)
+      expected = [0]
+      assert nums == expected, attempt
   
   def test_empty(self):
-    nums = []
-    prob.moveZeroes(nums)
-    expected = []
-    assert nums == expected
+    for attempt, solve in solutions.items():
+      nums = []
+      solve(nums)
+      expected = []
+      assert nums == expected, attempt
   
   def test_all_zeroes(self):
-    nums = [0,0,0,0]
-    prob.moveZeroes(nums)
-    expected = [0,0,0,0]
-    assert nums == expected
+    for attempt, solve in solutions.items():
+      nums = [0,0,0,0]
+      solve(nums)
+      expected = [0,0,0,0]
+      assert nums == expected, attempt
   
   def test_last_non_zero(self):
-    nums = [0,0,0,1]
-    prob.moveZeroes(nums)
-    expected = [1,0,0,0]
-    assert nums == expected
+    for attempt, solve in solutions.items():
+      nums = [0,0,0,1]
+      solve(nums)
+      expected = [1,0,0,0]
+      assert nums == expected, attempt
