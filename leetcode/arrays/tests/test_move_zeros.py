@@ -3,8 +3,9 @@ import pytest
 import arrays.move_zeros_a1 as a1
 import arrays.move_zeros_a2 as a2
 
-solutions = {"attempt1": a1.moveZeroes,}
-            #  "attempt2": a2.move_zeros}
+solutions = {"attempt1": a1.moveZeroes,
+             "attempt2_v1": a2.move_zeros_v1,
+             "attempt2_v2": a2.move_zeros_v2}
 
 class TestMoveZeros:
   def test_example1(self):
