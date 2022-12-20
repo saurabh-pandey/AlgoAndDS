@@ -19,14 +19,9 @@ Note:
 """
 def sortArrayByParity(A):
   length = len(A)
-  if length == 0:
-    return 0
-  elif length == 1:
-    if (A[0] % 2) == 0:
-      return 1
-    else:
-      return 0
-
+  if length < 2:
+    return A
+  
   evenOddPartition = 0
   for i in range(length):
     if (A[i] % 2) == 0:
@@ -37,4 +32,4 @@ def sortArrayByParity(A):
         A[i] = A[evenOddPartition]
         A[evenOddPartition] = temp
         evenOddPartition += 1
-  return evenOddPartition
+  return A
