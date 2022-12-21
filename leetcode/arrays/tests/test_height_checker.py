@@ -3,8 +3,8 @@ import pytest
 import arrays.height_checker_a1 as a1
 import arrays.height_checker_a2 as a2
 
-solutions = {"attempt1": a1.heightChecker,}
-            #  "attempt2": a2.height_checker}
+solutions = {"attempt1": a1.heightChecker,
+             "attempt2": a2.height_checker}
 
 class TestHeightChecker:
   def test_example1(self):
