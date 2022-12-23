@@ -67,7 +67,3 @@ def findDisappearedNumbers_const_space(nums):
     if nums[i] != i + 1:
       disapperedNums.append(i + 1)
   return disapperedNums
-
-def findDisappearedNumbers(nums):
-  # return findDisappearedNumbers_O_n_space(nums)
-  return findDisappearedNumbers_const_space(nums)
