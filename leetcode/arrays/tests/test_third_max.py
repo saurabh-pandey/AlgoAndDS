@@ -3,8 +3,8 @@ import pytest
 import arrays.third_max_a1 as a1
 import arrays.third_max_a2 as a2
 
-solutions = {"attempt1": a1.thirdMax,}
-            #  "attempt2": a2.third_max}
+solutions = {"attempt1": a1.thirdMax,
+             "attempt2": a2.third_max}
 
 class TestThirdMax:
   def test_example1(self):
