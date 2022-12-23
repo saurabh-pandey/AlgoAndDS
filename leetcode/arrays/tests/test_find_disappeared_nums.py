@@ -4,8 +4,8 @@ import arrays.find_disappeared_nums_a1 as a1
 import arrays.find_disappeared_nums_a2 as a2
 
 solutions = {"attempt1_v1": a1.findDisappearedNumbers_O_n_space,
-             "attempt1_v2": a1.findDisappearedNumbers_const_space,}
-            #  "attempt2": a2.find_disappeared_numbers}
+             "attempt1_v2": a1.findDisappearedNumbers_const_space,
+             "attempt2": a2.find_disappeared_numbers}
 
 class TestFindDisappearedNumbers:
   def test_example1(self):
