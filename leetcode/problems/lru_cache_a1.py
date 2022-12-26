@@ -43,6 +43,7 @@ At most 2 * 105 calls will be made to get and put.
 """
 from typing import List, Union
 
+# import pdb
 
 class Node:
     def __init__(self, key: int, val: int) -> None:
@@ -68,15 +69,22 @@ class DoublyLinkedList:
         return n
     
     def promote(self, n: Node) -> None:
+        # pdb.set_trace()
         if n.prev is None:
             return
         else:
-            if n == self._end:
-                assert n.next is None, "Last node's next is not None"
-                self._end = n.prev
+            # if n == self._end:
+            #     assert n.next is None, "Last node's next is not None"
+            #     self._end = n.prev
             n.prev.next = n.next
+            if n.next is not None:
+                n.next.prev = n.prev
+            else:
+                assert n == self._end, "Last node is not the end pointer"
+                self._end = n.prev
             self._begin.prev = n
             n.next = self._begin
+            n.prev = None
             self._begin = n
     
     def evict(self) -> Union[Node, None]:
@@ -91,13 +99,29 @@ class DoublyLinkedList:
         return n
     
     def __str__(self) -> str:
-        list_str = ""
+        list_str = "\nForward: "
         curr = self._begin
         while curr is not None:
             list_str += f"{{{curr.key}:{curr.val}}}"
             curr = curr.next
+        list_str += "\nBackward: "
+        curr = self._end
+        while curr is not None:
+            list_str += f"{{{curr.key}:{curr.val}}}"
+            curr = curr.prev
         return list_str
-
+    
+    def node_order(self):
+        node_dict = {"forward": {}, "reverse": {}}
+        curr_node = self._begin
+        while curr_node is not None:
+            node_dict["forward"][curr_node.key] = curr_node.val
+            curr_node = curr_node.next
+        curr_node = self._end
+        while curr_node is not None:
+            node_dict["reverse"][curr_node.key] = curr_node.val
+            curr_node = curr_node.prev
+        return node_dict
 
 
 class LRU_Cache:
@@ -125,7 +149,7 @@ class LRU_Cache:
                 del self._key_val[n.key]
             n = self._list.add(key, val)
             self._key_val[key] = n
-
+    
     def __str__(self) -> str:
         # print("dict ", str(self._key_val))
         key_val_dict = {}
@@ -133,6 +157,16 @@ class LRU_Cache:
             key_val_dict[key] = node.val
         cache_state = ""
         cache_state += "\nDict = " + str(key_val_dict)
-        cache_state += "\nList = \"" + str(self._list) + "\""
+        cache_state += "\nList:" + str(self._list)
         cache_state += "\n"
         return cache_state
+    
+    def lookup_dict(self):
+        key_val_dict = {}
+        for key, n in self._key_val.items():
+            key_val_dict[key] = n.val
+        return key_val_dict
+    
+    def cache_order(self):
+        return self._list.node_order()
+    
