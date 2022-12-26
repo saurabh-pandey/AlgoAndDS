@@ -1,4 +1,4 @@
-from linkedList.singly_linked_list.node import Node
+from singly_linked_list.node import Node
 
 
 def create(in_list):
