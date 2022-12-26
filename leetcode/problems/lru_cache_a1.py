@@ -43,8 +43,6 @@ At most 2 * 105 calls will be made to get and put.
 """
 from typing import List, Union
 
-# import pdb
-
 class Node:
     def __init__(self, key: int, val: int) -> None:
         self.key = key
@@ -69,13 +67,9 @@ class DoublyLinkedList:
         return n
     
     def promote(self, n: Node) -> None:
-        # pdb.set_trace()
         if n.prev is None:
             return
         else:
-            # if n == self._end:
-            #     assert n.next is None, "Last node's next is not None"
-            #     self._end = n.prev
             n.prev.next = n.next
             if n.next is not None:
                 n.next.prev = n.prev
@@ -151,7 +145,6 @@ class LRU_Cache:
             self._key_val[key] = n
     
     def __str__(self) -> str:
-        # print("dict ", str(self._key_val))
         key_val_dict = {}
         for key, node in self._key_val.items():
             key_val_dict[key] = node.val

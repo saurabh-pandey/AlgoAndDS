@@ -163,3 +163,29 @@ class TestLruCache:
                 {4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:11, 12:12, 13:13},
                 {12:12, 4:4, 13:13, 11:11, 9:9, 5:5, 10:10, 8:8, 7:7, 6:6},
                 attempt)
+
+    def tes_update(self):
+        for attempt, lru_cache in solutions.items():
+            cache = lru_cache(3)
+            self._check_cache(cache, {}, {}, attempt)
+            cache.put(1,1)
+            self._check_cache(cache, {1:1}, {1:1}, attempt)
+            cache.put(2,2)
+            self._check_cache(cache, {1:1, 2:2}, {2:2, 1:1}, attempt)
+            cache.put(3,3)
+            self._check_cache(cache, {1:1, 2:2, 3:3}, {3:3, 2:2, 1:1}, attempt)
+            cache.put(1,4)
+            self._check_cache(cache, {1:4, 2:2, 3:3}, {1:4 ,3:3, 2:2}, attempt)
+            assert cache.get(2) == 2, attempt
+            self._check_cache(cache, {1:4, 2:2, 3:3}, {2:2, 1:4 ,3:3}, attempt)
+            assert cache.get(1) == 4, attempt
+            self._check_cache(cache, {1:4, 2:2, 3:3}, {1:4, 2:2, 3:3}, attempt)
+            assert cache.get(3) == 3, attempt
+            self._check_cache(cache, {1:4, 2:2, 3:3}, {3:3, 1:4, 2:2}, attempt)
+            cache.put(3, 9)
+            self._check_cache(cache, {1:4, 2:2, 3:9}, {3:9, 1:4, 2:2}, attempt)
+            cache.put(2, 4)
+            self._check_cache(cache, {1:4, 2:4, 3:9}, {2:4, 3:9, 1:4}, attempt)
+            cache.put(0, 0)
+            self._check_cache(cache, {2:4, 3:9, 0:0}, {0:0, 2:4, 3:9}, attempt)
+            
