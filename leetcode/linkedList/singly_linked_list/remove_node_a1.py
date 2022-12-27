@@ -27,9 +27,6 @@ The number of nodes in the list is in the range [0, 104].
 1 <= Node.val <= 50
 0 <= k <= 50
 """
-from singly_linked_list.node import Node
-
-
 def removeElements(head, val):
   if head is None:
     return

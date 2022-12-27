@@ -1,5 +1,4 @@
-from singly_linked_list.node import Node
-import singly_linked_list.operations as sll
+import singly_linked_list.operations_a1 as sll
 
 def createCycle(head, index):
   tailNode = sll.getTailNode(head)

@@ -1,5 +1,3 @@
-import pytest
-
 import singly_linked_list.SinglyLinkedList_a1 as a1
 
 solutions = {"attempt1": a1.SinglyLinkedList}

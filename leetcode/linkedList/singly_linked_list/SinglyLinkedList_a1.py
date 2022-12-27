@@ -43,9 +43,7 @@ Constraints:
 Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
 """
-
-from singly_linked_list.node import Node
-import singly_linked_list.operations as sll
+import singly_linked_list.operations_a1 as sll
 
 class SinglyLinkedList:
   def __init__(self, vals = []):

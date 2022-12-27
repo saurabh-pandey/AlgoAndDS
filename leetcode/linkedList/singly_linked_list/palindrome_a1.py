@@ -23,8 +23,8 @@ The number of nodes in the list is in the range [1, 105].
 
 Follow up: Could you do it in O(n) time and O(1) space?
 """
-import singly_linked_list.operations as sll
-import singly_linked_list.reverse as sll_util
+import singly_linked_list.operations_a1 as sll
+import singly_linked_list.reverse_a1 as sll_util
 
 
 def isPalindrome_On_space(head):

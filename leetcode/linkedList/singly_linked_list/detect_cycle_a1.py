@@ -38,9 +38,6 @@ pos is -1 or a valid index in the linked-list.
 
 Follow up: Can you solve it using O(1) (i.e. constant) memory?
 """
-
-from singly_linked_list.node import Node
-
 def detectCycle_O_n2(head):
   distance = 0
   traceNode = head
