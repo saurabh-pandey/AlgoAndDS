@@ -1,6 +1,6 @@
 from typing import List
 
-from linkedList.singly_linked_list.node_a2 import Node
+from singly_linked_list.node_a2 import Node
 
 class SinglyLinkedList:
     def __init__(self, lst : List = []) -> None:
@@ -60,4 +60,31 @@ class SinglyLinkedList:
             curr = curr.next
         curr.next = Node(val)
         return curr.next
+    
+    def getHeadNode(self):
+        # return self._head
+        pass
+        
+    def getTailNode(self):
+        # return sll.getTailNode(self._head)
+        pass
+  
+    def addAtHead(self, val):
+        # self._head = sll.addAtHead(self._head, val)
+        pass
+    
+    def addAtTail(self, val):
+        # self._head = sll.addAtTail(self._head, val)
+        pass
+    
+    def addAtIndex(self, index, val):
+        # self._head = sll.addAtIndex(self._head, index, val)
+        pass
+    def deleteAtIndex(self, index):
+        # self._head = sll.deleteAtIndex(self._head, index)
+        pass
+    
+    def toString(self):
+        # return sll.toString(self._head)
+        pass
 

@@ -1,6 +1,7 @@
 import singly_linked_list.SinglyLinkedList_a1 as a1
+import singly_linked_list.SinglyLinkedList_a2 as a2
 
-solutions = {"attempt1": a1.SinglyLinkedList}
+solutions = {"attempt1": a1.SinglyLinkedList, "attempt2": a2.SinglyLinkedList}
 
 class TestSinglyLinkedList:
     def test_add_simple(self):
