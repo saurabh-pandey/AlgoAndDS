@@ -33,6 +33,7 @@ class SinglyLinkedList:
                     return None
                 else:
                     curr = curr.next
+                depth += 1
             curr.next = Node(val, curr.next)
             return curr.next
 
@@ -55,36 +56,41 @@ class SinglyLinkedList:
             return deleted_node
 
     def addAtTail(self, val: int) -> Node:
-        curr = self._head
-        while curr.next is not None:
-            curr = curr.next
-        curr.next = Node(val)
-        return curr.next
+        if self._head is None:
+            self._head = Node(val)
+            return self._head
+        else:
+            curr = self._head
+            while curr.next is not None:
+                curr = curr.next
+            curr.next = Node(val)
+            return curr.next
     
-    def getHeadNode(self):
+    def getHeadNode(self) -> Node:
         # return self._head
         pass
         
-    def getTailNode(self):
+    def getTailNode(self) -> Node:
         # return sll.getTailNode(self._head)
         pass
   
-    def addAtHead(self, val):
-        # self._head = sll.addAtHead(self._head, val)
-        pass
+    def addAtHead(self, val) -> Node:
+        return self.add(0, val)
     
-    def addAtTail(self, val):
-        # self._head = sll.addAtTail(self._head, val)
-        pass
+    def addAtIndex(self, index, val) -> Node:
+        return self.add(index, val)
     
-    def addAtIndex(self, index, val):
-        # self._head = sll.addAtIndex(self._head, index, val)
-        pass
-    def deleteAtIndex(self, index):
-        # self._head = sll.deleteAtIndex(self._head, index)
-        pass
+    def deleteAtIndex(self, index) -> Node:
+        return self.delete(index)
     
     def toString(self):
         # return sll.toString(self._head)
-        pass
+        s = ""
+        curr = self._head
+        while curr is not None:
+            s += str(curr.val)
+            if curr.next is not None:
+                s += "->"
+            curr = curr.next
+        return s
 

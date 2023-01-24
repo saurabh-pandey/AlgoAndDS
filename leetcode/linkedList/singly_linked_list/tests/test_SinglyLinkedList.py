@@ -1,7 +1,10 @@
 import singly_linked_list.SinglyLinkedList_a1 as a1
 import singly_linked_list.SinglyLinkedList_a2 as a2
 
-solutions = {"attempt1": a1.SinglyLinkedList, "attempt2": a2.SinglyLinkedList}
+import pdb
+
+# solutions = {"attempt1": a1.SinglyLinkedList, "attempt2": a2.SinglyLinkedList}
+solutions = {"attempt2": a2.SinglyLinkedList}
 
 class TestSinglyLinkedList:
     def test_add_simple(self):
@@ -47,8 +50,13 @@ class TestSinglyLinkedList:
         for attempt, SinglyLinkedList in solutions.items():
             myList = SinglyLinkedList()
             myList.addAtIndex(0,1)
+            print("#1", myList.toString())
             myList.addAtIndex(1,2)
+            print("#2", myList.toString())
+            # pdb.set_trace()
             myList.addAtIndex(2,3)
+            print("#3", myList.toString())
+            # pdb.set_trace()
             assert myList.toString() == "1->2->3", attempt
     
     def test_empty_add_index(self):
