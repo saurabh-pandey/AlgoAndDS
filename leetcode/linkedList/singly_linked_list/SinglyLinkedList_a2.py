@@ -13,12 +13,15 @@ class SinglyLinkedList:
                 curr = curr.next
 
     def get(self, index: int) -> Node:
+        if index < 0 or self._head is None:
+            return -1
         curr = self._head
         depth = 0
         while depth < index:
             if curr.next is None:
                 return -1
             curr = curr.next
+            depth += 1
         return curr.val
 
     def add(self, index: int, val: int) -> Node:
@@ -26,19 +29,24 @@ class SinglyLinkedList:
             self._head = Node(val, self._head)
             return self._head
         else:
-            curr = self._head
-            depth = 0
-            while depth < (index - 1):
-                if curr.next is None:
-                    return None
-                else:
-                    curr = curr.next
-                depth += 1
-            curr.next = Node(val, curr.next)
-            return curr.next
+            if self._head is None:
+                return None
+            else:
+                curr = self._head
+                depth = 0
+                while depth < (index - 1):
+                    if curr.next is None:
+                        return None
+                    else:
+                        curr = curr.next
+                    depth += 1
+                curr.next = Node(val, curr.next)
+                return curr.next
 
 
     def delete(self, index: int) -> Node:
+        if index < 0 or self._head is None:
+            return None
         if index == 0:
             deleted_node = self._head
             self._head = self._head.next
@@ -51,8 +59,10 @@ class SinglyLinkedList:
                     return None
                 else:
                     curr = curr.next
+                depth += 1
             deleted_node = curr.next
-            curr.next = curr.next.next
+            if deleted_node is not None:
+                curr.next = curr.next.next
             return deleted_node
 
     def addAtTail(self, val: int) -> Node:
