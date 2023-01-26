@@ -43,7 +43,6 @@ class SinglyLinkedList:
                 curr.next = Node(val, curr.next)
                 return curr.next
 
-
     def delete(self, index: int) -> Node:
         if index < 0 or self._head is None:
             return None
@@ -75,14 +74,6 @@ class SinglyLinkedList:
                 curr = curr.next
             curr.next = Node(val)
             return curr.next
-    
-    def getHeadNode(self) -> Node:
-        # return self._head
-        pass
-        
-    def getTailNode(self) -> Node:
-        # return sll.getTailNode(self._head)
-        pass
   
     def addAtHead(self, val) -> Node:
         return self.add(0, val)
