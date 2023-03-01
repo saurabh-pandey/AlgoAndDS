@@ -1,6 +1,6 @@
 import pytest
 
-import parity_is_pow_2_a1 as a1
+import ch01_primitives.parity_is_pow_2_a1 as a1
 
 solutions = {"attempt1": a1.is_pow_2}
 
@@ -17,4 +17,18 @@ class TestIsPower2:
             x = 0b11000000
             res = solve(x)
             expected = False
+            assert res == expected, attempt
+    
+    def test_example3(self):
+        for attempt, solve in solutions.items():
+            x = 0b0
+            res = solve(x)
+            expected = False
+            assert res == expected, attempt
+    
+    def test_example4(self):
+        for attempt, solve in solutions.items():
+            x = 0b1
+            res = solve(x)
+            expected = True
             assert res == expected, attempt
